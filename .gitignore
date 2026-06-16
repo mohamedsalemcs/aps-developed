@@ -14,10 +14,10 @@ db.sqlite3-journal
 staticfiles/
 media/
 
-# CMS uploaded images (runtime, not source)
-static/assets/images/uploads/
-# normalized partner-logo tiles (generated from uploads)
-static/assets/images/partners_framed/
+# NOTE: CMS-uploaded images (uploads/) and the normalized partner-logo tiles
+# (partners_framed/) are intentionally TRACKED now, so they deploy to the test
+# server via git (the server's DB references them; without the files the images
+# 404). They are regenerated at runtime but must be present on first deploy.
 # media-replace originals backup (runtime)
 static/assets/images/.originals/
 # E2E report output (generated)
