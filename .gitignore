@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environment
+venv/
+
+# Django
+db.sqlite3
+db.sqlite3.backup
+data_backup.json
+db.sqlite3-journal
+staticfiles/
+media/
+
+# CMS uploaded images (runtime, not source)
+static/assets/images/uploads/
+# normalized partner-logo tiles (generated from uploads)
+static/assets/images/partners_framed/
+# media-replace originals backup (runtime)
+static/assets/images/.originals/
+# E2E report output (generated)
+ops/e2e/report/
+
+# runserver redirect logs (dev)
+server.log
+server.out
+
+# Environment / secrets
+.env
+*.env
+ops/secrets.local.ps1
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

@@ -1,0 +1,226 @@
+{% load static %}
+<!DOCTYPE html>
+<!--
+  APS — AZOLIS Middle East | Division page
+  Phase 1: English / LTR. Reuses shared header/partners/contact/footer.
+  Sections: Banner, About, Solar Project Lifecycle, Our Projects.
+  Repeated content marked `CMS:` for the Phase 2 Python CMS.
+-->
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% if pg_seo.title %}{{ pg_seo.title }}{% else %}AZOLIS Middle East — APS{% endif %}</title>
+  <meta name="description" content="{% if pg_seo.desc %}{{ pg_seo.desc }}{% else %}AZOLIS Middle East — an independent solar power producer developing, financing, engineering, building and maintaining solar plants for the commercial and industrial segment.{% endif %}" />
+  <link rel="icon" href="{% static 'assets/images/brand/aps-logo.svg' %}" type="image/svg+xml" />
+  <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+  <style id="aps-brand-overrides">{{ brand_css|safe }}</style>
+</head>
+<body>
+
+  <!-- ============================ HEADER / NAV ============================ -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="/" aria-label="APS home"><img class="logo__img" src="{{ brand_logo_url }}" alt="APS" /></a>
+
+      <nav class="main-nav" id="mainNav" aria-label="Primary">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about/">About</a></li>
+          <li class="has-dropdown">
+            <button class="nav-dropdown-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="divisionsMenu">
+              Divisions
+              <span class="nav-caret" aria-hidden="true"><img src="{% static 'assets/images/icons/arrow-down.svg' %}" alt="" /></span>
+            </button>
+            <ul class="nav-dropdown" id="divisionsMenu">
+              {% for d in nav_divisions %}<li><a href="{{ d.cms_extra.public_slug }}/"{% if d.slug == current_division %} aria-current="page"{% endif %}>{{ d.cms_extra.menu_en }}</a></li>
+              {% endfor %}</ul>
+          </li>
+          <li><a href="/contact/">Contact us</a></li>
+          <li><a href="/faq/">FAQ</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a class="lang-switch" href="/ar/azolis-middle-east/" aria-label="التبديل إلى العربية" hreflang="ar">
+          <img src="{% static 'assets/images/icons/lang-glag.svg' %}" alt="" width="22" height="22" />
+          <span class="lang-text">AR</span>
+        </a>
+        <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="mainNav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    {% for sec in division.cms_extra.order %}
+
+    {% if sec == 'banner' and not division.cms_extra.hidden.banner %}
+<section class="page-banner" style="background-image: linear-gradient(120% 150% at 72% 46%, rgba(0,63,103,0) 0%, rgba(0,63,103,0.92) 100%), linear-gradient(rgba(0,0,0,0.42), rgba(0,0,0,0.42)), url({% static 'assets/images/banners/azolis.jpg' %});">
+      <div class="container page-banner__inner">
+        <span class="eyebrow">{{ division.banner_subtitle_en }}</span>
+        <h1 class="page-banner__title">{{ division.name_en }}</h1>
+      </div>
+    </section>
+{% endif %}
+
+    {% if sec == 'about' and not division.cms_extra.hidden.about %}
+<section class="dabout section" id="about">
+      <div class="container dabout__grid">
+        <div class="dabout__body">
+          <h2 class="dabout__title">{{ division.about_title_en }}</h2>
+          <div class="dabout__text">{{ division.about_body_en|linebreaks }}</div>
+          <!-- CMS: highlight pills -->
+          <div class="dabout__pills">
+          {% for card in cards.pills %}
+          <span class="dabout-pill dabout-pill--alt"><span class="dabout-pill__icon"><img src="{% static card.icon %}" alt="" /></span><span>{{ card.title_en }}</span></span>
+          {% endfor %}
+        </div>
+        </div>
+        <div class="dabout__media">
+          <img src="{% static 'assets/images/divisions/azolis/about.jpg' %}" alt="AZOLIS solar installation site" loading="lazy" />
+        </div>
+      </div>
+    </section>
+{% endif %}
+
+    {% if sec == 'lifecycle' and not division.cms_extra.hidden.lifecycle %}
+<section class="lifecycle section" id="lifecycle">
+      <div class="container">
+        <div class="lifecycle__head">
+          <h2 class="lifecycle__title">{{ division.systems_title_en }}</h2>
+          <p class="lifecycle__subtitle">{{ division.systems_subtitle_en }}</p>
+        </div>
+        <!-- CMS: lifecycle phases (repeatable) -->
+        <div class="lifecycle__grid">
+          {% for card in cards.lifecycle %}
+          <article class="lcard">
+            <div class="lcard__header">
+              <span class="lcard__header-icon"><img src="{% static card.icon %}" alt="" /></span>
+              <div><span class="lcard__label">{{ card.extra.label_en }}</span><h3 class="lcard__title">{{ card.title_en }}</h3></div>
+            </div>
+            <div class="lcard__body">
+          {% for m in card.extra.milestones %}<div class="milestone"><div class="milestone__marker"><span class="milestone__num">{{ forloop.counter }}</span><span class="milestone__line"></span></div><div class="milestone__content"><h4 class="milestone__title">{{ m.title_en }}</h4><p class="milestone__desc">{{ m.desc_en }}</p></div></div>{% endfor %}
+            </div>
+            <div class="lcard__footer">{{ card.extra.footer_en }}</div>
+          </article>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+{% endif %}
+
+    {% if sec == 'projects' and not division.cms_extra.hidden.projects %}
+<section class="azprojects section" id="projects">
+      <div class="container">
+        <div class="azprojects__head"><h2 class="azprojects__title">{{ division.cms_extra.projects_title.en }}</h2></div>
+        <!-- CMS: projects (repeatable) -->
+        <div class="azprojects__grid">
+          {% for project in projects %}
+          <article class="azproject-card">
+            <div class="azproject-card__media"><img src="{% static project.image %}" alt="{{ project.title_en }}" loading="lazy" /></div>
+            <div class="azproject-card__body">
+              <h3 class="azproject-card__name">{{ project.title_en }}</h3>
+              <div class="azproject-card__specs">
+                <div class="azspec"><img src="{% static 'assets/images/icons/azolis/f-loc.svg' %}" alt="" /><span class="azspec__label">Location:</span><span class="azspec__value">{{ project.location_en }}</span></div>
+                <div class="azspec"><img src="{% static 'assets/images/icons/azolis/f-type.svg' %}" alt="" /><span class="azspec__label">Typology:</span><span class="azspec__value">{{ project.typology_en }}</span></div>
+                <div class="azspec"><img src="{% static 'assets/images/icons/azolis/f-power.svg' %}" alt="" /><span class="azspec__label">Installed power:</span><span class="azspec__value">{{ project.installed_power_en }}</span></div>
+                <div class="azspec"><img src="{% static 'assets/images/icons/azolis/f-contract.svg' %}" alt="" /><span class="azspec__label">Contract:</span><span class="azspec__value">{{ project.contract_en }}</span></div>
+              </div>
+            </div>
+          </article>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+{% endif %}
+
+    {% if sec == 'contact' and not division.cms_extra.hidden.contact %}
+<section class="contact contact--division section" id="contact">
+      <img class="contact__deco contact__deco--tl" src="{% static 'assets/images/brand/logo-as-pattern-in-bg2.svg' %}" alt="" aria-hidden="true" />
+      <img class="contact__deco contact__deco--br" src="{% static 'assets/images/brand/logo-as-pattern-in-bg.svg' %}" alt="" aria-hidden="true" />
+      <div class="container contact__inner">
+        <span class="contact__icon"><img src="{% static 'assets/images/icons/phone2.svg' %}" alt="" /></span>
+        <span class="eyebrow">Stay Connected</span>
+        <h2 class="contact__title">{{ division.name_en }}</h2>
+
+        <!-- CMS: division contact channels -->
+        <div class="contact__cards">
+          {% if division.contact_phone %}<div class="contact-card">
+            <span class="contact-card__icon"><img src="{% static 'assets/images/icons/phone2.svg' %}" alt="" /></span>
+            <span class="contact-card__value" dir="ltr">{{ division.contact_phone }}</span>
+          </div>{% endif %}
+          {% if division.contact_website %}<div class="contact-card">
+            <span class="contact-card__icon"><img src="{% static 'assets/images/icons/globe.svg' %}" alt="" /></span>
+            <a class="contact-card__value" href="https://{{ division.contact_website }}" target="_blank" rel="noopener">{{ division.contact_website }}</a>
+          </div>{% endif %}
+          {% if division.contact_email %}<div class="contact-card">
+            <span class="contact-card__icon"><img src="{% static 'assets/images/icons/mail3.svg' %}" alt="" /></span>
+            <a class="contact-card__value" href="mailto:{{ division.contact_email }}">{{ division.contact_email }}</a>
+          </div>{% endif %}
+        </div>
+
+        <div>
+          <a class="btn btn--accent" href="/contact/">
+            Contact Us
+            <span class="btn__arrow btn__arrow--long"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3.33331 8H12.6666" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 3.33325L12.6667 7.99992L8 12.6666" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </a>
+        </div>
+      </div>
+    </section>
+{% endif %}
+
+    {% endfor %}
+  </main>
+
+  <!-- =============================== FOOTER =============================== -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a class="logo" href="/" aria-label="APS home"><img class="logo__img" src="{{ brand_footer_logo_url }}" alt="APS" /></a>
+        <p>{{ site.tagline_en }}</p>
+        <div class="footer-social">
+          {% for s in social %}<a href="{{ s.url }}" aria-label="{{ s.platform }}" target="_blank" rel="noopener"><img src="{% static "assets/images/icons/"|add:s.icon %}" alt="" /></a>
+          {% endfor %}</div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="/about/">About APS</a></li>
+          <li><a href="/#divisions">Our Divisions</a></li>
+          <li><a href="/contact/">Contact</a></li>
+          <li><a href="/faq/">FAQs</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Our Divisions</h4>
+        <ul>
+          <li><a href="/sps/">Saudi Projects &amp; Supplies</a></li>
+          <li><a href="/beta-machinery/">Beta Machinery</a></li>
+          <li><a href="/envirosystems/">Envirosystems</a></li>
+          <li><a href="/advanced-green-solutions/">Advanced Green Solutions</a></li>
+          <li><a href="/azolis-middle-east/">AZOLIS Middle East</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-contact">
+        <h4>Contact</h4>
+        <ul>
+          <li><img src="{% static 'assets/images/icons/map.svg' %}" alt="" /><span>{{ site.address_en }}</span></li>
+          <li><img src="{% static 'assets/images/icons/phone.svg' %}" alt="" /><span dir="ltr">{{ site.phone }}</span></li>
+          <li><img src="{% static 'assets/images/icons/mail2.svg' %}" alt="" /><span>{{ site.email }}</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container">© 2026 Arabian Projects and Supplies (APS). All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script src="{% static 'js/main.js' %}" defer></script>
+</body>
+</html>

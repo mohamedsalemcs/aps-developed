@@ -1,0 +1,316 @@
+{% load static %}
+<!DOCTYPE html>
+<!--
+  APS — Contact Us
+  Phase 1: English / LTR. Reuses shared header/partners/footer.
+  Sections: Banner, Talk to Our Team (form + info + map).
+  Repeated content marked `CMS:` for the Phase 2 Python CMS.
+-->
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% if pg_seo.title %}{{ pg_seo.title }}{% else %}تواصل معنا — APS{% endif %}</title>
+  <meta name="description" content="{% if pg_seo.desc %}{{ pg_seo.desc }}{% else %}تواصل مع المشاريع والتوريدات العربية (APS) — تحدّث إلى فريقنا حول استفسارات المشاريع والشراكات والدعم الفني. المكتب الرئيسي في جدة، المملكة العربية السعودية.{% endif %}" />
+  <link rel="icon" href="{% static 'assets/images/brand/aps-logo.svg' %}" type="image/svg+xml" />
+  <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+  <style id="aps-brand-overrides">{{ brand_css|safe }}</style>
+</head>
+<body>
+
+  <!-- ============================ HEADER / NAV ============================ -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="/ar/" aria-label="الصفحة الرئيسية لـ APS"><img class="logo__img" src="{{ brand_logo_url }}" alt="APS" /></a>
+
+      <nav class="main-nav" id="mainNav" aria-label="التنقل الرئيسي">
+        <ul>
+          <li><a href="/ar/">الرئيسية</a></li>
+          <li><a href="/ar/about/">من نحن</a></li>
+          <li class="has-dropdown">
+            <button class="nav-dropdown-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="divisionsMenu">
+              الأقسام
+              <span class="nav-caret" aria-hidden="true"><img src="{% static 'assets/images/icons/arrow-down.svg' %}" alt="" /></span>
+            </button>
+            <ul class="nav-dropdown" id="divisionsMenu">
+              {% for d in nav_divisions %}<li><a href="/ar{{ d.cms_extra.public_slug }}/"{% if d.slug == current_division %} aria-current="page"{% endif %}>{{ d.cms_extra.menu_ar }}</a></li>
+              {% endfor %}</ul>
+          </li>
+          <li><a href="/ar/contact/" aria-current="page">تواصل معنا</a></li>
+          <li><a href="/ar/faq/">الأسئلة الشائعة</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a class="lang-switch" href="/contact/" aria-label="التبديل إلى الإنجليزية" hreflang="en">
+          <img src="{% static 'assets/images/icons/lang-glag.svg' %}" alt="" width="22" height="22" />
+          <span class="lang-text">EN</span>
+        </a>
+        <button class="nav-toggle" id="navToggle" type="button" aria-label="فتح القائمة" aria-expanded="false" aria-controls="mainNav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    {% if 'banner' in pg_order %}
+    <!-- =============================== BANNER ============================= -->
+    <section class="page-banner" style="background-image: linear-gradient(120% 150% at 72% 46%, rgba(0,63,103,0) 0%, rgba(0,63,103,0.92) 100%), linear-gradient(rgba(0,0,0,0.42), rgba(0,0,0,0.42)), url({% static 'assets/images/banners/contact.jpg' %});">
+      <div class="container page-banner__inner">
+        <span class="eyebrow">{{ pg.banner.eyebrow }}</span>
+        <h1 class="page-banner__title">{{ pg.banner.title }}</h1>
+      </div>
+    </section>
+    {% endif %}
+
+    <!-- ========================= TALK TO OUR TEAM ====================== -->
+    <section class="contactpage section" id="contact">
+      <div class="container">
+        {% if 'form' in pg_order %}
+        <div class="contactpage__intro">
+          <h2 class="contactpage__title">{{ pg.form.title|safe }}</h2>
+          <p class="contactpage__subtitle">خبراؤنا على استعداد لمساعدتك في استفسارات المشاريع أو الشراكات أو الدعم الفني.</p>
+        </div>
+        {% endif %}
+
+        <div class="contactpage__grid">
+          {% if 'form' in pg_order %}
+          <!-- CMS: enquiry form -->
+          <form class="cform" action="/contact/submit/" method="post" novalidate>
+            {% csrf_token %}
+            <div class="cform__header">
+              <p class="cform__eyebrow">ابقَ على تواصل</p>
+              <h3 class="cform__title">{{ pg.form.subtitle|safe }}</h3>
+            </div>
+            <div class="cform__body">
+              <div class="cform__row">
+                <div class="cfield{% if form_errors.name %} cfield--err{% endif %}">
+                  <label for="cf-name">الاسم الكامل <span class="req">*</span></label>
+                  <input id="cf-name" name="name" type="text" placeholder="اسمك" value="{{ form_old.name|default:'' }}" required />
+                  <p class="cfield__err" data-err="name">{{ form_errors.name }}</p>
+                </div>
+                <div class="cfield{% if form_errors.email %} cfield--err{% endif %}">
+                  <label for="cf-email">البريد الإلكتروني <span class="req">*</span></label>
+                  <input id="cf-email" name="email" type="email" placeholder="you@example.com" value="{{ form_old.email|default:'' }}" required />
+                  <p class="cfield__err" data-err="email">{{ form_errors.email }}</p>
+                </div>
+              </div>
+              <div class="cform__row">
+                <div class="cfield{% if form_errors.phone %} cfield--err{% endif %}">
+                  <label for="cf-phone">رقم الهاتف <span class="req">*</span></label>
+                  <input id="cf-phone" name="phone" type="tel" placeholder="+966 5x xxx xxxx" value="{{ form_old.phone|default:'' }}" required />
+                  <p class="cfield__err" data-err="phone">{{ form_errors.phone }}</p>
+                </div>
+                <div class="cfield">
+                  <label for="cf-company">اسم الشركة <span class="opt">(اختياري)</span></label>
+                  <input id="cf-company" name="company" type="text" placeholder="اسم شركتك" value="{{ form_old.company|default:'' }}" />
+                </div>
+              </div>
+              <div class="cfield{% if form_errors.message %} cfield--err{% endif %}">
+                <label for="cf-message">الرسالة <span class="req">*</span></label>
+                <textarea id="cf-message" name="message" placeholder="يرجى وصف استفسارك أو نطاق مشروعك أو أي أسئلة لديك…" required>{{ form_old.message|default:'' }}</textarea>
+                <p class="cfield__err" data-err="message">{{ form_errors.message }}</p>
+              </div>
+              <button class="btn btn--accent cform__submit" type="submit">
+                <img src="{% static 'assets/images/icons/send.svg' %}" alt="" /> {% if pg.form.submit %}{{ pg.form.submit }}{% else %}إرسال الرسالة{% endif %}
+              </button>
+            </div>
+          </form>
+          {% endif %}
+
+          {% if 'info' in pg_order %}
+          <!-- CMS: contact details + offices -->
+          <div class="cinfo">
+            <div class="cinfo-card">
+              <div class="cinfo-card__header">{{ pg.info.heading }}</div>
+              <div class="cinfo-card__body">
+                <div class="cinfo-grid">
+                  <div class="cinfo-mini"><span class="cinfo-mini__icon"><img src="{% static 'assets/images/icons/phone2.svg' %}" alt="" /></span><span class="cinfo-mini__value" dir="ltr">{{ site.phone }}</span></div>
+                  <a class="cinfo-mini" href="mailto:{{ site.email }}"><span class="cinfo-mini__icon"><img src="{% static 'assets/images/icons/mail3.svg' %}" alt="" /></span><span class="cinfo-mini__value">{{ site.email }}</span></a>
+                  <a class="cinfo-mini" href="https://{{ site.website }}" target="_blank" rel="noopener"><span class="cinfo-mini__icon"><img src="{% static 'assets/images/icons/globe.svg' %}" alt="" /></span><span class="cinfo-mini__value">{{ site.website }}</span></a>
+                  <div class="cinfo-mini"><span class="cinfo-mini__icon"><img src="{% static 'assets/images/icons/pin.svg' %}" alt="" /></span><span class="cinfo-mini__value">{{ site.address_ar }}</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="cinfo-card">
+              <div class="cinfo-card__header">مكاتبنا</div>
+              <div class="cinfo-card__body">
+                <div class="coffice">
+                  <span class="coffice__icon"><img src="{% static 'assets/images/icons/pin-white.svg' %}" alt="" /></span>
+                  <span class="coffice__badge">المكتب الرئيسي</span>
+                  <span class="coffice__name">{{ site.address_ar }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+
+        {% if 'map' in pg_order %}
+        <!-- CMS: location / map -->
+        <div class="cmap" style="margin-block-start: 48px">
+          <div class="cmap__head">
+            <div>
+              <p class="cmap__eyebrow">موقعنا</p>
+              <h3 class="cmap__title">{{ pg.map.title|safe }}</h3>
+            </div>
+            <a class="cmap__link" href="https://www.google.com/maps/search/?api=1&amp;query=Jeddah+Saudi+Arabia" target="_blank" rel="noopener">افتح في خرائط Google</a>
+          </div>
+          <div class="cmap__frame">
+            <img src="{% static 'assets/images/contact/map-jeddah.jpg' %}" alt="خريطة موقع المكتب الرئيسي لـ APS في جدة" loading="lazy" />
+            <div class="cmap__card">
+              <div class="cmap__card-row">
+                <span class="cmap__card-icon"><img src="{% static 'assets/images/icons/office.svg' %}" alt="" /></span>
+                <div>
+                  <p class="cmap__card-name">{{ pg.map.office }}</p>
+                  <p class="cmap__card-sub">{{ site.address_ar }}</p>
+                </div>
+              </div>
+              <div class="cmap__card-lines">
+                <p>{{ pg.map.addr1 }}</p>
+                <p>{{ pg.map.addr2 }}</p>
+                <p>{{ pg.map.hours }}</p>
+              </div>
+              <a class="cmap__directions" href="https://www.google.com/maps/search/?api=1&amp;query=Jeddah+Saudi+Arabia" target="_blank" rel="noopener"><img src="{% static 'assets/images/icons/directions.svg' %}" alt="" /> احصل على الاتجاهات</a>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+    </section>
+
+    <!-- ============================= PARTNERS ============================= -->
+    <section class="partners section" id="partners">
+      <div class="container partners__head">
+        <h2 class="section-title">شركاؤنا <span class="accent">المعتمدون</span></h2>
+        <p class="section-subtitle">تعمل المشاريع والتوريدات العربية جنبًا إلى جنب مع مصنّعين وعلامات تجارية عالمية موثوقة.</p>
+      </div>
+      <div class="marquee">
+        <div class="marquee__track">
+          {% for partner in partners %}<img src="{% static partner.image %}" alt="{{ partner.name }}" />
+          {% endfor %}{% for partner in partners %}<img src="{% static partner.image %}" alt="" aria-hidden="true" />
+          {% endfor %}</div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =============================== FOOTER =============================== -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a class="logo" href="/ar/" aria-label="الصفحة الرئيسية لـ APS"><img class="logo__img" src="{{ brand_footer_logo_url }}" alt="APS" /></a>
+        <p>{{ site.tagline_ar }}</p>
+        <div class="footer-social">
+          {% for s in social %}<a href="{{ s.url }}" aria-label="{{ s.platform }}" target="_blank" rel="noopener"><img src="{% static "assets/images/icons/"|add:s.icon %}" alt="" /></a>
+          {% endfor %}</div>
+      </div>
+
+      <div class="footer-col">
+        <h4>روابط سريعة</h4>
+        <ul>
+          <li><a href="/ar/about/">عن APS</a></li>
+          <li><a href="/ar/#divisions">أقسامنا</a></li>
+          <li><a href="/ar/contact/">تواصل معنا</a></li>
+          <li><a href="/ar/faq/">الأسئلة الشائعة</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>أقسامنا</h4>
+        <ul>
+          <li><a href="/ar/sps/">السعودية للمشاريع والتوريدات</a></li>
+          <li><a href="/ar/beta-machinery/">بيتا للمعدّات</a></li>
+          <li><a href="/ar/envirosystems/">إنفايروسيستمز</a></li>
+          <li><a href="/ar/advanced-green-solutions/">الحلول الخضراء المتقدّمة</a></li>
+          <li><a href="/ar/azolis-middle-east/">أزوليس الشرق الأوسط</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-contact">
+        <h4>تواصل معنا</h4>
+        <ul>
+          <li><img src="{% static 'assets/images/icons/map.svg' %}" alt="" /><span>{{ site.address_ar }}</span></li>
+          <li><img src="{% static 'assets/images/icons/phone.svg' %}" alt="" /><span dir="ltr">{{ site.phone }}</span></li>
+          <li><img src="{% static 'assets/images/icons/mail2.svg' %}" alt="" /><span>{{ site.email }}</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container">© 2026 المشاريع والتوريدات العربية (APS). جميع الحقوق محفوظة.</div>
+    </div>
+  </footer>
+
+  <script src="{% static 'js/main.js' %}" defer></script>
+  <!-- ملاحظات إرسال النموذج (toast عند ?sent=1 نجاح / ?sent=0 خطأ؛ يُزال البارامتر بعد العرض) -->
+  <style>
+    .aps-toast{position:fixed;inset-block-start:calc(82px + 16px);inset-inline-end:24px;z-index:9999;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--color-border);border-inline-start:4px solid var(--color-primary);border-radius:10px;padding:14px 18px;font-weight:600;color:var(--color-text-primary);box-shadow:0 8px 32px rgba(85,139,173,.18);transform:translateY(-12px);opacity:0;transition:.25s ease;max-inline-size:340px}
+    .aps-toast.is-in{transform:none;opacity:1}
+    .aps-toast--err{border-inline-start-color:#dc2626}
+    /* التحقق الفوري من الحقول */
+    .cfield__err{color:#dc2626;font-size:13px;font-weight:600;margin:6px 0 0;display:flex;align-items:center;gap:6px}
+    .cfield__err:empty{display:none}
+    .cfield__err::before{content:"⚠";font-size:13px}
+    .cfield--err input,.cfield--err textarea{border-color:#dc2626;background:#fef5f5}
+    .cfield--err input:focus,.cfield--err textarea:focus{box-shadow:0 0 0 3px rgba(220,38,38,.12)}
+  </style>
+  <div class="aps-toast" id="apsToast" role="status" aria-live="polite" hidden><span id="apsToastMsg"></span></div>
+  <script>
+  /* تحقق فوري داخل المتصفح: يوقف الإرسال عند وجود خطأ ويعرض رسالة تحت الحقل.
+     السيرفر يتحقق مرة أخرى في كل الأحوال. */
+  (function () {
+    var form = document.querySelector(".cform");
+    if (!form) return;
+    var MSG = {
+      name: "من فضلك اكتب اسمك بالكامل.",
+      email: "من فضلك اكتب بريدًا إلكترونيًا صحيحًا (مثل you@example.com).",
+      phone: "من فضلك اكتب رقم هاتف صحيح.",
+      message: "من فضلك اكتب رسالتك."
+    };
+    var FIELDS = ["name", "email", "phone", "message"];
+    function field(n) { return form.querySelector('[name="' + n + '"]'); }
+    function setErr(n, msg) {
+      var f = field(n); if (!f) return;
+      var cf = f.closest(".cfield");
+      var p = cf.querySelector(".cfield__err");
+      if (!p) { p = document.createElement("p"); p.className = "cfield__err"; p.setAttribute("data-err", n); cf.appendChild(p); }
+      p.textContent = msg || "";
+      cf.classList.toggle("cfield--err", !!msg);
+    }
+    function check(n) {
+      var v = ((field(n) || {}).value || "").trim(), msg = "";
+      if (n === "name" && v.length < 2) msg = MSG.name;
+      else if (n === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) msg = MSG.email;
+      else if (n === "phone" && v.replace(/[^0-9]/g, "").length < 7) msg = MSG.phone;
+      else if (n === "message" && v.length < 5) msg = MSG.message;
+      setErr(n, msg);
+      return !msg;
+    }
+    FIELDS.forEach(function (n) {
+      var f = field(n);
+      if (f) f.addEventListener("blur", function () { check(n); });
+    });
+    form.addEventListener("submit", function (e) {
+      var ok = true, first = null;
+      FIELDS.forEach(function (n) { if (!check(n)) { ok = false; if (!first) first = field(n); } });
+      if (!ok) { e.preventDefault(); if (first) first.focus(); }
+    });
+  })();
+  </script>
+  <script>
+  (function () {
+    var p = new URLSearchParams(location.search), s = p.get("sent");
+    if (s === null) return;
+    var ok = s === "1", t = document.getElementById("apsToast"), m = document.getElementById("apsToastMsg");
+    m.textContent = ok ? "شكراً لك — تم إرسال رسالتك بنجاح." : "من فضلك أكمل كل الحقول المطلوبة.";
+    if (!ok) t.classList.add("aps-toast--err");
+    t.hidden = false; requestAnimationFrame(function () { t.classList.add("is-in"); });
+    p.delete("sent");
+    history.replaceState({}, "", location.pathname + (p.toString() ? "?" + p.toString() : "") + location.hash);
+    setTimeout(function () { t.classList.remove("is-in"); setTimeout(function () { t.hidden = true; }, 300); }, 4000);
+  })();
+  </script>
+</body>
+</html>

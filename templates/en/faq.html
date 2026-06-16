@@ -1,0 +1,185 @@
+{% load static %}
+<!DOCTYPE html>
+<!--
+  APS — FAQ
+  Phase 1: English / LTR. Reuses shared header/partners/contact/footer.
+  Sections: Banner, FAQ accordion.
+  Repeated content marked `CMS:` for the Phase 2 Python CMS.
+-->
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQ — APS</title>
+  <meta name="description" content="Frequently asked questions about Arabian Projects and Supplies (APS) — services, divisions, engineering, EPC, partnerships, and how to start a project." />
+  <link rel="icon" href="{% static 'assets/images/brand/aps-logo.svg' %}" type="image/svg+xml" />
+  <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+  <style id="aps-brand-overrides">{{ brand_css|safe }}</style>
+</head>
+<body>
+
+  <!-- ============================ HEADER / NAV ============================ -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="/" aria-label="APS home"><img class="logo__img" src="{{ brand_logo_url }}" alt="APS" /></a>
+
+      <nav class="main-nav" id="mainNav" aria-label="Primary">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about/">About</a></li>
+          <li class="has-dropdown">
+            <button class="nav-dropdown-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="divisionsMenu">
+              Divisions
+              <span class="nav-caret" aria-hidden="true"><img src="{% static 'assets/images/icons/arrow-down.svg' %}" alt="" /></span>
+            </button>
+            <ul class="nav-dropdown" id="divisionsMenu">
+              {% for d in nav_divisions %}<li><a href="{{ d.cms_extra.public_slug }}/"{% if d.slug == current_division %} aria-current="page"{% endif %}>{{ d.cms_extra.menu_en }}</a></li>
+              {% endfor %}</ul>
+          </li>
+          <li><a href="/contact/">Contact us</a></li>
+          <li><a href="/faq/" aria-current="page">FAQ</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a class="lang-switch" href="/ar/faq/" aria-label="التبديل إلى العربية" hreflang="ar">
+          <img src="{% static 'assets/images/icons/lang-glag.svg' %}" alt="" width="22" height="22" />
+          <span class="lang-text">AR</span>
+        </a>
+        <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="mainNav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- =============================== BANNER ============================= -->
+    <section class="page-banner" style="background-image: linear-gradient(120% 150% at 72% 46%, rgba(0,63,103,0) 0%, rgba(0,63,103,0.92) 100%), linear-gradient(rgba(0,0,0,0.42), rgba(0,0,0,0.42)), url({% static 'assets/images/banners/faq.jpg' %});">
+      <div class="container page-banner__inner">
+        <span class="eyebrow">APS FAQ</span>
+        <h1 class="page-banner__title">APS FAQ</h1>
+      </div>
+    </section>
+
+    <!-- =============================== FAQ =============================== -->
+    <section class="faq section" id="faq">
+      <div class="container">
+        <div class="faq__inner">
+          <div class="faq__head">
+            <span class="faq__head-icon"><img src="{% static 'assets/images/icons/faq-help.svg' %}" alt="" /></span>
+            <span class="faq__head-title">Frequently Asked Questions</span>
+            <span class="faq__head-line"></span>
+          </div>
+          <!-- CMS: FAQ items (repeatable) -->
+          <div class="faq__list">
+          {% for item in faq_items %}
+          <details class="faq-item">
+            <summary class="faq-item__q"><span class="faq-item__num">{{ forloop.counter|stringformat:"02d" }}</span><span class="faq-item__text">{{ item.question_en }}</span><span class="faq-item__chevron"><img src="{% static 'assets/images/icons/arrow-down.svg' %}" alt="" /></span></summary>
+            <div class="faq-item__a">{{ item.answer_en }}</div>
+          </details>
+          {% endfor %}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= PARTNERS ============================= -->
+    <section class="partners section" id="partners">
+      <div class="container partners__head">
+        <h2 class="section-title">OUR <span class="accent">PARTNERS</span></h2>
+        <p class="section-subtitle">Arabian Projects and Supplies works alongside trusted global manufacturers and brands.</p>
+      </div>
+      <div class="marquee">
+        <div class="marquee__track">
+          {% for partner in partners %}<img src="{% static partner.image %}" alt="{{ partner.name }}" />
+          {% endfor %}{% for partner in partners %}<img src="{% static partner.image %}" alt="" aria-hidden="true" />
+          {% endfor %}</div>
+      </div>
+    </section>
+
+    <!-- ============================== CONTACT ============================= -->
+    <section class="contact section" id="contact">
+      <img class="contact__deco contact__deco--tl" src="{% static 'assets/images/brand/logo-as-pattern-in-bg2.svg' %}" alt="" aria-hidden="true" />
+      <img class="contact__deco contact__deco--br" src="{% static 'assets/images/brand/logo-as-pattern-in-bg.svg' %}" alt="" aria-hidden="true" />
+      <div class="container contact__inner">
+        <span class="contact__icon"><img src="{% static 'assets/images/icons/phone2.svg' %}" alt="" /></span>
+        <span class="eyebrow">Stay Connected</span>
+        <h2 class="contact__title">Contact Our Team for Inquiries <span class="accent">and Support</span></h2>
+        <p class="contact__lead">Our team responds promptly with professional solutions tailored to your electro-mechanical and industrial needs.</p>
+
+        <div class="contact__cards">
+          <div class="contact-card">
+            <span class="contact-card__icon"><img src="{% static 'assets/images/icons/phone2.svg' %}" alt="" /></span>
+            <span class="contact-card__value" dir="ltr">{{ site.phone }}</span>
+          </div>
+          <div class="contact-card">
+            <span class="contact-card__icon"><img src="{% static 'assets/images/icons/mail3.svg' %}" alt="" /></span>
+            <a class="contact-card__value" href="mailto:{{ site.email }}">{{ site.email }}</a>
+          </div>
+          <div class="contact-card">
+            <span class="contact-card__icon"><img src="{% static 'assets/images/icons/globe.svg' %}" alt="" /></span>
+            <a class="contact-card__value" href="https://{{ site.website }}" target="_blank" rel="noopener">{{ site.website }}</a>
+          </div>
+        </div>
+
+        <div>
+          <a class="btn btn--accent" href="/contact/">
+            Contact Us
+            <span class="btn__arrow btn__arrow--long"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3.33331 8H12.6666" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 3.33325L12.6667 7.99992L8 12.6666" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =============================== FOOTER =============================== -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a class="logo" href="/" aria-label="APS home"><img class="logo__img" src="{{ brand_footer_logo_url }}" alt="APS" /></a>
+        <p>{{ site.tagline_en }}</p>
+        <div class="footer-social">
+          {% for s in social %}<a href="{{ s.url }}" aria-label="{{ s.platform }}" target="_blank" rel="noopener"><img src="{% static "assets/images/icons/"|add:s.icon %}" alt="" /></a>
+          {% endfor %}</div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="/about/">About APS</a></li>
+          <li><a href="/#divisions">Our Divisions</a></li>
+          <li><a href="/contact/">Contact</a></li>
+          <li><a href="/faq/">FAQs</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Our Divisions</h4>
+        <ul>
+          <li><a href="/sps/">Saudi Projects &amp; Supplies</a></li>
+          <li><a href="/beta-machinery/">Beta Machinery</a></li>
+          <li><a href="/envirosystems/">Envirosystems</a></li>
+          <li><a href="/advanced-green-solutions/">Advanced Green Solutions</a></li>
+          <li><a href="/azolis-middle-east/">AZOLIS Middle East</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-contact">
+        <h4>Contact</h4>
+        <ul>
+          <li><img src="{% static 'assets/images/icons/map.svg' %}" alt="" /><span>{{ site.address_en }}</span></li>
+          <li><img src="{% static 'assets/images/icons/phone.svg' %}" alt="" /><span dir="ltr">{{ site.phone }}</span></li>
+          <li><img src="{% static 'assets/images/icons/mail2.svg' %}" alt="" /><span>{{ site.email }}</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container">© 2026 Arabian Projects and Supplies (APS). All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script src="{% static 'js/main.js' %}" defer></script>
+</body>
+</html>

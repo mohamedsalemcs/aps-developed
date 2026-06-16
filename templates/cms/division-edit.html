@@ -1,0 +1,309 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>لوحة تحكم APS</title>
+<link rel="stylesheet" href="{% static 'cms/css/admin.css' %}" />
+<link rel="stylesheet" href="{% static 'cms/css/aps-toast.css' %}" />
+<style>
+/* Client feedback: the page title and the Save/Preview actions appeared TWICE.
+   Scoped to this editor page only: drop the topbar title (kept the breadcrumb +
+   the pagehead heading) and the pagehead actions (kept the always-sticky bottom
+   save bar, which also has Discard). One title, one action set. */
+.topbar__title { display: none; }
+.pagehead__actions { display: none; }
+</style>
+</head>
+<body>
+<div class="app">
+  <main class="app__main">
+    <header class="topbar">
+      <div><div class="topbar__title"><span data-i18n="Edit:">تعديل:</span> <span data-div-title dir="ltr">…</span></div><div class="topbar__crumbs"><a href="/cms/divisions/"><span data-i18n="Divisions">الأقسام</span></a> / <span data-div-title dir="ltr">…</span></div></div>
+      <div class="topbar__spacer"></div>
+      <div class="langseg" data-langseg><button data-uilang="ar">عربي</button><button data-uilang="en">English</button></div>
+      <a class="btn btn--ghost btn--sm" href="/" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> <span data-i18n="Website">الموقع</span></a>
+      <div class="profile">
+        <button class="profile__btn" data-profile-toggle><div class="avatar">{{ admin_initial }}</div><div class="profile__name" data-i18n="Administrator">مدير النظام</div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="profile-menu">
+          <div class="profile-menu__head"><strong>{{ admin_name }}</strong><span dir="ltr">{{ admin_email }}</span></div>
+          <div class="profile-menu__sep"></div>
+          <a href="/cms/profile/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> <span data-i18n="Profile">الملف الشخصي</span></a>
+          <a href="/cms/settings/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg> <span data-i18n="Settings">الإعدادات</span></a>
+          <div class="profile-menu__sep"></div>
+          <button class="is-danger" data-logout><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> <span data-i18n="Log out">تسجيل الخروج</span></button>
+        </div>
+      </div>
+      <button class="icon-btn" data-sidebar-toggle><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    </header>
+    <div class="content"><div class="pagehead"><div class="pagehead__text"><h1><span data-i18n="Edit:">تعديل:</span> <span data-div-title dir="ltr">…</span></h1><p><span class="badge badge--green" data-div-status>منشور</span> &nbsp; <span class="table__sub" dir="ltr" data-div-slug>/sps</span></p></div><div class="pagehead__actions"><button class="btn btn--ghost" data-preview="division&div=@id"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg> <span data-i18n="Preview">معاينة</span></button><button class="btn btn--primary" data-save><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> <span data-i18n="Save">حفظ</span></button></div></div><div class="tabs"><button class="tab is-active" data-tab="content"><span data-i18n="Content">المحتوى</span></button><button class="tab" data-tab="seo"><span data-i18n="SEO">SEO</span></button></div><div data-tabpanel="content"><div id="divEditor"></div></div><div data-tabpanel="seo" hidden><div class="card" style="max-width:760px"><div class="card__body"><div class="field-bi"><div class="field-bi__head"><label><span data-i18n="Page title">عنوان الصفحة (Title)</span></label></div><div class="field-bi__cols"><div class="field-bi__col field-bi__col--ar"><span class="field-bi__lang"><span data-i18n="Arabic">عربي</span></span><input class="input" dir="rtl" data-field="@div.seo.title" data-lang="ar" /></div><div class="field-bi__col field-bi__col--en"><span class="field-bi__lang"><span data-i18n="English">English</span></span><input class="input" dir="ltr" data-field="@div.seo.title" data-lang="en" /></div></div></div><div class="field-bi"><div class="field-bi__head"><label><span data-i18n="Meta description">وصف الميتا</span></label></div><div class="field-bi__cols"><div class="field-bi__col field-bi__col--ar"><span class="field-bi__lang"><span data-i18n="Arabic">عربي</span></span><textarea class="textarea" dir="rtl" data-field="@div.seo.desc" data-lang="ar"></textarea></div><div class="field-bi__col field-bi__col--en"><span class="field-bi__lang"><span data-i18n="English">English</span></span><textarea class="textarea" dir="ltr" data-field="@div.seo.desc" data-lang="en"></textarea></div></div></div></div></div></div><div class="savebar"><div class="savebar__status">كل التغييرات محفوظة · All saved</div><div class="savebar__actions"><button class="btn btn--ghost" data-factory-reset="@div" title="عودة للنسخة الأصلية المعتمدة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg> <span data-i18n="Restore defaults">عودة للافتراضية</span></button><button class="btn btn--ghost" data-discard><span data-i18n="Discard">تجاهل</span></button><button class="btn btn--ghost" data-preview="division&div=@id"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg> <span data-i18n="Live preview">معاينة حية</span></button><button class="btn btn--primary" data-save><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> <span data-i18n="Save changes">حفظ التغييرات</span></button></div></div></div>
+  </main>
+  <aside class="sidebar">
+    <div class="sidebar__brand"><svg class="sidebar__logo" viewBox="0 0 46 59" fill="none"><path d="M29.25 0.53H31.87C32.34 0.87 33.18 1.19 33.58 1.58C34.92 2.92 36.4 4.5 37.9 6L41.9 10.08C43.06 11.23 44.08 11.97 44.38 13.71C44.84 16.44 42.3 18.5 40.53 20.24L34.12 26.67C33.47 27.32 32.71 28.13 31.99 28.67C33.72 30.25 35.51 32.17 37.21 33.81C40.22 36.73 44.93 41.07 45.02 43.17C45.08 44.52 44.43 45.7 43.56 46.7C41.82 48.52 39.92 50.26 38.12 52.03C35.89 54.23 33.36 56.66 30.31 58.57C30.15 58.63 29.9 58.71 29.77 58.78H28.74C28.61 58.7 27.88 58.45 27.66 58.36C26.99 58.05 26.22 57.51 25.7 57C24.06 55.41 22.41 53.82 20.78 52.22L18.98 50.45C18.5 49.98 17.63 49.26 17.55 48.58C17.5 48.13 18.19 47.43 18.59 47.48C19.28 47.58 20.09 48.49 20.57 48.95C22.05 50.46 23.6 51.96 25.6 53.9C26.43 54.69 27.21 55.59 28.14 56.27C28.41 56.47 29.06 56.66 29.39 56.65C29.8 56.64 30.58 56.34 30.89 56.05C32.15 54.86 33.43 53.6 34.67 52.38L38.44 48.69C39.75 47.41 41.18 46.16 42.34 44.75C42.59 44.45 42.74 43.64 42.73 43.25C42.72 42.81 42.58 42.37 42.33 42.01C42.1 41.68 41.45 41.04 41.15 40.73L38.92 38.5L30.61 30.34C30.56 30.19 29.41 29.07 29.27 29.05C29.16 28.81 27.39 27.13 27.06 26.81L20.79 20.52L18.81 18.54C17.39 17.11 16.06 15.87 16.46 13.63C16.72 12.18 17.92 11.18 18.91 10.19C20.91 8.17 22.92 6.16 24.93 4.15L27.48 1.62C28.02 1.14 28.66 0.94 29.21 0.55Z" fill="#7CAAC6"/><path d="M0.83 29.98C1.7 28.57 2.43 27.99 3.6 26.83L9.11 21.32C10.06 20.35 11.07 19.11 12.35 18.58C13.22 18.23 14.72 18.16 15.57 18.57C17.06 19.29 18.47 20.98 19.62 22.15L25.53 28.05C26.77 29.29 27.57 29.75 29.27 29.05C29.41 29.07 30.56 30.19 30.61 30.34C30 31.01 29.02 31.39 28.13 31.42C26.51 31.46 25.19 30.75 24.05 29.64C23.25 28.86 22.46 28.07 21.66 27.27L17.59 23.19C16.83 22.44 16.03 21.5 15.2 20.85C14.69 20.44 13.56 20.36 12.99 20.69C12.29 21.07 11.67 21.78 11.11 22.35C10.43 23.05 9.75 23.74 9.06 24.44C7.19 26.32 5.27 28.14 3.44 30.07C2.89 30.66 2.64 31.1 2.67 31.92C2.71 33.02 3.5 33.62 4.21 34.33L6.17 36.3C7.52 37.67 8.88 39.04 10.25 40.4C10.93 41.08 11.58 41.76 12.29 42.41C12.86 42.93 13.33 43.13 14.1 43.1C14.92 43.06 15.56 42.53 16.12 41.98C16.7 41.42 17.26 40.84 17.83 40.28L22.49 35.62C22.87 35.23 23.27 34.84 23.65 34.45C24.17 33.92 24.42 33.64 25.17 33.42C25.48 33.51 25.94 33.64 26.08 33.96C26.54 35.02 24.88 36.29 24.23 36.94L22.15 39.02C20.48 40.68 18.81 42.36 17.1 43.98C15.84 45.17 14.34 45.76 12.65 45.16C11.4 44.72 9.9 43.1 8.96 42.17L6.44 39.69L3.82 37.07C2.71 35.97 1.6 34.97 0.83 33.59C-0.31 32.18 -0.24 31.39 0.83 29.98Z" fill="#558BAD"/></svg><div><div class="sidebar__brand-name">APS</div><div class="sidebar__brand-sub"><span data-i18n="Dashboard">لوحة التحكم</span></div></div></div>
+    <nav class="sidebar__nav"><div class="sidebar__group">
+<a class="nav-item" href="/cms/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg><span data-i18n="Dashboard" dir="auto">لوحة التحكم</span></a>
+<a class="nav-item" href="/cms/inbox/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span data-i18n="Inbox" dir="auto">الرسائل</span>{% if unread_count %}<span class="nav-item__badge" data-stat="inbox">{{ unread_count }}</span>{% endif %}</a>
+</div>
+<div class="sidebar__group"><p class="sidebar__group-title"><span data-i18n="Pages">الصفحات</span></p>
+<a class="nav-item" href="/cms/pages/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><span data-i18n="All pages" dir="auto">كل الصفحات</span></a>
+<div class="nav-parent"><a class="nav-item" href="/cms/page-edit/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><span data-i18n="Home" dir="auto">الرئيسية</span><span class="nav-parent__toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></a><div class="nav-sub"><a class="nav-subitem" href="/cms/page-edit/#hero"><span data-i18n="Hero">الهيرو</span></a><a class="nav-subitem" href="/cms/page-edit/#about"><span data-i18n="About APS">عن APS</span></a><a class="nav-subitem" href="/cms/page-edit/#divisions"><span data-i18n="Divisions">الأقسام</span></a><a class="nav-subitem" href="/cms/page-edit/#partners"><span data-i18n="Partners">شركاؤنا</span></a><a class="nav-subitem" href="/cms/page-edit/#contact"><span data-i18n="Contact">اتصل بنا</span></a></div></div>
+<div class="nav-parent"><a class="nav-item" href="/cms/about-edit/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><span data-i18n="About" dir="auto">عن الشركة</span><span class="nav-parent__toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></a><div class="nav-sub"><a class="nav-subitem" href="/cms/about-edit/#banner"><span data-i18n="Banner">البانر</span></a><a class="nav-subitem" href="/cms/about-edit/#who"><span data-i18n="Who We Are">من نحن</span></a><a class="nav-subitem" href="/cms/about-edit/#foundation"><span data-i18n="Foundation">الرؤية والرسالة</span></a><a class="nav-subitem" href="/cms/about-edit/#principles"><span data-i18n="Principles">مبادئ العمل</span></a></div></div>
+<a class="nav-item" href="/cms/faq/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span data-i18n="FAQ" dir="auto">الأسئلة الشائعة</span><span class="nav-item__badge" data-stat="faq">4</span></a>
+<div class="nav-parent"><a class="nav-item" href="/cms/contact-edit/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span data-i18n="Contact" dir="auto">اتصل بنا</span><span class="nav-parent__toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></a><div class="nav-sub"><a class="nav-subitem" href="/cms/contact-edit/#banner"><span data-i18n="Banner">البانر</span></a><a class="nav-subitem" href="/cms/contact-edit/#form"><span data-i18n="Form">النموذج</span></a><a class="nav-subitem" href="/cms/contact-edit/#info"><span data-i18n="Contact info">بيانات التواصل</span></a><a class="nav-subitem" href="/cms/contact-edit/#map"><span data-i18n="Map">الخريطة</span></a></div></div>
+
+</div>
+<div class="sidebar__group"><p class="sidebar__group-title"><span data-i18n="Divisions">الأقسام</span></p>
+<a class="nav-item" href="/cms/divisions/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg><span data-i18n="All divisions" dir="auto">كل الأقسام</span></a>
+{% include "cms/_division_nav.html" %}
+</div>
+<div class="sidebar__group"><p class="sidebar__group-title"><span data-i18n="Library">المكتبة</span></p>
+<a class="nav-item" href="/cms/media/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span data-i18n="Media library" dir="auto">مكتبة الوسائط</span></a>
+<a class="nav-item" href="/cms/partners/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg><span data-i18n="Partners" dir="auto">الشركاء</span><span class="nav-item__badge">6</span></a>
+</div>
+<div class="sidebar__group"><p class="sidebar__group-title"><span data-i18n="Appearance">المظهر</span></p>
+<a class="nav-item" href="/cms/brand/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg><span data-i18n="Brand & theme" dir="auto">الهوية والتصميم</span></a>
+</div>
+<div class="sidebar__group"><p class="sidebar__group-title"><span data-i18n="System">النظام</span></p>
+<a class="nav-item" href="/cms/settings/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg><span data-i18n="Settings" dir="auto">الإعدادات</span></a>
+</div></nav>
+    <div class="sidebar__user"><div class="avatar">{{ admin_initial }}</div><div><div class="sidebar__user-name">{{ admin_name }}</div><div class="sidebar__user-role"><span data-i18n="Administrator">مدير النظام</span></div></div><button class="sidebar__logout" data-logout title="تسجيل الخروج"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button></div>
+  </aside>
+</div>
+{{ store_data|json_script:"aps-store-data" }}
+<script>try{localStorage.setItem("aps_auth","1");}catch(e){}window.__APS_AUTHED__=1;window.__APS_CSRF__="{{ csrf_token }}";</script>
+<script src="{% static 'cms/js/store.js' %}"></script>
+<script src="{% static 'cms/js/admin.js' %}"></script>
+<script>
+/* Division editor — fully custom, per-division, section-scoped (admin.js engine
+   still provides Save / icon-upload / data-field->Store). Each section (banner,
+   about, its REAL card sections, projects, contact) is self-contained: its
+   title/description + items (icon upload) inline. No generic add/hide-section,
+   no hide-from-site, no generic sections. */
+(function () {
+  var S = window.Store; if (!S || !S.all().divisions) return;
+  var div = new URLSearchParams(location.search).get("div") || "sps";
+  if (!S.all().divisions[div]) div = Object.keys(S.all().divisions)[0];
+  var root = "divisions." + div;
+  var WEB = "../../website/assets/images/";
+  var BODY = { products: 1, solutions: 1, suppliers: 1, foundation: 1 };
+  var NOICON = {};
+
+  function esc(v) { return String(v == null ? "" : v).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;"); }
+  function iconSrc(v) { return /^(data:|blob:|\/)/.test(v || "") ? v : WEB + v; }
+  function biCol(path, lang, dir, ta) {
+    var v = esc(S.get(path, lang));
+    if (ta) return '<div class="field-bi__col field-bi__col--' + lang + '"><span class="field-bi__lang">' + (lang === "ar" ? "عربي" : "English") + '</span><textarea class="textarea" dir="' + dir + '" data-field="' + path + '" data-lang="' + lang + '">' + v + '</textarea></div>';
+    return '<div class="field-bi__col field-bi__col--' + lang + '"><span class="field-bi__lang">' + (lang === "ar" ? "عربي" : "English") + '</span><input class="input" dir="' + dir + '" data-field="' + path + '" data-lang="' + lang + '" value="' + v + '" /></div>';
+  }
+  function bi(label, path, ta) {
+    return '<div class="field-bi"><div class="field-bi__head"><label>' + label + '</label></div><div class="field-bi__cols">' + biCol(path, "ar", "rtl", ta) + biCol(path, "en", "ltr", ta) + '</div></div>';
+  }
+  function biFlat(label, base) {
+    return '<div class="field-bi"><div class="field-bi__head"><label>' + label + '</label></div><div class="field-bi__cols">' +
+      '<div class="field-bi__col field-bi__col--ar"><span class="field-bi__lang">عربي</span><input class="input" dir="rtl" data-field="' + base + '_ar" value="' + esc(S.get(base + "_ar")) + '" /></div>' +
+      '<div class="field-bi__col field-bi__col--en"><span class="field-bi__lang">English</span><input class="input" dir="ltr" data-field="' + base + '_en" value="' + esc(S.get(base + "_en")) + '" /></div></div></div>';
+  }
+  function plain(label, path) { return '<div class="field"><label>' + label + '</label><input class="input" dir="ltr" data-field="' + path + '" value="' + esc(S.get(path)) + '" /></div>'; }
+  function iconUp(path) {
+    return '<div class="field"><label>الأيقونة (صورة / SVG)</label><div class="iconctl"><img class="iconctl__img" data-icon-view="' + path + '" src="' + esc(iconSrc(S.get(path))) + '" alt="" style="inline-size:42px;block-size:42px;object-fit:contain;background:#f3f6f9;border-radius:8px" /><button type="button" class="btn btn--ghost btn--sm" data-icon-replace="' + path + '">رفع أيقونة</button></div></div>';
+  }
+  function imgUp(path) {
+    return '<div class="field"><label>الصورة</label><div class="iconctl"><img class="iconctl__img" data-icon-view="' + path + '" src="' + esc(iconSrc(S.get(path))) + '" alt="" style="inline-size:64px;block-size:44px;object-fit:cover;border-radius:8px" /><button type="button" class="btn btn--ghost btn--sm" data-img-replace="' + path + '">رفع صورة</button></div></div>';
+  }
+  function tools(kind, sec, i, total) {
+    return '<div class="repeat-item__tools">' +
+      '<button type="button" class="sec-btn" data-cmove="up" data-kind="' + kind + '" data-sec="' + sec + '" data-i="' + i + '"' + (i === 0 ? ' disabled' : '') + '>&#9650;</button>' +
+      '<button type="button" class="sec-btn" data-cmove="down" data-kind="' + kind + '" data-sec="' + sec + '" data-i="' + i + '"' + (i === total - 1 ? ' disabled' : '') + '>&#9660;</button>' +
+      '<button type="button" class="repeat-item__del" data-cdel data-kind="' + kind + '" data-sec="' + sec + '" data-i="' + i + '">حذف</button></div>';
+  }
+  function cardBody(sec, i) {
+    var base = root + ".cards." + sec + "." + i;
+    var h = (NOICON[sec] ? "" : iconUp(base + ".icon")) + bi("العنوان", base + ".title");
+    if (BODY[sec]) h += bi("النص", base + ".body", true);
+    if (sec === "suppliers") h += biFlat("الدولة (Badge)", base + ".extra.badge");
+    if (sec === "industries") h += bi("الوسوم (افصل بـ ·)", base + ".extra.tags");
+    if (sec === "foundation") h += plain("عرض الخط (rule)", base + ".extra.rule_style");
+    if (sec === "lifecycle") {
+      h += biFlat("تسمية المرحلة", base + ".extra.label") + biFlat("التذييل", base + ".extra.footer");
+      var ms = (S.get(base + ".extra.milestones") || []);
+      for (var j = 0; j < ms.length; j++) {
+        h += '<div style="border-inline-start:2px solid var(--border);padding-inline-start:10px;margin-block:8px"><div class="table__sub">معلَم ' + (j + 1) + '</div>' +
+          biFlat("عنوان المعلَم", base + ".extra.milestones." + j + ".title") + biFlat("وصف المعلَم", base + ".extra.milestones." + j + ".desc") + '</div>';
+      }
+    }
+    return h;
+  }
+  function emptyCard(sec) {
+    var c = { icon: "", title: { en: "", ar: "" } };
+    if (BODY[sec]) c.body = { en: "", ar: "" };
+    c.extra = {};
+    if (sec === "suppliers") c.extra = { badge_en: "", badge_ar: "" };
+    if (sec === "industries") c.extra = { tags: { en: "", ar: "" } };
+    if (sec === "foundation") c.extra = { rule_style: "inline-size: 60px" };
+    if (sec === "lifecycle") c.extra = { label_en: "", label_ar: "", footer_en: "", footer_ar: "", milestones: [] };
+    return c;
+  }
+  var EYE = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
+  var EYE_OFF = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>';
+  var CHEV = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
+  var SECICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>';
+  function isHidden(key) { return !!S.get("divisions." + div + ".hidden." + key); }
+  /* ---- section card with the full toolbar: up / down / hide / delete (+ collapse
+     via the head, handled by admin.js). Matches the Home/About/Contact editors. */
+  var UP = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>';
+  var DOWN = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>';
+  var TRASH = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>';
+  var GRIP = '<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><circle cx="9" cy="6" r="1.4"/><circle cx="15" cy="6" r="1.4"/><circle cx="9" cy="12" r="1.4"/><circle cx="15" cy="12" r="1.4"/><circle cx="9" cy="18" r="1.4"/><circle cx="15" cy="18" r="1.4"/></svg>';
+  function sectionCard(key, title, body, opts) {
+    opts = opts || {};
+    var hid = isHidden(key), i = opts.i || 0, total = opts.total || 1;
+    var tb = '<div class="section-block__tools">' +
+      '<span class="section-block__flag">مخفي</span>' +
+      '<button type="button" class="sec-btn" data-dmove="up" data-key="' + key + '" title="تحريك لأعلى"' + (i === 0 ? ' disabled' : '') + '>' + UP + '</button>' +
+      '<button type="button" class="sec-btn" data-dmove="down" data-key="' + key + '" title="تحريك لأسفل"' + (i === total - 1 ? ' disabled' : '') + '>' + DOWN + '</button>' +
+      '<button type="button" class="sec-btn" data-dhide data-key="' + key + '" title="إظهار/إخفاء">' + (hid ? EYE_OFF : EYE) + '</button>' +
+      '<button type="button" class="sec-btn sec-btn--del" data-ddel data-key="' + key + '" title="حذف القسم">' + TRASH + '</button>' +
+      '</div>';
+    return '<div class="section-block is-open' + (hid ? ' is-hidden' : '') + '" data-section="' + key + '" id="' + key + '">' +
+      '<div class="section-block__head"><span class="section-block__grip">' + GRIP + '</span><span class="section-block__icon">' + SECICON + '</span>' +
+      '<div><div class="section-block__title">' + esc(title) + '</div></div>' + tb +
+      '<span class="section-block__chev">' + CHEV + '</span></div>' +
+      '<div class="section-block__body">' + body + '</div></div>';
+  }
+
+  /* ---- per-section bodies + per-division config -------------------------- */
+  var LABELS = { banner: "البانر", about: "عن القسم", contact: "بيانات التواصل", projects: "مشاريعنا",
+    systems: "الأنظمة والحلول", categories: "فئات الآلات",
+    suppliers: "الموردون الدوليون", solutions: "الحلول", foundation: "الرؤية والرسالة",
+    products: "مجموعة المنتجات", lifecycle: "مراحل دورة الحياة" };
+  // Partners are managed globally from /cms/partners/ (one shared marquee that
+  // every page reads), so divisions no longer carry their own partners section.
+  // Dropping it here removes it from the section list AND the "add section" menu;
+  // getOrder() also filters it out of any order still stored with "partners".
+  var DEFAULT_ORDER = {
+    sps: ["banner", "about", "systems", "projects", "contact"],
+    beta: ["banner", "about", "categories", "contact"],
+    enviro: ["banner", "about", "suppliers", "solutions", "contact"],
+    ags: ["banner", "about", "foundation", "products", "contact"],
+    azolis: ["banner", "about", "lifecycle", "projects", "contact"]
+  };
+  var CFG = {
+    sps: { systems: { title: "sections.systems.title", subtitle: "sections.systems.subtitle" }, projects: { specs: false } },
+    beta: { categories: { title: "sections.systems.title", subtitle: "sections.systems.subtitle" } },
+    enviro: { suppliers: { title: "extra_titles.suppliers" }, solutions: { title: "sections.systems.title", subtitle: "sections.systems.subtitle" } },
+    ags: { foundation: { title: "extra_titles.foundation", eyebrow: "extra_titles.foundation_eyebrow", pills: true }, products: { title: "sections.systems.title", subtitle: "sections.systems.subtitle" } },
+    azolis: { lifecycle: { title: "sections.systems.title", subtitle: "sections.systems.subtitle", pills: true }, projects: { specs: true } }
+  };
+  function cardList(key) {
+    var arr = S.getArray(root + ".cards." + key);
+    var items = arr.map(function (c, i) {
+      return '<div class="repeat-item"><span class="repeat-item__num">' + (i + 1) + '</span><div class="repeat-item__body">' + cardBody(key, i) + '</div>' + tools("cards", key, i, arr.length) + '</div>';
+    }).join("");
+    return { count: arr.length, html: items };
+  }
+  function bodyCards(key, cfg) {
+    cfg = cfg || {};
+    var head = "";
+    if (cfg.title) head += bi("عنوان السكشن", root + "." + cfg.title);
+    if (cfg.eyebrow) head += bi("العنوان الفرعي", root + "." + cfg.eyebrow);
+    if (cfg.subtitle) head += bi("وصف السكشن", root + "." + cfg.subtitle, true);
+    var cl = cardList(key);
+    var html = head + '<div class="table__sub" style="margin-block:12px 8px">العناصر (' + cl.count + ')</div>' + cl.html +
+      '<button type="button" class="btn btn--soft btn--sm" data-cadd data-kind="cards" data-sec="' + key + '" style="margin-block-start:10px">+ إضافة عنصر</button>';
+    if (cfg.foot) html += bi("سطر ختامي (تحت العناصر)", root + "." + cfg.foot, true);
+    if (cfg.pills) {
+      var pl = cardList("pills");
+      html += '<div class="table__sub" style="margin-block:16px 8px">المميزات السريعة (' + pl.count + ')</div>' + pl.html +
+        '<button type="button" class="btn btn--soft btn--sm" data-cadd data-kind="cards" data-sec="pills" style="margin-block-start:10px">+ إضافة ميزة</button>';
+    }
+    return html;
+  }
+  function bodyProjects(cfg) {
+    cfg = cfg || {};
+    var arr = S.getArray(root + ".sections.projects.items");
+    var items = arr.map(function (p, i) {
+      var b = root + ".sections.projects.items." + i;
+      var h = imgUp(b + ".img") + bi("اسم المشروع", b + ".title");
+      if (cfg.specs) h += bi("الموقع", b + ".location") + bi("النوع", b + ".typology") + bi("القدرة المركّبة", b + ".installed_power") + bi("العقد", b + ".contract");
+      return '<div class="repeat-item"><span class="repeat-item__num">' + (i + 1) + '</span><div class="repeat-item__body">' + h + '</div>' + tools("projects", "_", i, arr.length) + '</div>';
+    }).join("");
+    return bi("عنوان السكشن", root + ".sections.projects.title") +
+      '<div class="table__sub" style="margin-block:12px 8px">المشاريع (' + arr.length + ')</div>' + items +
+      '<button type="button" class="btn btn--soft btn--sm" data-cadd data-kind="projects" data-sec="_" style="margin-block-start:10px">+ إضافة مشروع</button>';
+  }
+  function bodyBanner() { return bi("اسم القسم (عنوان البانر)", root + ".name") + bi("العنوان الفرعي", root + ".sections.banner.subtitle"); }
+  function bodyAbout() { return bi("العنوان", root + ".sections.about.title") + bi("النص", root + ".sections.about.body", true); }
+  function bodyContact() { return plain("الهاتف", root + ".sections.contact.phone") + plain("الموقع الإلكتروني", root + ".sections.contact.site") + plain("البريد الإلكتروني", root + ".sections.contact.email"); }
+  function bodyFor(key) {
+    if (key === "banner") return bodyBanner();
+    if (key === "about") return bodyAbout();
+    if (key === "contact") return bodyContact();
+    if (key === "projects") return bodyProjects((CFG[div] || {}).projects);
+    return bodyCards(key, (CFG[div] || {})[key]);
+  }
+
+  /* ---- order-driven render + add-section bar ----------------------------- */
+  function getOrder() {
+    var def = DEFAULT_ORDER[div] || DEFAULT_ORDER.sps;
+    var ord = (S.getArray("divisions." + div + ".order") || []).filter(function (k) { return def.indexOf(k) >= 0; });
+    return ord.length ? ord : def.slice();
+  }
+  function setOrder(ord) { S.setArray("divisions." + div + ".order", ord); }
+  function addBar() {
+    var def = DEFAULT_ORDER[div] || [], ord = getOrder();
+    var avail = def.filter(function (k) { return ord.indexOf(k) < 0; });
+    if (!avail.length) return "";
+    var opts = avail.map(function (k) { return '<button type="button" class="addsec__opt" data-daddsec="' + k + '">+ ' + esc(LABELS[k] || k) + '</button>'; }).join("");
+    return '<div class="addsec" style="margin-block-start:18px"><button type="button" class="add-block" data-daddsec-toggle>+ إضافة قسم</button><div class="addsec__menu" hidden>' + opts + '</div></div>';
+  }
+  function render() {
+    var ord = getOrder();
+    document.getElementById("divEditor").innerHTML = ord.map(function (k, i) {
+      return sectionCard(k, LABELS[k] || k, bodyFor(k), { i: i, total: ord.length });
+    }).join("") + addBar();
+  }
+  function markDirty() { var f = document.querySelector('#divEditor [data-field]'); if (f) f.dispatchEvent(new Event("input", { bubbles: true })); }
+  render();
+
+  document.addEventListener("click", function (e) {
+    // ---- section-level controls: reorder / hide / delete / add ------------
+    var mv = e.target.closest("[data-dmove]");
+    if (mv) {
+      var mk = mv.getAttribute("data-key"), dir = mv.getAttribute("data-dmove");
+      var ord = getOrder(), idx = ord.indexOf(mk), j = dir === "up" ? idx - 1 : idx + 1;
+      if (idx < 0 || j < 0 || j >= ord.length) return;
+      ord.splice(idx, 1); ord.splice(j, 0, mk); setOrder(ord); render(); markDirty(); return;
+    }
+    var dl = e.target.closest("[data-ddel]");
+    if (dl) {
+      var dk = dl.getAttribute("data-key");
+      if (!confirm("حذف هذا القسم من الصفحة؟ (المحتوى بيتحفظ ويمكن إضافته تاني من «إضافة قسم»)")) return;
+      setOrder(getOrder().filter(function (x) { return x !== dk; })); render(); markDirty(); return;
+    }
+    var hb = e.target.closest("[data-dhide]");
+    if (hb) {
+      var hk = hb.getAttribute("data-key");
+      S.set("divisions." + div + ".hidden." + hk, null, !isHidden(hk)); render(); markDirty(); return;
+    }
+    var atog = e.target.closest("[data-daddsec-toggle]");
+    if (atog) { var menu = atog.parentElement.querySelector(".addsec__menu"); if (menu) menu.hidden = !menu.hidden; return; }
+    var add = e.target.closest("[data-daddsec]");
+    if (add) { var ak = add.getAttribute("data-daddsec"), o = getOrder(); if (o.indexOf(ak) < 0) o.push(ak); setOrder(o); render(); markDirty(); return; }
+    // ---- item-level controls inside a section (cards / projects) ----------
+    var t = e.target.closest("[data-cadd],[data-cdel],[data-cmove]"); if (!t) return;
+    var kind = t.getAttribute("data-kind"), sec = t.getAttribute("data-sec");
+    var path = kind === "projects" ? root + ".sections.projects.items" : root + ".cards." + sec;
+    var arr = S.getArray(path);
+    if (t.hasAttribute("data-cadd")) { arr.push(kind === "projects" ? { img: "", title: { en: "", ar: "" } } : emptyCard(sec)); }
+    else {
+      var i = parseInt(t.getAttribute("data-i"), 10); if (isNaN(i)) return;
+      if (t.hasAttribute("data-cdel")) { if (!confirm("حذف هذا العنصر؟")) return; arr.splice(i, 1); }
+      else { var j2 = i + (t.getAttribute("data-cmove") === "up" ? -1 : 1); if (j2 < 0 || j2 >= arr.length) return; var x = arr[i]; arr[i] = arr[j2]; arr[j2] = x; }
+    }
+    S.setArray(path, arr); render(); markDirty();
+  });
+})();
+</script>
+</body>
+</html>

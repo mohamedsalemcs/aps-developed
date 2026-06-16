@@ -1,0 +1,36 @@
+/* APS — prominent action toast (client request).
+   Makes the admin action-feedback toast big, clear and top-centered (Toastify
+   style) instead of the small bottom-corner pill. This OVERRIDES the designer's
+   .toast-wrap/.toast by loading after admin.css on every CMS page — his
+   admin.js and admin.css are NOT modified; the toast() function is unchanged. */
+
+.toast-wrap {
+  inset-block-start: 26px;          /* top ... */
+  inset-block-end: auto;
+  inset-inline-start: 0;            /* ... centered horizontally */
+  inset-inline-end: 0;
+  align-items: center;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.toast {
+  pointer-events: auto;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 16px 26px;
+  min-inline-size: 360px;
+  max-inline-size: 560px;
+  background: #fff;
+  color: #0B1220;
+  border: 1px solid #E2E8F0;
+  border-inline-start: 6px solid #16a34a;   /* success accent */
+  border-radius: 14px;
+  box-shadow: 0 22px 55px rgba(11, 18, 32, 0.30);
+  gap: 14px;
+}
+
+.toast svg { inline-size: 28px; block-size: 28px; stroke: #16a34a; }
+
+.toast--err { border-inline-start-color: #dc2626; }   /* error = red */
+.toast--err svg { stroke: #dc2626; }

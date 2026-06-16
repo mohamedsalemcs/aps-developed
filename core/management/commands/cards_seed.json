@@ -1,0 +1,686 @@
+[
+ {
+  "division": "sps",
+  "section_key": "systems",
+  "order": 0,
+  "icon": "assets/images/icons/sys/sps-1.svg",
+  "title_en": "Fire Detection and Alarm Systems",
+  "title_ar": "أنظمة كشف الحرائق والإنذار",
+  "body_en": "",
+  "body_ar": "",
+  "extra": {}
+ },
+ {
+  "division": "sps",
+  "section_key": "systems",
+  "order": 1,
+  "icon": "assets/images/icons/sys/sps-2.svg",
+  "title_en": "CCTV Surveillance Systems",
+  "title_ar": "أنظمة المراقبة بالكاميرات (CCTV)",
+  "body_en": "",
+  "body_ar": "",
+  "extra": {}
+ },
+ {
+  "division": "sps",
+  "section_key": "systems",
+  "order": 2,
+  "icon": "assets/images/icons/sys/sps-3.svg",
+  "title_en": "Access Control Systems",
+  "title_ar": "أنظمة التحكّم في الدخول",
+  "body_en": "",
+  "body_ar": "",
+  "extra": {}
+ },
+ {
+  "division": "sps",
+  "section_key": "systems",
+  "order": 3,
+  "icon": "assets/images/icons/sys/sps-4.svg",
+  "title_en": "Public Address Systems",
+  "title_ar": "أنظمة النداء الصوتي العام",
+  "body_en": "",
+  "body_ar": "",
+  "extra": {}
+ },
+ {
+  "division": "sps",
+  "section_key": "systems",
+  "order": 4,
+  "icon": "assets/images/icons/sys/sps-5.svg",
+  "title_en": "Building Management Systems",
+  "title_ar": "أنظمة إدارة المباني",
+  "body_en": "",
+  "body_ar": "",
+  "extra": {}
+ },
+ {
+  "division": "sps",
+  "section_key": "systems",
+  "order": 5,
+  "icon": "assets/images/icons/sys/sps-6.svg",
+  "title_en": "Data Network Solutions",
+  "title_ar": "حلول شبكات البيانات",
+  "body_en": "",
+  "body_ar": "",
+  "extra": {}
+ },
+ {
+  "division": "sps",
+  "section_key": "systems",
+  "order": 6,
+  "icon": "assets/images/icons/sys/sps-7.svg",
+  "title_en": "IP Telephone Systems (VOIP)",
+  "title_ar": "أنظمة الهاتف عبر الإنترنت (VOIP)",
+  "body_en": "",
+  "body_ar": "",
+  "extra": {}
+ },
+ {
+  "division": "sps",
+  "section_key": "systems",
+  "order": 7,
+  "icon": "assets/images/icons/sys/sps-8.svg",
+  "title_en": "Nurse Call Systems",
+  "title_ar": "أنظمة استدعاء الممرّضات",
+  "body_en": "",
+  "body_ar": "",
+  "extra": {}
+ },
+ {
+  "division": "sps",
+  "section_key": "systems",
+  "order": 8,
+  "icon": "assets/images/icons/sys/sps-9.svg",
+  "title_en": "Infant Protection Systems",
+  "title_ar": "أنظمة حماية الرُّضّع",
+  "body_en": "",
+  "body_ar": "",
+  "extra": {}
+ },
+ {
+  "division": "sps",
+  "section_key": "systems",
+  "order": 9,
+  "icon": "assets/images/icons/sys/sps-10.svg",
+  "title_en": "UPS Power Solutions",
+  "title_ar": "حلول الطاقة غير المنقطعة (UPS)",
+  "body_en": "",
+  "body_ar": "",
+  "extra": {}
+ },
+ {
+  "division": "sps",
+  "section_key": "systems",
+  "order": 10,
+  "icon": "assets/images/icons/sys/sps-11.svg",
+  "title_en": "MATV and IPTV Systems",
+  "title_ar": "أنظمة MATV وIPTV",
+  "body_en": "",
+  "body_ar": "",
+  "extra": {}
+ },
+ {
+  "division": "sps",
+  "section_key": "systems",
+  "order": 11,
+  "icon": "assets/images/icons/sys/sps-12.svg",
+  "title_en": "Outdoor Perimeter Detection Systems",
+  "title_ar": "أنظمة كشف التسلّل المحيطي الخارجي",
+  "body_en": "",
+  "body_ar": "",
+  "extra": {}
+ },
+ {
+  "division": "sps",
+  "section_key": "systems",
+  "order": 12,
+  "icon": "assets/images/icons/sys/sps-13.svg",
+  "title_en": "Intrusion Alarm Systems",
+  "title_ar": "أنظمة إنذار التسلّل",
+  "body_en": "",
+  "body_ar": "",
+  "extra": {}
+ },
+ {
+  "division": "sps",
+  "section_key": "systems",
+  "order": 13,
+  "icon": "assets/images/icons/sys/sps-14.svg",
+  "title_en": "Master Clock Systems",
+  "title_ar": "أنظمة الساعة المركزية",
+  "body_en": "",
+  "body_ar": "",
+  "extra": {}
+ },
+ {
+  "division": "sps",
+  "section_key": "systems",
+  "order": 14,
+  "icon": "assets/images/icons/sys/sps-15.svg",
+  "title_en": "Audio Visual Solutions",
+  "title_ar": "الحلول السمعية والبصرية",
+  "body_en": "",
+  "body_ar": "",
+  "extra": {}
+ },
+ {
+  "division": "beta",
+  "section_key": "categories",
+  "order": 0,
+  "icon": "assets/images/icons/cat/beta-1.svg",
+  "title_en": "CNC Punch Presses",
+  "title_ar": "مكابس التثقيب بالتحكّم الرقمي (CNC)",
+  "body_en": "",
+  "body_ar": "",
+  "extra": {}
+ },
+ {
+  "division": "beta",
+  "section_key": "categories",
+  "order": 1,
+  "icon": "assets/images/icons/cat/beta-2.svg",
+  "title_en": "CNC Laser Cutting Machines",
+  "title_ar": "آلات القطع بالليزر بالتحكّم الرقمي (CNC)",
+  "body_en": "",
+  "body_ar": "",
+  "extra": {}
+ },
+ {
+  "division": "beta",
+  "section_key": "categories",
+  "order": 2,
+  "icon": "assets/images/icons/cat/beta-3.svg",
+  "title_en": "CNC Plasma Cutting Machines",
+  "title_ar": "آلات القطع بالبلازما بالتحكّم الرقمي (CNC)",
+  "body_en": "",
+  "body_ar": "",
+  "extra": {}
+ },
+ {
+  "division": "beta",
+  "section_key": "categories",
+  "order": 3,
+  "icon": "assets/images/icons/cat/beta-4.svg",
+  "title_en": "Press Brakes & Shears",
+  "title_ar": "مكابس الثني والمقصّات",
+  "body_en": "",
+  "body_ar": "",
+  "extra": {}
+ },
+ {
+  "division": "beta",
+  "section_key": "categories",
+  "order": 4,
+  "icon": "assets/images/icons/cat/beta-5.svg",
+  "title_en": "Duct Lines & Fabrication Machines",
+  "title_ar": "خطوط مجاري الهواء وآلات التصنيع",
+  "body_en": "",
+  "body_ar": "",
+  "extra": {}
+ },
+ {
+  "division": "beta",
+  "section_key": "categories",
+  "order": 5,
+  "icon": "assets/images/icons/cat/beta-6.svg",
+  "title_en": "CNC Turning, Milling & Grinding Machines",
+  "title_ar": "آلات الخراطة والتفريز والجلخ بالتحكّم الرقمي (CNC)",
+  "body_en": "",
+  "body_ar": "",
+  "extra": {}
+ },
+ {
+  "division": "beta",
+  "section_key": "categories",
+  "order": 6,
+  "icon": "assets/images/icons/cat/beta-7.svg",
+  "title_en": "Beam & Plate Processing Lines",
+  "title_ar": "خطوط معالجة العوارض والألواح",
+  "body_en": "",
+  "body_ar": "",
+  "extra": {}
+ },
+ {
+  "division": "beta",
+  "section_key": "categories",
+  "order": 7,
+  "icon": "assets/images/icons/cat/beta-8.svg",
+  "title_en": "EDM Wire & Die Sinking Machines",
+  "title_ar": "آلات القطع بالشرر الكهربائي بالسلك والقوالب (EDM)",
+  "body_en": "",
+  "body_ar": "",
+  "extra": {}
+ },
+ {
+  "division": "enviro",
+  "section_key": "suppliers",
+  "order": 0,
+  "icon": "",
+  "title_en": "ITC",
+  "title_ar": "ITC",
+  "body_en": "Industrial technology and environmental control systems",
+  "body_ar": "التقنيات الصناعية وأنظمة التحكّم البيئي",
+  "extra": {
+   "badge_en": "Spain",
+   "badge_ar": "إسبانيا"
+  }
+ },
+ {
+  "division": "enviro",
+  "section_key": "suppliers",
+  "order": 1,
+  "icon": "",
+  "title_en": "Denora Water Technologies",
+  "title_ar": "Denora Water Technologies",
+  "body_en": "Advanced electrochemical water treatment solutions",
+  "body_ar": "حلول متقدّمة لمعالجة المياه بالطرق الكهروكيميائية",
+  "extra": {
+   "badge_en": "USA",
+   "badge_ar": "الولايات المتحدة"
+  }
+ },
+ {
+  "division": "enviro",
+  "section_key": "suppliers",
+  "order": 2,
+  "icon": "",
+  "title_en": "Ebara Corporation",
+  "title_ar": "Ebara Corporation",
+  "body_en": "Fluid machinery and environmental engineering",
+  "body_ar": "آلات الموائع والهندسة البيئية",
+  "extra": {
+   "badge_en": "Japan",
+   "badge_ar": "اليابان"
+  }
+ },
+ {
+  "division": "enviro",
+  "section_key": "suppliers",
+  "order": 3,
+  "icon": "",
+  "title_en": "SODECA",
+  "title_ar": "SODECA",
+  "body_en": "Industrial ventilation and air movement equipment",
+  "body_ar": "معدّات التهوية الصناعية وتحريك الهواء",
+  "extra": {
+   "badge_en": "Spain",
+   "badge_ar": "إسبانيا"
+  }
+ },
+ {
+  "division": "enviro",
+  "section_key": "solutions",
+  "order": 0,
+  "icon": "",
+  "title_en": "Water Treatment Systems",
+  "title_ar": "أنظمة معالجة المياه",
+  "body_en": "Treatment plants for municipal and industrial water purification, including membrane filtration, reverse osmosis, and chemical dosing systems.",
+  "body_ar": "محطات معالجة لتنقية المياه البلدية والصناعية، تشمل الترشيح بالأغشية والتناضح العكسي وأنظمة الجرعات الكيميائية.",
+  "extra": {}
+ },
+ {
+  "division": "enviro",
+  "section_key": "solutions",
+  "order": 1,
+  "icon": "",
+  "title_en": "Wastewater Treatment",
+  "title_ar": "معالجة المياه العادمة",
+  "body_en": "Advanced biological and chemical wastewater processing for municipal sewage and industrial effluent, including MBR and activated sludge processes.",
+  "body_ar": "معالجة بيولوجية وكيميائية متقدّمة للمياه العادمة لمياه الصرف الصحي البلدية والنفايات السائلة الصناعية، تشمل المفاعلات الحيوية الغشائية وعمليات الحمأة المنشّطة.",
+  "extra": {}
+ },
+ {
+  "division": "enviro",
+  "section_key": "solutions",
+  "order": 2,
+  "icon": "",
+  "title_en": "Ventilation Systems",
+  "title_ar": "أنظمة التهوية",
+  "body_en": "Industrial ventilation and air movement solutions for process facilities, tunnels, and commercial infrastructure.",
+  "body_ar": "حلول التهوية الصناعية وتحريك الهواء للمنشآت الصناعية والأنفاق والبنية التحتية التجارية.",
+  "extra": {}
+ },
+ {
+  "division": "enviro",
+  "section_key": "solutions",
+  "order": 3,
+  "icon": "",
+  "title_en": "Industrial Environmental Solutions",
+  "title_ar": "الحلول البيئية الصناعية",
+  "body_en": "Integrated environmental engineering services including process design, equipment supply, and turnkey project delivery.",
+  "body_ar": "خدمات هندسية بيئية متكاملة تشمل تصميم العمليات وتوريد المعدّات والتسليم الكامل للمشاريع الجاهزة للتشغيل.",
+  "extra": {}
+ },
+ {
+  "division": "ags",
+  "section_key": "pills",
+  "order": 0,
+  "icon": "assets/images/icons/ags/pill-leaf.svg",
+  "title_en": "Eco-Friendly Products",
+  "title_ar": "منتجات صديقة للبيئة",
+  "body_en": "",
+  "body_ar": "",
+  "extra": {}
+ },
+ {
+  "division": "ags",
+  "section_key": "pills",
+  "order": 1,
+  "icon": "assets/images/icons/ags/pill-sprout.svg",
+  "title_en": "Agronomy Expertise",
+  "title_ar": "خبرة في علوم الزراعة",
+  "body_en": "",
+  "body_ar": "",
+  "extra": {}
+ },
+ {
+  "division": "ags",
+  "section_key": "pills",
+  "order": 2,
+  "icon": "assets/images/icons/ags/pill-flask.svg",
+  "title_en": "Plant Health Solutions",
+  "title_ar": "حلول صحّة النبات",
+  "body_en": "",
+  "body_ar": "",
+  "extra": {}
+ },
+ {
+  "division": "ags",
+  "section_key": "pills",
+  "order": 3,
+  "icon": "assets/images/icons/ags/pill-tractor.svg",
+  "title_en": "Agricultural Support",
+  "title_ar": "دعم زراعي",
+  "body_en": "",
+  "body_ar": "",
+  "extra": {}
+ },
+ {
+  "division": "ags",
+  "section_key": "foundation",
+  "order": 0,
+  "icon": "assets/images/icons/ags/found-vision.svg",
+  "title_en": "Vision",
+  "title_ar": "الرؤية",
+  "body_en": "To be the market's prime provider of agronomy solutions and a major contributor to eco-friendly plant health products that support sustainable agriculture across the region and beyond.",
+  "body_ar": "أن نكون المزوّد الرائد في السوق لحلول علوم الزراعة، ومساهماً رئيسياً في منتجات صحّة النبات الصديقة للبيئة التي تدعم الزراعة المستدامة في أنحاء المنطقة وخارجها.",
+  "extra": {
+   "rule_style": "inline-size: 58px"
+  }
+ },
+ {
+  "division": "ags",
+  "section_key": "foundation",
+  "order": 1,
+  "icon": "assets/images/icons/ags/found-mission.svg",
+  "title_en": "Mission",
+  "title_ar": "الرسالة",
+  "body_en": "To provide clients with effective agronomy products and solutions that improve crop health, productivity, and long-term sustainability — delivering measurable results for every agricultural operation.",
+  "body_ar": "أن نزوّد عملاءنا بمنتجات وحلول فعّالة في علوم الزراعة تحسّن صحّة المحاصيل وإنتاجيتها واستدامتها على المدى الطويل — مع تحقيق نتائج قابلة للقياس لكل عملية زراعية.",
+  "extra": {
+   "rule_style": "inline-size: 72px"
+  }
+ },
+ {
+  "division": "ags",
+  "section_key": "products",
+  "order": 0,
+  "icon": "assets/images/icons/ags/p-bug.svg",
+  "title_en": "Organic Fungicides",
+  "title_ar": "مبيدات فطرية عضوية",
+  "body_en": "Effective biological fungal control for healthy crops.",
+  "body_ar": "مكافحة حيوية فعّالة للفطريات للحصول على محاصيل سليمة.",
+  "extra": {}
+ },
+ {
+  "division": "ags",
+  "section_key": "products",
+  "order": 1,
+  "icon": "assets/images/icons/ags/p-shield.svg",
+  "title_en": "Organic Insecticides",
+  "title_ar": "مبيدات حشرية عضوية",
+  "body_en": "Safe, eco-friendly insect management solutions.",
+  "body_ar": "حلول آمنة وصديقة للبيئة لإدارة الآفات الحشرية.",
+  "extra": {}
+ },
+ {
+  "division": "ags",
+  "section_key": "products",
+  "order": 2,
+  "icon": "assets/images/icons/ags/p-leaf.svg",
+  "title_en": "Herbicides",
+  "title_ar": "مبيدات الأعشاب",
+  "body_en": "Targeted weed control preserving crop integrity.",
+  "body_ar": "مكافحة موجّهة للأعشاب الضارّة مع الحفاظ على سلامة المحاصيل.",
+  "extra": {}
+ },
+ {
+  "division": "ags",
+  "section_key": "products",
+  "order": 3,
+  "icon": "assets/images/icons/ags/p-shell.svg",
+  "title_en": "Nematicides",
+  "title_ar": "مبيدات النيماتودا",
+  "body_en": "Soil nematode management for root protection.",
+  "body_ar": "إدارة النيماتودا في التربة لحماية الجذور.",
+  "extra": {}
+ },
+ {
+  "division": "ags",
+  "section_key": "products",
+  "order": 4,
+  "icon": "assets/images/icons/ags/p-layers.svg",
+  "title_en": "Granular Fertilizers",
+  "title_ar": "أسمدة حُبيبية",
+  "body_en": "Slow-release nutrients for sustained plant growth.",
+  "body_ar": "عناصر غذائية بطيئة الإطلاق لنموّ نباتي مستدام.",
+  "extra": {}
+ },
+ {
+  "division": "ags",
+  "section_key": "products",
+  "order": 5,
+  "icon": "assets/images/icons/ags/p-droplets.svg",
+  "title_en": "Soil Conditioners",
+  "title_ar": "محسّنات التربة",
+  "body_en": "Improving soil structure and water retention.",
+  "body_ar": "تحسين بنية التربة والاحتفاظ بالمياه.",
+  "extra": {}
+ },
+ {
+  "division": "ags",
+  "section_key": "products",
+  "order": 6,
+  "icon": "assets/images/icons/ags/p-beaker.svg",
+  "title_en": "Liquid Bio-Stimulants",
+  "title_ar": "منشّطات حيوية سائلة",
+  "body_en": "Enhancing plant vigor and resilience.",
+  "body_ar": "تعزيز حيوية النبات وقدرته على التحمّل.",
+  "extra": {}
+ },
+ {
+  "division": "ags",
+  "section_key": "products",
+  "order": 7,
+  "icon": "assets/images/icons/ags/p-flask.svg",
+  "title_en": "Powder Bio-Stimulants",
+  "title_ar": "منشّطات حيوية بودرة",
+  "body_en": "Concentrated formulas for targeted plant nutrition.",
+  "body_ar": "تركيبات مركّزة لتغذية نباتية موجّهة.",
+  "extra": {}
+ },
+ {
+  "division": "ags",
+  "section_key": "products",
+  "order": 8,
+  "icon": "assets/images/icons/ags/p-zap.svg",
+  "title_en": "Water pH Correctors",
+  "title_ar": "مصحّحات حموضة المياه",
+  "body_en": "Optimizing irrigation water for better absorption.",
+  "body_ar": "ضبط مياه الريّ لتحقيق امتصاص أفضل.",
+  "extra": {}
+ },
+ {
+  "division": "ags",
+  "section_key": "products",
+  "order": 9,
+  "icon": "assets/images/icons/ags/p-sprout.svg",
+  "title_en": "Spray Adjuvants",
+  "title_ar": "مواد مساعدة للرشّ",
+  "body_en": "Enhancing spray efficiency and product performance.",
+  "body_ar": "تعزيز كفاءة الرشّ وأداء المنتج.",
+  "extra": {}
+ },
+ {
+  "division": "ags",
+  "section_key": "products",
+  "order": 10,
+  "icon": "assets/images/icons/ags/p-wheat.svg",
+  "title_en": "Seeds",
+  "title_ar": "البذور",
+  "body_en": "High-quality certified seeds for diverse crops.",
+  "body_ar": "بذور معتمدة عالية الجودة لمختلف المحاصيل.",
+  "extra": {}
+ },
+ {
+  "division": "azolis",
+  "section_key": "pills",
+  "order": 0,
+  "icon": "assets/images/icons/azolis/pill-1.svg",
+  "title_en": "Technical formulation support",
+  "title_ar": "دعم فني في صياغة الحلول",
+  "body_en": "",
+  "body_ar": "",
+  "extra": {}
+ },
+ {
+  "division": "azolis",
+  "section_key": "pills",
+  "order": 1,
+  "icon": "assets/images/icons/azolis/pill-3.svg",
+  "title_en": "Global specialty chemical network",
+  "title_ar": "شبكة عالمية للكيماويات المتخصّصة",
+  "body_en": "",
+  "body_ar": "",
+  "extra": {}
+ },
+ {
+  "division": "azolis",
+  "section_key": "pills",
+  "order": 2,
+  "icon": "assets/images/icons/azolis/pill-2.svg",
+  "title_en": "High-quality ingredients from trusted suppliers",
+  "title_ar": "مكوّنات عالية الجودة من موردين موثوقين",
+  "body_en": "",
+  "body_ar": "",
+  "extra": {}
+ },
+ {
+  "division": "azolis",
+  "section_key": "pills",
+  "order": 3,
+  "icon": "assets/images/icons/azolis/pill-4.svg",
+  "title_en": "Reliable supply chain and distribution",
+  "title_ar": "سلسلة إمداد وتوزيع موثوقة",
+  "body_en": "",
+  "body_ar": "",
+  "extra": {}
+ },
+ {
+  "division": "azolis",
+  "section_key": "lifecycle",
+  "order": 0,
+  "icon": "assets/images/icons/azolis/life-1.svg",
+  "title_en": "Project Development",
+  "title_ar": "تطوير المشروع",
+  "body_en": "",
+  "body_ar": "",
+  "extra": {
+   "label_en": "Phase 01",
+   "label_ar": "المرحلة 01",
+   "footer_en": "5 key development milestones",
+   "footer_ar": "5 محطات رئيسية في التطوير",
+   "milestones": [
+    {
+     "title_en": "Pre-development",
+     "title_ar": "ما قبل التطوير",
+     "desc_en": "Site assessment, feasibility studies, resource evaluation, and initial technical screening.",
+     "desc_ar": "تقييم الموقع ودراسات الجدوى وتقييم الموارد والفحص الفني الأولي."
+    },
+    {
+     "title_en": "Administrative Authorizations",
+     "title_ar": "التراخيص الإدارية",
+     "desc_en": "Permitting, environmental impact assessments, land rights, and regulatory approvals.",
+     "desc_ar": "إصدار التصاريح وتقييم الأثر البيئي وحقوق الأراضي والموافقات التنظيمية."
+    },
+    {
+     "title_en": "Grid Connection Contract",
+     "title_ar": "عقد الربط بالشبكة",
+     "desc_en": "Technical studies and formal agreements with the network operator for grid interconnection.",
+     "desc_ar": "الدراسات الفنية والاتفاقيات الرسمية مع مشغّل الشبكة للربط بالشبكة الكهربائية."
+    },
+    {
+     "title_en": "Client Contracting",
+     "title_ar": "التعاقد مع العملاء",
+     "desc_en": "Power purchase agreements, offtake agreements, and commercial term negotiations.",
+     "desc_ar": "اتفاقيات شراء الطاقة واتفاقيات الشراء التشغيلي والتفاوض على الشروط التجارية."
+    },
+    {
+     "title_en": "Financing",
+     "title_ar": "التمويل",
+     "desc_en": "Securing project financing, equity structuring, and financial close coordination.",
+     "desc_ar": "تأمين تمويل المشروع وهيكلة رأس المال وتنسيق الإغلاق المالي."
+    }
+   ]
+  }
+ },
+ {
+  "division": "azolis",
+  "section_key": "lifecycle",
+  "order": 1,
+  "icon": "assets/images/icons/azolis/life-2.svg",
+  "title_en": "EPC & O&M",
+  "title_ar": "الهندسة والتوريد والإنشاء والتشغيل والصيانة",
+  "body_en": "",
+  "body_ar": "",
+  "extra": {
+   "label_en": "Phase 02",
+   "label_ar": "المرحلة 02",
+   "footer_en": "5 execution & operational phases",
+   "footer_ar": "5 مراحل تنفيذ وتشغيل",
+   "milestones": [
+    {
+     "title_en": "Project Engineering",
+     "title_ar": "هندسة المشروع",
+     "desc_en": "Detailed electrical, civil and structural engineering design and layout optimization.",
+     "desc_ar": "تصميم هندسي تفصيلي كهربائي ومدني وإنشائي وتحسين المخطّطات."
+    },
+    {
+     "title_en": "Site Survey",
+     "title_ar": "مسح الموقع",
+     "desc_en": "Topographic surveys, geotechnical investigations, and on-site condition assessments.",
+     "desc_ar": "المسوحات الطبوغرافية والدراسات الجيوتقنية وتقييم الظروف في الموقع."
+    },
+    {
+     "title_en": "Construction",
+     "title_ar": "الإنشاء",
+     "desc_en": "Civil works, mounting systems, panel installation, cabling, and substation construction.",
+     "desc_ar": "الأعمال المدنية وأنظمة التثبيت وتركيب الألواح والتمديدات الكهربائية وإنشاء المحطات الفرعية."
+    },
+    {
+     "title_en": "Commissioning",
+     "title_ar": "التشغيل التجريبي",
+     "desc_en": "Testing, performance verification, grid synchronization, and handover to operations.",
+     "desc_ar": "الاختبار والتحقق من الأداء والمزامنة مع الشبكة والتسليم للتشغيل."
+    },
+    {
+     "title_en": "Operation & Maintenance",
+     "title_ar": "التشغيل والصيانة",
+     "desc_en": "Long-term asset management, performance monitoring, preventive and corrective maintenance.",
+     "desc_ar": "إدارة الأصول على المدى الطويل ومراقبة الأداء والصيانة الوقائية والتصحيحية."
+    }
+   ]
+  }
+ }
+]

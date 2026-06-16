@@ -1,0 +1,9 @@
+{% comment %}
+CMS sidebar — divisions sub-menu. Data-driven from `cms_nav_divisions`
+(core.context_processors.cms_nav): each division shows its REAL bilingual name
+and its actual ordered sections (bilingual). `active_div` opens/highlights the
+division currently being edited. data-i18n carries the English; the element text
+is Arabic — admin.js applyLang() swaps them on the language toggle.
+{% endcomment %}
+{% for d in cms_nav_divisions %}<div class="nav-parent{% if d.slug == active_div %} is-open{% endif %}"><a class="nav-item{% if d.slug == active_div %} is-active{% endif %}" href="/cms/division-edit/?div={{ d.slug }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg><span data-i18n="{{ d.name_en }}" dir="auto">{{ d.name_ar }}</span><span class="nav-parent__toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></a><div class="nav-sub">{% for s in d.sections %}<a class="nav-subitem" href="/cms/division-edit/?div={{ d.slug }}#{{ s.key }}"><span data-i18n="{{ s.en }}" dir="auto">{{ s.ar }}</span></a>{% endfor %}</div></div>
+{% endfor %}

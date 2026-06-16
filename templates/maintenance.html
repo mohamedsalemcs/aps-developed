@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ site.site_name_ar }} — صيانة</title>
+  <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+  <style id="aps-brand-overrides">{{ brand_css|safe }}</style>
+  <style>
+    body{margin:0;min-block-size:100vh;display:flex;align-items:center;justify-content:center;background:var(--color-background);font-family:var(--font-base)}
+    .mnt{max-inline-size:520px;text-align:center;padding:48px 28px}
+    .mnt__mark{inline-size:64px;block-size:64px;margin-inline:auto;color:var(--color-primary)}
+    .mnt h1{font-size:26px;color:var(--color-text-primary);margin:22px 0 8px}
+    .mnt p{font-size:16px;color:var(--color-text-secondary);line-height:1.7;margin:0 0 6px}
+    .mnt .en{margin-block-start:18px;color:var(--color-text-secondary)}
+    .mnt a{color:var(--color-primary);font-weight:600;text-decoration:none}
+  </style>
+</head>
+<body>
+  <div class="mnt">
+    <svg class="mnt__mark" viewBox="0 0 46 59" fill="none"><path d="M29.25 0.53H31.87C32.34 0.87 33.18 1.19 33.58 1.58C34.92 2.92 36.4 4.5 37.9 6L41.9 10.08C43.06 11.23 44.08 11.97 44.38 13.71C44.84 16.44 42.3 18.5 40.53 20.24L34.12 26.67C33.47 27.32 32.71 28.13 31.99 28.67C33.72 30.25 35.51 32.17 37.21 33.81C40.22 36.73 44.93 41.07 45.02 43.17C45.08 44.52 44.43 45.7 43.56 46.7C41.82 48.52 39.92 50.26 38.12 52.03C35.89 54.23 33.36 56.66 30.31 58.57C30.15 58.63 29.9 58.71 29.77 58.78H28.74C28.61 58.7 27.88 58.45 27.66 58.36C26.99 58.05 26.22 57.51 25.7 57C24.06 55.41 22.41 53.82 20.78 52.22L18.98 50.45C18.5 49.98 17.63 49.26 17.55 48.58C17.5 48.13 18.19 47.43 18.59 47.48C19.28 47.58 20.09 48.49 20.57 48.95C22.05 50.46 23.6 51.96 25.6 53.9C26.43 54.69 27.21 55.59 28.14 56.27C28.41 56.47 29.06 56.66 29.39 56.65C29.8 56.64 30.58 56.34 30.89 56.05C32.15 54.86 33.43 53.6 34.67 52.38L38.44 48.69C39.75 47.41 41.18 46.16 42.34 44.75C42.59 44.45 42.74 43.64 42.73 43.25C42.72 42.81 42.58 42.37 42.33 42.01C42.1 41.68 41.45 41.04 41.15 40.73L38.92 38.5L30.61 30.34C30.56 30.19 29.41 29.07 29.27 29.05C29.16 28.81 27.39 27.13 27.06 26.81L20.79 20.52L18.81 18.54C17.39 17.11 16.06 15.87 16.46 13.63C16.72 12.18 17.92 11.18 18.91 10.19C20.91 8.17 22.92 6.16 24.93 4.15L27.48 1.62C28.02 1.14 28.66 0.94 29.21 0.55Z" fill="currentColor"/></svg>
+    <h1>{{ site.site_name_ar }}</h1>
+    <p>الموقع تحت الصيانة مؤقتاً. نعمل على تحسينات ونعود قريباً.</p>
+    <p class="en">Our site is undergoing scheduled maintenance and will be back shortly.</p>
+    {% if site.email %}<p class="en">للضرورة: <a href="mailto:{{ site.email }}">{{ site.email }}</a></p>{% endif %}
+  </div>
+</body>
+</html>

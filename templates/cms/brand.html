@@ -1,0 +1,193 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>لوحة تحكم APS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700&family=Cairo:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@400;700&family=Inter:wght@400;700&family=Open+Sans:wght@400;700&family=Poppins:wght@400;700&family=Roboto:wght@400;700&family=Tajawal:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="{% static 'cms/css/admin.css' %}" />
+<link rel="stylesheet" href="{% static 'cms/css/aps-toast.css' %}" />
+<style>
+/* Client feedback: page title + Save/Preview appeared twice. Keep the
+   breadcrumb + pagehead heading + the sticky bottom save bar; drop the
+   duplicate topbar title and pagehead actions. */
+.topbar__title { display: none; }
+.pagehead__actions { display: none; }
+
+/* ---- Theme gallery (replaces the per-colour pickers) ---- */
+.theme-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-block-start: 6px; }
+.theme-swatch { display: flex; flex-direction: column; gap: 8px; padding: 8px; text-align: start; background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; transition: border-color .15s var(--ease), box-shadow .15s var(--ease), transform .1s var(--ease); }
+.theme-swatch:hover { border-color: var(--primary-2); transform: translateY(-1px); }
+.theme-swatch.is-active { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-soft); }
+.theme-swatch__dots { display: flex; align-items: center; gap: 5px; padding: 10px; border-radius: 8px; border: 1px solid var(--border); }
+.theme-swatch__dots i { inline-size: 16px; block-size: 16px; border-radius: 50%; box-shadow: 0 0 0 1px rgba(0,0,0,.08) inset; }
+.theme-swatch__meta { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+.theme-swatch__meta strong { font-size: 13px; color: var(--text); }
+.theme-swatch__badge { font-size: 10px; font-weight: 700; letter-spacing: .03em; padding: 2px 8px; border-radius: 999px; }
+.theme-swatch__badge--light { background: #fef3c7; color: #92600a; }
+.theme-swatch__badge--dark { background: #1f2937; color: #cbd5e1; }
+.theme-sep { block-size: 1px; background: var(--border); margin-block: 18px; }
+.theme-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-block-start: 10px; }
+.size-seg { display: inline-flex; gap: 4px; padding: 4px; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); }
+.size-seg__btn { padding: 7px 14px; border-radius: 8px; font-size: 13px; font-weight: 600; color: var(--muted); }
+.size-seg__btn.is-active { background: var(--surface); color: var(--primary); box-shadow: var(--shadow); }
+</style>
+</head>
+<body>
+<div class="app">
+  <main class="app__main">
+    <header class="topbar">
+      <div><div class="topbar__title"><span data-i18n="Brand & theme">الهوية والتصميم</span></div><div class="topbar__crumbs"><span data-i18n="Appearance / Brand">المظهر / الهوية والتصميم</span></div></div>
+      <div class="topbar__spacer"></div>
+      <div class="langseg" data-langseg><button data-uilang="ar">عربي</button><button data-uilang="en">English</button></div>
+      <a class="btn btn--ghost btn--sm" href="/" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> <span data-i18n="Website">الموقع</span></a>
+      <div class="profile">
+        <button class="profile__btn" data-profile-toggle><div class="avatar">{{ admin_initial }}</div><div class="profile__name" data-i18n="Administrator">مدير النظام</div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="profile-menu">
+          <div class="profile-menu__head"><strong>{{ admin_name }}</strong><span dir="ltr">{{ admin_email }}</span></div>
+          <div class="profile-menu__sep"></div>
+          <a href="/cms/profile/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> <span data-i18n="Profile">الملف الشخصي</span></a>
+          <a href="/cms/settings/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg> <span data-i18n="Settings">الإعدادات</span></a>
+          <div class="profile-menu__sep"></div>
+          <button class="is-danger" data-logout><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> <span data-i18n="Log out">تسجيل الخروج</span></button>
+        </div>
+      </div>
+      <button class="icon-btn" data-sidebar-toggle><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    </header>
+    <div class="content"><div class="pagehead"><div class="pagehead__text"><h1><span data-i18n="Brand & theme">الهوية والتصميم</span></h1><p><span data-i18n="Pick a theme for the site and the dashboard, set the font size, and the logo — persists.">اختر ثيم للموقع وللوحة التحكم، حجم الخط، واللوجو — بتتحفظ فعلاً.</span></p></div><div class="pagehead__actions"><button class="btn btn--ghost" data-reset><span data-i18n="Reset">إعادة تعيين</span></button><button class="btn btn--primary" data-save><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> <span data-i18n="Save">حفظ</span></button></div></div><div class="grid grid--2"><div><div class="card mb16"><div class="card__head"><span class="stat__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".6"/><circle cx="17.5" cy="10.5" r=".6"/><circle cx="8.5" cy="7.5" r=".6"/><circle cx="6.5" cy="12.5" r=".6"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.93 0 1.65-.75 1.65-1.69 0-.44-.18-.83-.44-1.12-.29-.29-.44-.65-.44-1.13a1.64 1.64 0 0 1 1.67-1.66h1.99c3.05 0 5.56-2.51 5.56-5.56C21.97 6.01 17.46 2 12 2z"/></svg></span><h3><span data-i18n="Theme">السمة / الثيم</span></h3></div><div class="card__body"><input type="hidden" data-field="brand.theme" data-theme-field="site"/><input type="hidden" data-field="brand.cmsTheme" data-theme-field="cms"/><input type="hidden" data-field="brand.fontScale" data-fontscale-field/><div class="field"><label><span data-i18n="Website theme — visitors">ثيم الموقع (للزوار)</span></label><div class="theme-gallery" data-theme-gallery="site"></div><div class="theme-actions"><a class="btn btn--ghost btn--sm" data-preview-site target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> <span data-i18n="Preview on the live site">معاينة على الموقع</span></a><span class="table__sub" data-i18n="Opens the site with the selected theme — nothing is saved until you press Save.">بيفتح الموقع بالثيم المختار — مش بيتحفظ غير لما تدوس حفظ.</span></div></div><div class="theme-sep"></div><div class="field"><label><span data-i18n="Dashboard theme">ثيم لوحة التحكم</span></label><div class="theme-gallery" data-theme-gallery="cms"></div></div><div class="field" style="margin-block-start:14px"><label><span data-i18n="Font / interface size">حجم الخط / الواجهة</span></label><div class="size-seg" data-size-seg></div></div></div></div><div class="card mb16"><div class="card__head"><span class="stat__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></span><h3><span data-i18n="Logos">اللوجوهات</span></h3></div><div class="card__body"><div class="field"><label><span data-i18n="Header logo">لوجو الهيدر</span></label><div class="thumb-edit"><img class="thumb-edit__img" style="object-fit:contain;background:#f3f6f9" src="../../website/assets/images/brand/aps-logo.png" alt="" data-icon-view="brand.logo"/><div><button class="btn btn--ghost btn--sm" type="button" data-icon-replace="brand.logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg> <span data-i18n="Upload image / SVG">رفع صورة / SVG</span></button></div></div></div><div class="field" style="margin-block-start:16px"><label><span data-i18n="Footer logo">لوجو الفوتر</span></label><div class="thumb-edit"><img class="thumb-edit__img" style="object-fit:contain;background:#16263a" src="../../website/assets/images/brand/aps-logo-footer.svg" alt="" data-icon-view="brand.logoFooter"/><div><button class="btn btn--ghost btn--sm" type="button" data-icon-replace="brand.logoFooter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg> <span data-i18n="Upload image / SVG">رفع صورة / SVG</span></button></div></div></div></div></div><div class="card"><div class="card__head"><span class="stat__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg></span><h3><span data-i18n="Fonts">الخطوط</span></h3></div><div class="card__body"><div class="field-row"><div class="field"><label><span data-i18n="Arabic font">الخط العربي</span></label><select class="select" data-field="brand.arabicFont"><option>Cairo</option><option>Tajawal</option><option>Almarai</option><option>IBM Plex Sans Arabic</option></select></div><div class="field"><label><span data-i18n="English font">الخط الإنجليزي</span></label><select class="select" data-field="brand.englishFont"><option>Inter</option><option>Poppins</option><option>Roboto</option><option>Open Sans</option></select></div></div><p class="table__sub" style="margin-top:12px"><span data-i18n="Fonts come from Google Fonts. They apply to the site automatically on save; nothing to install.">الخطوط من Google Fonts — بتتطبق على الموقع تلقائياً عند الحفظ، ومفيش حاجة بتتسطب على جهازك.</span></p></div></div></div><div class="card"><div class="card__head"><h3><span data-i18n="Live preview">معاينة حية</span></h3></div><div class="card__body"><div class="preview-card" data-brand-preview><div class="preview-card__banner" dir="ltr" style="background:linear-gradient(120deg,#16263a,var(--bp-accent,#1A6DA2))"><small>About (APS)</small><h4>Integrity-led supply</h4></div><div class="preview-card__body" dir="ltr"><div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px"><span class="preview-pill" style="background:var(--bp-primary,#558BAD);color:#fff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Quality</span><span class="preview-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> Global</span></div><p data-font-ar dir="rtl" style="font-size:15px;margin:0 0 6px;text-align:right">عينة الخط العربي — توريد وتركيب مبني على النزاهة</p><p data-font-en dir="ltr" style="font-size:14px;margin:0 0 14px">English font sample — Integrity-led supply &amp; installation</p><button class="btn btn--primary" style="background:var(--bp-accent,#1A6DA2)">Explore Divisions</button></div></div></div></div></div><div class="savebar"><div class="savebar__status">كل التغييرات محفوظة · All saved</div><div class="savebar__actions"><button class="btn btn--ghost" data-factory-reset="brand" title="عودة للنسخة الأصلية المعتمدة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg> <span data-i18n="Restore defaults">عودة للافتراضية</span></button><button class="btn btn--ghost" data-discard><span data-i18n="Discard">تجاهل</span></button><button class="btn btn--primary" data-save><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> <span data-i18n="Save">حفظ</span></button></div></div></div>
+  </main>
+  <aside class="sidebar">
+    <div class="sidebar__brand"><svg class="sidebar__logo" viewBox="0 0 46 59" fill="none"><path d="M29.25 0.53H31.87C32.34 0.87 33.18 1.19 33.58 1.58C34.92 2.92 36.4 4.5 37.9 6L41.9 10.08C43.06 11.23 44.08 11.97 44.38 13.71C44.84 16.44 42.3 18.5 40.53 20.24L34.12 26.67C33.47 27.32 32.71 28.13 31.99 28.67C33.72 30.25 35.51 32.17 37.21 33.81C40.22 36.73 44.93 41.07 45.02 43.17C45.08 44.52 44.43 45.7 43.56 46.7C41.82 48.52 39.92 50.26 38.12 52.03C35.89 54.23 33.36 56.66 30.31 58.57C30.15 58.63 29.9 58.71 29.77 58.78H28.74C28.61 58.7 27.88 58.45 27.66 58.36C26.99 58.05 26.22 57.51 25.7 57C24.06 55.41 22.41 53.82 20.78 52.22L18.98 50.45C18.5 49.98 17.63 49.26 17.55 48.58C17.5 48.13 18.19 47.43 18.59 47.48C19.28 47.58 20.09 48.49 20.57 48.95C22.05 50.46 23.6 51.96 25.6 53.9C26.43 54.69 27.21 55.59 28.14 56.27C28.41 56.47 29.06 56.66 29.39 56.65C29.8 56.64 30.58 56.34 30.89 56.05C32.15 54.86 33.43 53.6 34.67 52.38L38.44 48.69C39.75 47.41 41.18 46.16 42.34 44.75C42.59 44.45 42.74 43.64 42.73 43.25C42.72 42.81 42.58 42.37 42.33 42.01C42.1 41.68 41.45 41.04 41.15 40.73L38.92 38.5L30.61 30.34C30.56 30.19 29.41 29.07 29.27 29.05C29.16 28.81 27.39 27.13 27.06 26.81L20.79 20.52L18.81 18.54C17.39 17.11 16.06 15.87 16.46 13.63C16.72 12.18 17.92 11.18 18.91 10.19C20.91 8.17 22.92 6.16 24.93 4.15L27.48 1.62C28.02 1.14 28.66 0.94 29.21 0.55Z" fill="#7CAAC6"/><path d="M0.83 29.98C1.7 28.57 2.43 27.99 3.6 26.83L9.11 21.32C10.06 20.35 11.07 19.11 12.35 18.58C13.22 18.23 14.72 18.16 15.57 18.57C17.06 19.29 18.47 20.98 19.62 22.15L25.53 28.05C26.77 29.29 27.57 29.75 29.27 29.05C29.41 29.07 30.56 30.19 30.61 30.34C30 31.01 29.02 31.39 28.13 31.42C26.51 31.46 25.19 30.75 24.05 29.64C23.25 28.86 22.46 28.07 21.66 27.27L17.59 23.19C16.83 22.44 16.03 21.5 15.2 20.85C14.69 20.44 13.56 20.36 12.99 20.69C12.29 21.07 11.67 21.78 11.11 22.35C10.43 23.05 9.75 23.74 9.06 24.44C7.19 26.32 5.27 28.14 3.44 30.07C2.89 30.66 2.64 31.1 2.67 31.92C2.71 33.02 3.5 33.62 4.21 34.33L6.17 36.3C7.52 37.67 8.88 39.04 10.25 40.4C10.93 41.08 11.58 41.76 12.29 42.41C12.86 42.93 13.33 43.13 14.1 43.1C14.92 43.06 15.56 42.53 16.12 41.98C16.7 41.42 17.26 40.84 17.83 40.28L22.49 35.62C22.87 35.23 23.27 34.84 23.65 34.45C24.17 33.92 24.42 33.64 25.17 33.42C25.48 33.51 25.94 33.64 26.08 33.96C26.54 35.02 24.88 36.29 24.23 36.94L22.15 39.02C20.48 40.68 18.81 42.36 17.1 43.98C15.84 45.17 14.34 45.76 12.65 45.16C11.4 44.72 9.9 43.1 8.96 42.17L6.44 39.69L3.82 37.07C2.71 35.97 1.6 34.97 0.83 33.59C-0.31 32.18 -0.24 31.39 0.83 29.98Z" fill="#558BAD"/></svg><div><div class="sidebar__brand-name">APS</div><div class="sidebar__brand-sub"><span data-i18n="Dashboard">لوحة التحكم</span></div></div></div>
+    <nav class="sidebar__nav"><div class="sidebar__group">
+<a class="nav-item" href="/cms/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg><span data-i18n="Dashboard" dir="auto">لوحة التحكم</span></a>
+<a class="nav-item" href="/cms/inbox/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span data-i18n="Inbox" dir="auto">الرسائل</span>{% if unread_count %}<span class="nav-item__badge" data-stat="inbox">{{ unread_count }}</span>{% endif %}</a>
+</div>
+<div class="sidebar__group"><p class="sidebar__group-title"><span data-i18n="Pages">الصفحات</span></p>
+<a class="nav-item" href="/cms/pages/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><span data-i18n="All pages" dir="auto">كل الصفحات</span></a>
+<div class="nav-parent"><a class="nav-item" href="/cms/page-edit/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><span data-i18n="Home" dir="auto">الرئيسية</span><span class="nav-parent__toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></a><div class="nav-sub"><a class="nav-subitem" href="/cms/page-edit/#hero"><span data-i18n="Hero">الهيرو</span></a><a class="nav-subitem" href="/cms/page-edit/#about"><span data-i18n="About APS">عن APS</span></a><a class="nav-subitem" href="/cms/page-edit/#divisions"><span data-i18n="Divisions">الأقسام</span></a><a class="nav-subitem" href="/cms/page-edit/#partners"><span data-i18n="Partners">شركاؤنا</span></a><a class="nav-subitem" href="/cms/page-edit/#contact"><span data-i18n="Contact">اتصل بنا</span></a></div></div>
+<div class="nav-parent"><a class="nav-item" href="/cms/about-edit/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><span data-i18n="About" dir="auto">عن الشركة</span><span class="nav-parent__toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></a><div class="nav-sub"><a class="nav-subitem" href="/cms/about-edit/#banner"><span data-i18n="Banner">البانر</span></a><a class="nav-subitem" href="/cms/about-edit/#who"><span data-i18n="Who We Are">من نحن</span></a><a class="nav-subitem" href="/cms/about-edit/#foundation"><span data-i18n="Foundation">الرؤية والرسالة</span></a><a class="nav-subitem" href="/cms/about-edit/#principles"><span data-i18n="Principles">مبادئ العمل</span></a></div></div>
+<a class="nav-item" href="/cms/faq/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span data-i18n="FAQ" dir="auto">الأسئلة الشائعة</span><span class="nav-item__badge" data-stat="faq">4</span></a>
+<div class="nav-parent"><a class="nav-item" href="/cms/contact-edit/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span data-i18n="Contact" dir="auto">اتصل بنا</span><span class="nav-parent__toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></a><div class="nav-sub"><a class="nav-subitem" href="/cms/contact-edit/#banner"><span data-i18n="Banner">البانر</span></a><a class="nav-subitem" href="/cms/contact-edit/#form"><span data-i18n="Form">النموذج</span></a><a class="nav-subitem" href="/cms/contact-edit/#info"><span data-i18n="Contact info">بيانات التواصل</span></a><a class="nav-subitem" href="/cms/contact-edit/#map"><span data-i18n="Map">الخريطة</span></a></div></div>
+
+</div>
+<div class="sidebar__group"><p class="sidebar__group-title"><span data-i18n="Divisions">الأقسام</span></p>
+<a class="nav-item" href="/cms/divisions/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg><span data-i18n="All divisions" dir="auto">كل الأقسام</span></a>
+{% include "cms/_division_nav.html" %}
+</div>
+<div class="sidebar__group"><p class="sidebar__group-title"><span data-i18n="Library">المكتبة</span></p>
+<a class="nav-item" href="/cms/media/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span data-i18n="Media library" dir="auto">مكتبة الوسائط</span></a>
+<a class="nav-item" href="/cms/partners/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg><span data-i18n="Partners" dir="auto">الشركاء</span><span class="nav-item__badge">6</span></a>
+</div>
+<div class="sidebar__group"><p class="sidebar__group-title"><span data-i18n="Appearance">المظهر</span></p>
+<a class="nav-item is-active" href="/cms/brand/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg><span data-i18n="Brand & theme" dir="auto">الهوية والتصميم</span></a>
+</div>
+<div class="sidebar__group"><p class="sidebar__group-title"><span data-i18n="System">النظام</span></p>
+<a class="nav-item" href="/cms/settings/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg><span data-i18n="Settings" dir="auto">الإعدادات</span></a>
+</div></nav>
+    <div class="sidebar__user"><div class="avatar">{{ admin_initial }}</div><div><div class="sidebar__user-name">{{ admin_name }}</div><div class="sidebar__user-role"><span data-i18n="Administrator">مدير النظام</span></div></div><button class="sidebar__logout" data-logout title="تسجيل الخروج"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button></div>
+  </aside>
+</div>
+{{ store_data|json_script:"aps-store-data" }}
+<script>try{localStorage.setItem("aps_auth","1");}catch(e){}window.__APS_AUTHED__=1;window.__APS_CSRF__="{{ csrf_token }}";</script>
+<script src="{% static 'cms/js/store.js' %}"></script>
+<script src="{% static 'cms/js/admin.js' %}"></script>
+<script>
+/* Theme gallery wiring for /cms/brand/. The palettes come from the store's
+   read-only `themes` map (server-side single source, see store_api.build_store).
+   Selecting a swatch writes the hidden [data-field] input and dispatches a
+   `change` so admin.js's own handler records it in the store + marks the page
+   dirty; we then refresh the active state + live preview. The CMS-panel theme
+   is applied live via admin.js's window.__APS_applyCmsTheme. */
+(function () {
+  var S = window.Store; if (!S) return;
+  // Mirror of core/themes.py — used ONLY as a fallback if the store wasn't built
+  // with the `themes` key yet (e.g. the dev server hasn't reloaded the new
+  // Python). The server's `themes` map wins whenever it's present.
+  var FALLBACK_THEMES = {
+    aps:      { label_en: "APS Blue",    label_ar: "أزرق APS",   mode: "light", primary: "#558BAD", accent: "#1A6DA2", hover: "#477694", text: "#0B1220", muted: "#475569", bg: "#F7FAFC", footer: "#263F4E", surface: "#FFFFFF", border: "#E2E8F0", footer_text: "#CBD5E1" },
+    emerald:  { label_en: "Emerald",     label_ar: "زمردي",      mode: "light", primary: "#2E9E6B", accent: "#1F8A5B", hover: "#277F56", text: "#0B1A14", muted: "#4B5D54", bg: "#F4FAF7", footer: "#143027", surface: "#FFFFFF", border: "#DCEAE3", footer_text: "#C9E2D5" },
+    sand:     { label_en: "Desert Sand", label_ar: "رملي",       mode: "light", primary: "#C2883B", accent: "#A66A1F", hover: "#A8772F", text: "#211A10", muted: "#5C5345", bg: "#FBF8F2", footer: "#3A2E1C", surface: "#FFFFFF", border: "#ECE4D6", footer_text: "#E6DAC4" },
+    midnight: { label_en: "Midnight",    label_ar: "أزرق ليلي",  mode: "dark",  primary: "#4F9BD0", accent: "#5AA9DE", hover: "#6FB4E4", text: "#E6EDF5", muted: "#9FB2C7", bg: "#0E1726", footer: "#060B14", surface: "#16243A", border: "#25364F", footer_text: "#9FB2C7" },
+    carbon:   { label_en: "Carbon",      label_ar: "كربوني",     mode: "dark",  primary: "#6CA8C9", accent: "#7DB6D6", hover: "#8AC0DC", text: "#E8ECF1", muted: "#A2AEBC", bg: "#121417", footer: "#0A0C0F", surface: "#1B1F25", border: "#2C333C", footer_text: "#A2AEBC" },
+    forest:   { label_en: "Deep Forest", label_ar: "أخضر داكن",  mode: "dark",  primary: "#46B587", accent: "#54C295", hover: "#63CBA1", text: "#E4F1EA", muted: "#9DB7AC", bg: "#0D1A14", footer: "#06120D", surface: "#142620", border: "#213A30", footer_text: "#9DB7AC" }
+  };
+  var stored = S.all().themes;
+  var themes = (stored && Object.keys(stored).length) ? stored : FALLBACK_THEMES;
+  // light presets first, then dark — keeps the gallery grouped visually.
+  var ORDER = ["aps", "emerald", "sand", "midnight", "carbon", "forest"];
+  var SIZES = [["sm", "أصغر", "Small"], ["md", "افتراضي", "Default"], ["lg", "أكبر", "Large"], ["xl", "الأكبر", "X-Large"]];
+
+  function lang() { try { return localStorage.getItem("aps_ui_lang") || "ar"; } catch (e) { return "ar"; } }
+  function tname(t) { return lang() === "en" ? (t.label_en || "") : (t.label_ar || ""); }
+  function fld(which) { return document.querySelector('[data-theme-field="' + which + '"]'); }
+  function fontFld() { return document.querySelector('[data-fontscale-field]'); }
+
+  function swatch(key, t, active) {
+    var dots = ["primary", "accent", "bg", "surface", "text"].map(function (k) {
+      return '<i style="background:' + (t[k] || "#000") + '"></i>';
+    }).join("");
+    var badge = t.mode === "dark" ? (lang() === "en" ? "Dark" : "داكن") : (lang() === "en" ? "Light" : "فاتح");
+    return '<button type="button" class="theme-swatch' + (active ? " is-active" : "") + '" data-key="' + key + '">'
+      + '<span class="theme-swatch__dots">' + dots + "</span>"
+      + '<span class="theme-swatch__meta"><strong>' + tname(t) + "</strong>"
+      + '<span class="theme-swatch__badge theme-swatch__badge--' + (t.mode || "light") + '">' + badge + "</span></span></button>";
+  }
+  function renderGallery(which) {
+    var box = document.querySelector('[data-theme-gallery="' + which + '"]'); if (!box) return;
+    var cur = (fld(which) || {}).value || "aps";
+    box.innerHTML = ORDER.filter(function (k) { return themes[k]; })
+      .map(function (k) { return swatch(k, themes[k], k === cur); }).join("");
+  }
+  function renderSizes() {
+    var seg = document.querySelector("[data-size-seg]"); if (!seg) return;
+    var cur = (fontFld() || {}).value || "md";
+    seg.innerHTML = SIZES.map(function (s) {
+      return '<button type="button" class="size-seg__btn' + (s[0] === cur ? " is-active" : "") + '" data-size="' + s[0] + '">' + (lang() === "en" ? s[2] : s[1]) + "</button>";
+    }).join("");
+  }
+  function paintPreview() {
+    var key = (fld("site") || {}).value || "aps", t = themes[key] || themes.aps || {};
+    var prev = document.querySelector("[data-brand-preview]");
+    if (prev) {
+      prev.style.setProperty("--bp-primary", t.primary || "#558BAD");
+      prev.style.setProperty("--bp-accent", t.accent || "#1A6DA2");
+      prev.style.background = t.surface || "#fff";
+      var body = prev.querySelector(".preview-card__body");
+      if (body) { body.style.background = t.surface || "#fff"; body.style.color = t.text || "#0b1220"; }
+    }
+    var a = document.querySelector("[data-preview-site]");
+    if (a) a.setAttribute("href", "/?preview_theme=" + key);
+  }
+  function fire(input) { input.dispatchEvent(new Event("change", { bubbles: true })); }
+
+  document.addEventListener("click", function (e) {
+    var sw = e.target.closest(".theme-swatch");
+    if (sw) {
+      var which = sw.closest("[data-theme-gallery]").getAttribute("data-theme-gallery");
+      var f = fld(which); if (!f) return;
+      f.value = sw.getAttribute("data-key"); fire(f);
+      renderGallery(which);
+      if (which === "cms" && window.__APS_applyCmsTheme) window.__APS_applyCmsTheme();
+      if (which === "site") paintPreview();
+      return;
+    }
+    var sz = e.target.closest(".size-seg__btn");
+    if (sz) {
+      var ff = fontFld(); if (!ff) return;
+      ff.value = sz.getAttribute("data-size"); fire(ff);
+      renderSizes();
+      if (window.__APS_applyCmsTheme) window.__APS_applyCmsTheme();
+      return;
+    }
+    // re-label swatches/sizes when the UI language is toggled
+    if (e.target.closest("[data-uilang]")) setTimeout(function () { renderGallery("site"); renderGallery("cms"); renderSizes(); }, 0);
+  });
+
+  renderGallery("site"); renderGallery("cms"); renderSizes(); paintPreview();
+})();
+</script>
+</body>
+</html>

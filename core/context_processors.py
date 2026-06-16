@@ -1,0 +1,229 @@
+from django.templatetags.static import static
+from .models import SiteSettings, Partner, SocialLink, Brand
+from .themes import get_theme, get_font_scale, DARK_OVERRIDE_CSS, THEMES
+from divisions.models import Division
+from pages.models import Page
+
+# request path (lang stripped) -> editable Page slug
+_PAGE_SLUG = {"/": "home", "/about": "about", "/contact": "contact"}
+
+
+def page_content(request):
+    """Expose the current static page's CMS content as `pg`, already resolved to
+    the request's language, so the public Home/About/Contact templates render
+    their text from the DB (i.e. CMS edits to these pages reflect on the site)."""
+    path = request.path
+    is_ar = path == "/ar" or path.startswith("/ar/")
+    rel = "/" + (path[3:] if is_ar else path).strip("/")
+    slug = _PAGE_SLUG.get(rel)
+    if not slug:
+        return {}
+    page = Page.objects.filter(slug=slug).prefetch_related("sections").first()
+    if not page:
+        return {}
+    lang = "ar" if is_ar else "en"
+
+    def resolve(v):
+        if isinstance(v, dict):
+            if "en" in v or "ar" in v:
+                return v.get(lang) or v.get("en") or ""
+            return {k: resolve(x) for k, x in v.items()}
+        if isinstance(v, list):
+            return [resolve(x) for x in v]
+        return v
+
+    pg = {s.key: resolve(s.data or {}) for s in page.sections.all()}
+
+    # Resolve hero quick-feature icons to a usable static URL (icons may be a
+    # bare filename, an "uploads/..." upload, or a full "assets/..." path) so
+    # CMS-edited feature icons actually render on the public hero.
+    hero = pg.get("hero")
+    if isinstance(hero, dict) and isinstance(hero.get("features"), list):
+        for f in hero["features"]:
+            if isinstance(f, dict):
+                f["icon_url"] = _icon_url(f.get("icon", ""))
+
+    # Ordered list of VISIBLE section keys (sections are ordered by their CMS
+    # `order`; hidden ones are dropped) so the public template can honour the
+    # editor's section reorder + show/hide just like the division pages.
+    pg_order = [s.key for s in page.sections.all() if not s.hidden]
+    pg_seo = {
+        "title": (page.seo_title_ar if is_ar else page.seo_title_en) or "",
+        "desc": (page.seo_desc_ar if is_ar else page.seo_desc_en) or "",
+    }
+    return {"pg": pg, "pg_order": pg_order, "pg_seo": pg_seo}
+
+
+def _icon_url(v):
+    """A CMS icon value -> a public static URL. Handles bare filenames
+    (assets/images/icons/X), uploads (assets/images/uploads/X) and full paths."""
+    v = (v or "").strip()
+    if not v:
+        return ""
+    if v.startswith(("http://", "https://", "data:", "/")):
+        return v
+    if v.startswith("assets/"):
+        return static(v)
+    if v.startswith("uploads/"):
+        return static("assets/images/" + v)
+    return static("assets/images/icons/" + v)
+
+
+def _brand_css(b, theme_override=None):
+    """:root override of his variables.css tokens from the Brand row. Values
+    equal his CSS defaults by default, so the public site renders identically
+    until the client picks a theme/font size in /cms/brand/.
+
+    The chosen theme preset (b.theme) supplies a full coordinated palette —
+    including surface/border/footer-text — so dark presets actually render dark
+    (cards + borders flip). The "custom" theme falls back to the legacy
+    per-colour fields. b.font_scale multiplies the --fs-* type scale globally.
+
+    `theme_override` lets a logged-in admin PREVIEW a theme via ?preview_theme=
+    without saving (see site_globals)."""
+    theme_key = theme_override or b.theme
+    is_preset = bool(theme_key) and theme_key != "custom" and get_theme(theme_key).get("mode")
+    # A known preset wins; "custom" (or any unknown key) uses the stored colours
+    # so the existing per-colour data isn't lost.
+    if is_preset:
+        t = get_theme(theme_key)
+        primary, accent, hover = t["primary"], t["accent"], t["hover"]
+        text, muted, bg = t["text"], t["muted"], t["bg"]
+        footer, surface, border = t["footer"], t["surface"], t["border"]
+        footer_text = t["footer_text"]
+        is_dark = t["mode"] == "dark"
+    else:
+        primary, accent, hover = b.color_primary, b.color_accent, b.color_hover
+        text, muted, bg = b.color_text, b.color_muted, b.color_bg
+        footer, surface, border, footer_text = b.color_footer, "#ffffff", "#e2e8f0", "#cbd5e1"
+        is_dark = False
+
+    scale = get_font_scale(getattr(b, "font_scale", "md"))
+
+    # Load the two chosen brand fonts from Google Fonts so a font picked in
+    # /cms/brand/ actually renders on the public site (only Inter+Cairo are
+    # bundled locally; any other choice would otherwise silently fall back).
+    fams = []
+    for f in (b.english_font, b.arabic_font):
+        f = (f or "").strip()
+        if f and f not in [x.split(":")[0].replace("family=", "").replace("+", " ") for x in fams]:
+            fams.append("family=" + f.replace(" ", "+") + ":wght@400;500;600;700")
+    font_import = ('@import url("https://fonts.googleapis.com/css2?' + "&".join(fams)
+                   + '&display=swap");') if fams else ""
+    return (
+        font_import +
+        ":root{"
+        f"--color-primary:{primary};"
+        f"--color-primary-hover:{hover};"
+        f"--color-accent:{accent};"
+        f"--color-text-primary:{text};"
+        f"--color-text-secondary:{muted};"
+        f"--color-background:{bg};"
+        f"--color-surface:{surface};"
+        f"--color-border:{border};"
+        f"--color-footer-bg:{footer};"
+        f"--color-footer-text:{footer_text};"
+        f"--font-scale:{scale};"
+        f'--font-en:"{b.english_font}",system-ui,-apple-system,"Segoe UI",sans-serif;'
+        f'--font-ar:"{b.arabic_font}",system-ui,sans-serif;'
+        "}"
+        # client request: drop the decorative offset frame that peeked awkwardly
+        # from behind the About image (loaded after main.css so it wins).
+        ".about__media::after{display:none!important;}"
+        # keep long contact values (e.g. emails) inside their card instead of
+        # overflowing the box.
+        ".contact-card{min-inline-size:0;}"
+        ".contact-card__value{min-inline-size:0;overflow-wrap:anywhere;}"
+        # the header logo is now an <img> (CMS-replaceable) — keep any uploaded
+        # logo's aspect ratio inside the 40x52 mark box.
+        "img.logo__mark{object-fit:contain;}"
+        # dark themes: additive layer re-pointing main.css's hardcoded light
+        # literals at the theme tokens (only emitted for dark presets).
+        + (DARK_OVERRIDE_CSS if is_dark else "")
+    )
+
+
+def _brand_logo_url(b):
+    """Public URL for the HEADER logo (single image): the CMS-uploaded header
+    logo if set, else the default APS logo image."""
+    if b.logo:
+        rel = b.logo if b.logo.startswith("assets/") else "assets/images/" + b.logo
+        return static(rel)
+    return static("assets/images/brand/aps-logo.png")
+
+
+def _brand_footer_logo_url(b):
+    """Public URL for the FOOTER logo (single image): the CMS-uploaded footer
+    logo if set, else the default white footer logo."""
+    if b.logo_footer:
+        rel = b.logo_footer if b.logo_footer.startswith("assets/") else "assets/images/" + b.logo_footer
+        return static(rel)
+    return static("assets/images/brand/aps-logo-footer.svg")
+
+
+def site_globals(request):
+    """Inject site-wide content available to every template:
+    - `site`      : SiteSettings singleton (footer/contact text)
+    - `partners`  : partner marquee logos
+    - `social`    : footer social links
+    - `brand_css` : :root token overrides for the public <head> (brand screen -> site)
+    These appear across many of the designer's pages, so a context processor
+    avoids per-view plumbing.
+    """
+    # public division listings (header dropdown + footer): published only,
+    # ordered by Division.order; nav/footer use cms_extra.menu_en/ar + public_slug.
+    nav_divisions = list(Division.objects.filter(status="published").order_by("order", "id"))
+    division_visible = {d.slug: (d.status == "published") for d in Division.objects.all()}
+    brand = Brand.load()
+    # Logged-in admins can preview any theme on the live site via ?preview_theme=
+    # (e.g. the CMS "Preview" button opens the site with it) without persisting.
+    preview = request.GET.get("preview_theme")
+    if preview and preview not in THEMES:
+        preview = None
+    if preview and not getattr(request.user, "is_staff", False):
+        preview = None
+    return {
+        "site": SiteSettings.load(),
+        "partners": Partner.objects.all(),
+        "social": SocialLink.objects.all(),
+        "brand_css": _brand_css(brand, theme_override=preview),
+        "brand_logo_url": _brand_logo_url(brand),
+        "brand_footer_logo_url": _brand_footer_logo_url(brand),
+        "nav_divisions": nav_divisions,
+        "division_visible": division_visible,
+    }
+
+
+# CMS sidebar: bilingual labels for the per-division section sub-menu items.
+# (en, ar) — keyed by the section key stored in Division.cms_extra["order"].
+_CMS_SECTION_LABELS = {
+    "banner": ("Banner", "البانر"),
+    "about": ("About", "عن القسم"),
+    "systems": ("Systems & Solutions", "الأنظمة والحلول"),
+    "categories": ("Machinery Categories", "فئات الآلات"),
+    "suppliers": ("Suppliers", "الموردون الدوليون"),
+    "solutions": ("Solutions", "الحلول"),
+    "foundation": ("Vision & Mission", "الرؤية والرسالة"),
+    "products": ("Products", "مجموعة المنتجات"),
+    "lifecycle": ("Lifecycle", "مراحل دورة الحياة"),
+    "projects": ("Our Projects", "مشاريعنا"),
+    "partners": ("Partners", "الشركاء"),
+    "contact": ("Contact", "بيانات التواصل"),
+}
+
+
+def cms_nav(request):
+    """CMS sidebar data: each division's REAL bilingual name + its actual ordered
+    sections (bilingual labels), so the divisions sub-menu mirrors the page. Only
+    built for /cms/ requests. `active_div` = the division being edited (?div=)."""
+    if not request.path.startswith("/cms/"):
+        return {}
+    divs = []
+    for d in Division.objects.order_by("order", "id"):
+        order = (d.cms_extra or {}).get("order") or []
+        sections = [{"key": k,
+                     "en": _CMS_SECTION_LABELS.get(k, (k, k))[0],
+                     "ar": _CMS_SECTION_LABELS.get(k, (k, k))[1]} for k in order]
+        divs.append({"slug": d.slug, "name_en": d.name_en, "name_ar": d.name_ar,
+                     "sections": sections})
+    return {"cms_nav_divisions": divs, "active_div": request.GET.get("div") or ""}

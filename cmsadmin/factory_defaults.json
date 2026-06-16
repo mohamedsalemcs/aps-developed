@@ -1,0 +1,1807 @@
+{
+ "settings": {
+  "siteName": {
+   "en": "Arabian Projects & Supplies (APS)",
+   "ar": "العربية للمشاريع والتوريدات (APS)"
+  },
+  "tagline": {
+   "en": "Integrity-led supply & installation across Saudi Arabia",
+   "ar": "توريد وتركيب مبني على النزاهة في كل أنحاء السعودية"
+  },
+  "phone": "+966 12 345 6789",
+  "email": "info@aps-sa.com",
+  "website": "www.aps.com.sa",
+  "address": {
+   "en": "Jeddah, Saudi Arabia",
+   "ar": "جدة، المملكة العربية السعودية"
+  },
+  "social": [
+   {
+    "name": "LinkedIn",
+    "url": "https://linkedin.com/company/aps",
+    "icon": "linkedin.svg"
+   },
+   {
+    "name": "X (Twitter)",
+    "url": "#",
+    "icon": "globe.svg"
+   },
+   {
+    "name": "Instagram",
+    "url": "#",
+    "icon": "instagram.svg"
+   }
+  ],
+  "maintenance": false
+ },
+ "brand": {
+  "colors": {
+   "primary": "#558BAD",
+   "accent": "#1A6DA2",
+   "hover": "#477694",
+   "text": "#0B1220",
+   "muted": "#475569",
+   "bg": "#F7FAFC",
+   "footer": "#0B1220"
+  },
+  "logo": "",
+  "arabicFont": "Cairo",
+  "englishFont": "Inter"
+ },
+ "partners": {
+  "items": [
+   {
+    "name": "Audica",
+    "img": "clinets/audica 1.png"
+   },
+   {
+    "name": "CDVI",
+    "img": "clinets/cdvi 2.png"
+   },
+   {
+    "name": "Samsung",
+    "img": "clinets/samsung 1.png"
+   },
+   {
+    "name": "Vimpex",
+    "img": "clinets/vimpex 2.png"
+   },
+   {
+    "name": "Esser",
+    "img": "clinets/upscale_image [Upscaled].png"
+   },
+   {
+    "name": "CIAS",
+    "img": "clinets/تنزيل 1.png"
+   }
+  ]
+ },
+ "faq": {
+  "items": [
+   {
+    "q": {
+     "en": "What does APS specialize in?",
+     "ar": "ما هو مجال تخصّص APS؟"
+    },
+    "a": {
+     "en": "APS is a diversified group covering trading, supply, and the installation of electro-mechanical plants, delivered through five specialized divisions.",
+     "ar": "‏APS مجموعة متنوّعة الأنشطة تغطّي التجارة والتوريد وتركيب المنشآت الكهروميكانيكية، عبر خمسة أقسام متخصّصة."
+    }
+   },
+   {
+    "q": {
+     "en": "Which industries does APS support?",
+     "ar": "ما القطاعات التي تخدمها APS؟"
+    },
+    "a": {
+     "en": "Industrial, governmental, residential, healthcare, and educational facilities across Saudi Arabia.",
+     "ar": "المنشآت الصناعية والحكومية والسكنية والصحية والتعليمية في جميع أنحاء المملكة العربية السعودية."
+    }
+   },
+   {
+    "q": {
+     "en": "Where is APS headquartered and where does it operate?",
+     "ar": "أين يقع المقر الرئيسي لـ APS وأين تعمل؟"
+    },
+    "a": {
+     "en": "APS is headquartered in Jeddah and operates nationwide through regional offices, including Riyadh and Al Khobar.",
+     "ar": "يقع المقر الرئيسي لـ APS في جدة، وتعمل في جميع أنحاء المملكة من خلال مكاتب إقليمية، تشمل الرياض والخبر."
+    }
+   },
+   {
+    "q": {
+     "en": "How long has APS been in operation?",
+     "ar": "منذ متى تعمل APS؟"
+    },
+    "a": {
+     "en": "APS has built strong business relationships across Saudi Arabia since its inception, with divisions such as SPS established in 2001.",
+     "ar": "بنت APS علاقات عمل قوية في جميع أنحاء المملكة العربية السعودية منذ تأسيسها، مع أقسام مثل SPS التي تأسّست عام 2001."
+    }
+   },
+   {
+    "q": {
+     "en": "Does APS provide installation services?",
+     "ar": "هل تقدّم APS خدمات التركيب؟"
+    },
+    "a": {
+     "en": "Yes — APS delivers complete solutions including system integration, installation, commissioning, training, and after-sales support.",
+     "ar": "نعم — تقدّم APS حلولاً متكاملة تشمل تكامل الأنظمة والتركيب والتشغيل والتدريب والدعم بعد البيع."
+    }
+   },
+   {
+    "q": {
+     "en": "What engineering disciplines does APS cover?",
+     "ar": "ما التخصّصات الهندسية التي تغطّيها APS؟"
+    },
+    "a": {
+     "en": "In-house process, mechanical, and electrical engineering, supported by detailed design and layout optimization.",
+     "ar": "هندسة العمليات والهندسة الميكانيكية والكهربائية داخلياً، مدعومة بالتصميم التفصيلي وتحسين المخطّطات."
+    }
+   },
+   {
+    "q": {
+     "en": "Can APS provide turnkey EPC services?",
+     "ar": "هل يمكن لـ APS تقديم خدمات EPC بنظام تسليم المفتاح؟"
+    },
+    "a": {
+     "en": "Yes — APS delivers turnkey EPC projects from design and supply through installation, commissioning, and handover.",
+     "ar": "نعم — تنفّذ APS مشاريع EPC بنظام تسليم المفتاح، من التصميم والتوريد وصولاً إلى التركيب والتشغيل والتسليم."
+    }
+   },
+   {
+    "q": {
+     "en": "Does APS offer after-sales support and maintenance?",
+     "ar": "هل توفّر APS الدعم بعد البيع والصيانة؟"
+    },
+    "a": {
+     "en": "Yes — APS provides reliable after-sales support, preventive and corrective maintenance, and long-term asset management.",
+     "ar": "نعم — توفّر APS دعماً موثوقاً بعد البيع، وصيانة وقائية وتصحيحية، وإدارة طويلة الأمد للأصول."
+    }
+   },
+   {
+    "q": {
+     "en": "Can APS handle large-scale projects?",
+     "ar": "هل تستطيع APS تنفيذ المشاريع واسعة النطاق؟"
+    },
+    "a": {
+     "en": "Yes — APS has delivered major projects across Saudi Arabia for leading institutions and commercial clients.",
+     "ar": "نعم — نفّذت APS مشاريع كبرى في جميع أنحاء المملكة العربية السعودية لصالح مؤسسات رائدة وعملاء تجاريين."
+    }
+   },
+   {
+    "q": {
+     "en": "What solar and renewable energy projects has APS delivered?",
+     "ar": "ما مشاريع الطاقة الشمسية والمتجدّدة التي نفّذتها APS؟"
+    },
+    "a": {
+     "en": "Through its AZOLIS division, APS develops, finances, builds, and maintains solar power plants for the commercial and industrial segment.",
+     "ar": "من خلال قسم أزوليس، تتولّى APS تطوير محطّات الطاقة الشمسية وتمويلها وبناءها وصيانتها لصالح القطاعين التجاري والصناعي."
+    }
+   },
+   {
+    "q": {
+     "en": "How does APS manage quality across its projects?",
+     "ar": "كيف تدير APS الجودة في مشاريعها؟"
+    },
+    "a": {
+     "en": "APS operates with integrity and professionalism, prioritizing safety, quality, and accountability on every project it undertakes.",
+     "ar": "تعمل APS بنزاهة واحترافية، مع إعطاء الأولوية للسلامة والجودة والمساءلة في كل مشروع تتولّاه."
+    }
+   },
+   {
+    "q": {
+     "en": "How can I submit a project inquiry or RFP?",
+     "ar": "كيف يمكنني تقديم استفسار عن مشروع أو طلب عرض أسعار (RFP)؟"
+    },
+    "a": {
+     "en": "You can reach our team through the contact details below, and we will respond promptly with solutions tailored to your needs.",
+     "ar": "يمكنك التواصل مع فريقنا عبر بيانات الاتصال أدناه، وسنردّ عليك سريعاً بحلول مصمّمة وفق احتياجاتك."
+    }
+   },
+   {
+    "q": {
+     "en": "Does APS work with international partners?",
+     "ar": "هل تعمل APS مع شركاء دوليين؟"
+    },
+    "a": {
+     "en": "Yes — APS collaborates with leading international manufacturers and technology providers.",
+     "ar": "نعم — تتعاون APS مع كبرى الشركات المصنّعة ومزوّدي التقنيات على المستوى الدولي."
+    }
+   },
+   {
+    "q": {
+     "en": "How does APS approach strategic partnerships?",
+     "ar": "كيف تتعامل APS مع الشراكات الاستراتيجية؟"
+    },
+    "a": {
+     "en": "APS builds long-term partnerships based on trust, transparency, and consistent performance.",
+     "ar": "تبني APS شراكات طويلة الأمد قائمة على الثقة والشفافية والأداء المتّسق."
+    }
+   },
+   {
+    "q": {
+     "en": "Does APS engage in subcontracting or joint ventures?",
+     "ar": "هل تعمل APS في التعاقد من الباطن أو المشاريع المشتركة؟"
+    },
+    "a": {
+     "en": "Yes — APS works through specialized companies and partnerships to deliver integrated solutions.",
+     "ar": "نعم — تعمل APS من خلال شركات متخصّصة وشراكات لتقديم حلول متكاملة."
+    }
+   },
+   {
+    "q": {
+     "en": "What certifications and compliance standards does APS hold?",
+     "ar": "ما الشهادات ومعايير الامتثال التي تلتزم بها APS؟"
+    },
+    "a": {
+     "en": "APS adheres to recognized industry standards and a governance-driven framework across all of its operations.",
+     "ar": "تلتزم APS بمعايير الصناعة المعتمدة وبإطار قائم على الحوكمة في جميع عملياتها."
+    }
+   }
+  ]
+ },
+ "pages": {
+  "home": {
+   "title": {
+    "en": "Home",
+    "ar": "الرئيسية"
+   },
+   "status": "published",
+   "updated": "",
+   "seo": {
+    "title": {
+     "en": "APS — Arabian Projects & Supplies",
+     "ar": "APS — العربية للمشاريع والتوريدات"
+    },
+    "desc": {
+     "en": "Integrity-led supply & installation across Saudi Arabia.",
+     "ar": "توريد وتركيب مبني على النزاهة في كل أنحاء السعودية."
+    }
+   },
+   "order": [
+    "hero",
+    "about",
+    "divisions",
+    "partners",
+    "contact"
+   ],
+   "sections": {
+    "hero": {
+     "title": {
+      "en": "Integrity-led supply & installation across Saudi Arabia",
+      "ar": "توريد وتركيب مبني على النزاهة في كل أنحاء السعودية"
+     },
+     "lead": {
+      "en": "APS delivers trading, supply, and electro-mechanical installation through specialized companies and global partners.",
+      "ar": "تقدّم APS التجارة والتوريد والتركيب الكهروميكانيكي عبر شركات متخصصة وشركاء عالميين."
+     },
+     "cta": {
+      "en": "Explore Divisions",
+      "ar": "استكشف الأقسام"
+     },
+     "features": [
+      {
+       "icon": "secure.svg",
+       "text": {
+        "en": "Integrity-led operations",
+        "ar": "عمليات قائمة على النزاهة"
+       }
+      },
+      {
+       "icon": "checkhand.svg",
+       "text": {
+        "en": "Global partners",
+        "ar": "شركاء عالميون"
+       }
+      },
+      {
+       "icon": "Icon-6.svg",
+       "text": {
+        "en": "Nationwide coverage",
+        "ar": "تغطية على مستوى المملكة"
+       }
+      }
+     ]
+    },
+    "about": {
+     "eyebrow": {
+      "en": "About",
+      "ar": "عن الشركة"
+     },
+     "title": {
+      "en": "About APS Group",
+      "ar": "عن مجموعة APS"
+     },
+     "body": {
+      "en": "Arabian Projects and Supplies (APS) is a diversified group of businesses covering a wide spectrum of activities from trading to the supply and installation of electro-mechanical plants.",
+      "ar": "العربية للمشاريع والتوريدات (APS) مجموعة أعمال متنوعة تغطي نطاقاً واسعاً من الأنشطة من التجارة إلى توريد وتركيب المنشآت الكهروميكانيكية."
+     },
+     "cta": {
+      "en": "Learn More",
+      "ar": "اعرف المزيد"
+     }
+    },
+    "divisions": {
+     "title": {
+      "en": "Specialized Divisions. Unified Excellence.",
+      "ar": "أقسام متخصصة. تميّز موحّد."
+     },
+     "subtitle": {
+      "en": "Explore APS's specialized companies across security systems, industrial machinery, environmental solutions, and technology.",
+      "ar": "استكشف شركات APS المتخصصة في أنظمة الأمن والآلات الصناعية والحلول البيئية والتقنية."
+     }
+    },
+    "partners": {
+     "title": {
+      "en": "OUR PARTNERS",
+      "ar": "شركاؤنا"
+     },
+     "subtitle": {
+      "en": "Arabian Projects and Supplies works alongside trusted global manufacturers and brands.",
+      "ar": "تعمل العربية للمشاريع والتوريدات مع مصنّعين وعلامات عالمية موثوقة."
+     }
+    },
+    "contact": {
+     "title": {
+      "en": "Get in touch",
+      "ar": "تواصل معنا"
+     },
+     "subtitle": {
+      "en": "Tell us about your project and our team will get back to you.",
+      "ar": "احكِ لنا عن مشروعك وفريقنا هيرجعلك."
+     }
+    }
+   }
+  },
+  "about": {
+   "title": {
+    "en": "About",
+    "ar": "عن الشركة"
+   },
+   "status": "published",
+   "updated": "",
+   "seo": {
+    "title": {
+     "en": "About APS Group",
+     "ar": "عن مجموعة APS"
+    },
+    "desc": {
+     "en": "A diversified Saudi group delivering electro-mechanical and industrial solutions.",
+     "ar": "مجموعة سعودية متنوعة تقدّم حلولاً كهروميكانيكية وصناعية."
+    }
+   },
+   "order": [
+    "banner",
+    "who",
+    "foundation",
+    "principles"
+   ],
+   "sections": {
+    "banner": {
+     "eyebrow": {
+      "en": "About (APS)",
+      "ar": "عن (APS)"
+     },
+     "title": {
+      "en": "About Arabian Projects & Supplies",
+      "ar": "عن العربية للمشاريع والتوريدات"
+     }
+    },
+    "who": {
+     "title": {
+      "en": "Who We Are",
+      "ar": "من نحن"
+     },
+     "body": {
+      "en": "APS is a diversified group delivering electro-mechanical and industrial solutions across Saudi Arabia, guided by integrity and professionalism.",
+      "ar": "APS مجموعة متنوعة تقدّم حلولاً كهروميكانيكية وصناعية في كل أنحاء السعودية، تقودها النزاهة والاحترافية."
+     }
+    },
+    "foundation": {
+     "title": {
+      "en": "Our Foundation",
+      "ar": "أساسنا"
+     },
+     "body": {
+      "en": "Built on integrity, professionalism, and a governance-driven framework.",
+      "ar": "مبني على النزاهة والاحترافية وإطار قائم على الحوكمة."
+     }
+    },
+    "principles": {
+     "title": {
+      "en": "Business Principles",
+      "ar": "مبادئ العمل"
+     },
+     "body": {
+      "en": "We operate with transparency, accountability, and long-term partnership in mind.",
+      "ar": "نعمل بشفافية ومسؤولية وبعقلية الشراكة طويلة المدى."
+     }
+    }
+   }
+  },
+  "contact": {
+   "title": {
+    "en": "Contact us",
+    "ar": "اتصل بنا"
+   },
+   "status": "published",
+   "updated": "",
+   "seo": {
+    "title": {
+     "en": "Contact APS",
+     "ar": "تواصل مع APS"
+    },
+    "desc": {
+     "en": "Get in touch with the APS team.",
+     "ar": "تواصل مع فريق APS."
+    }
+   },
+   "order": [
+    "banner",
+    "form",
+    "info",
+    "map"
+   ],
+   "sections": {
+    "banner": {
+     "eyebrow": {
+      "en": "Contact (APS)",
+      "ar": "تواصل (APS)"
+     },
+     "title": {
+      "en": "Get in touch with APS",
+      "ar": "تواصل مع APS"
+     }
+    },
+    "form": {
+     "heading": {
+      "en": "Send us a message",
+      "ar": "ابعتلنا رسالة"
+     },
+     "submit": {
+      "en": "Send message",
+      "ar": "إرسال"
+     }
+    },
+    "info": {
+     "heading": {
+      "en": "Reach us directly",
+      "ar": "تواصل معنا مباشرة"
+     }
+    },
+    "map": {
+     "caption": {
+      "en": "Our location in Jeddah",
+      "ar": "موقعنا في جدة"
+     }
+    }
+   }
+  }
+ },
+ "divisions": {
+  "sps": {
+   "name": {
+    "en": "Saudi Projects & Supplies Co. (SPS)",
+    "ar": "السعودية للمشاريع والتوريدات (SPS)"
+   },
+   "slug": "/sps",
+   "status": "published",
+   "updated": "",
+   "order": [
+    "banner",
+    "about",
+    "systems",
+    "projects",
+    "contact"
+   ],
+   "sections": {
+    "banner": {
+     "subtitle": {
+      "en": "SPS Division",
+      "ar": "قسم SPS"
+     }
+    },
+    "about": {
+     "title": {
+      "en": "About Saudi Projects & Supplies Co.",
+      "ar": "عن العربية للمشاريع والتوريدات"
+     },
+     "body": {
+      "en": "Established in 2001 as a security, safety, and control systems integrator across Saudi Arabia.",
+      "ar": "تأسست عام 2001 كمتكامل لأنظمة الأمن والسلامة والتحكم في كل أنحاء السعودية."
+     }
+    },
+    "systems": {
+     "title": {
+      "en": "Systems & Solutions",
+      "ar": "الأنظمة والحلول"
+     },
+     "subtitle": {
+      "en": "A comprehensive portfolio of integrated systems for safety and facility management.",
+      "ar": "محفظة شاملة من الأنظمة المتكاملة للسلامة وإدارة المنشآت."
+     }
+    },
+    "projects": {
+     "title": {
+      "en": "Our Projects",
+      "ar": "مشاريعنا"
+     },
+     "items": [
+      {
+       "img": "divisions/sps/projects/p1.jpg",
+       "title": {
+        "en": "Ajdan Waterfront in the Heart of Khobar",
+        "ar": "واجهة أجدان البحرية في قلب الخبر"
+       },
+       "location": {
+        "en": "",
+        "ar": ""
+       },
+       "typology": {
+        "en": "",
+        "ar": ""
+       },
+       "installed_power": {
+        "en": "",
+        "ar": ""
+       },
+       "contract": {
+        "en": "",
+        "ar": ""
+       }
+      },
+      {
+       "img": "divisions/sps/projects/p2.jpg",
+       "title": {
+        "en": "Ajdan Rise Residential Tower",
+        "ar": "برج أجدان رايز السكني"
+       },
+       "location": {
+        "en": "",
+        "ar": ""
+       },
+       "typology": {
+        "en": "",
+        "ar": ""
+       },
+       "installed_power": {
+        "en": "",
+        "ar": ""
+       },
+       "contract": {
+        "en": "",
+        "ar": ""
+       }
+      },
+      {
+       "img": "divisions/sps/projects/p3.jpg",
+       "title": {
+        "en": "Administrative Court",
+        "ar": "المحكمة الإدارية"
+       },
+       "location": {
+        "en": "",
+        "ar": ""
+       },
+       "typology": {
+        "en": "",
+        "ar": ""
+       },
+       "installed_power": {
+        "en": "",
+        "ar": ""
+       },
+       "contract": {
+        "en": "",
+        "ar": ""
+       }
+      },
+      {
+       "img": "divisions/sps/projects/p4.jpg",
+       "title": {
+        "en": "King Saud University (KSU)",
+        "ar": "جامعة الملك سعود (KSU)"
+       },
+       "location": {
+        "en": "",
+        "ar": ""
+       },
+       "typology": {
+        "en": "",
+        "ar": ""
+       },
+       "installed_power": {
+        "en": "",
+        "ar": ""
+       },
+       "contract": {
+        "en": "",
+        "ar": ""
+       }
+      },
+      {
+       "img": "divisions/sps/projects/p5.jpg",
+       "title": {
+        "en": "King Abdulaziz University (KAAU)",
+        "ar": "جامعة الملك عبدالعزيز (KAAU)"
+       },
+       "location": {
+        "en": "",
+        "ar": ""
+       },
+       "typology": {
+        "en": "",
+        "ar": ""
+       },
+       "installed_power": {
+        "en": "",
+        "ar": ""
+       },
+       "contract": {
+        "en": "",
+        "ar": ""
+       }
+      },
+      {
+       "img": "divisions/sps/projects/p6.jpg",
+       "title": {
+        "en": "Four Points",
+        "ar": "فندق فور بوينتس"
+       },
+       "location": {
+        "en": "",
+        "ar": ""
+       },
+       "typology": {
+        "en": "",
+        "ar": ""
+       },
+       "installed_power": {
+        "en": "",
+        "ar": ""
+       },
+       "contract": {
+        "en": "",
+        "ar": ""
+       }
+      }
+     ]
+    },
+    "contact": {
+     "phone": "+966 9200 14 515",
+     "site": "www.spsc.com.sa",
+     "email": "sales.sps@aps.com.sa"
+    }
+   },
+   "cards": {
+    "systems": [
+     {
+      "icon": "icons/sys/sps-1.svg",
+      "title": {
+       "en": "Fire Detection and Alarm Systems",
+       "ar": "أنظمة كشف الحرائق والإنذار"
+      },
+      "body": {
+       "en": "",
+       "ar": ""
+      },
+      "extra": {}
+     },
+     {
+      "icon": "icons/sys/sps-2.svg",
+      "title": {
+       "en": "CCTV Surveillance Systems",
+       "ar": "أنظمة المراقبة بالكاميرات (CCTV)"
+      },
+      "body": {
+       "en": "",
+       "ar": ""
+      },
+      "extra": {}
+     },
+     {
+      "icon": "icons/sys/sps-3.svg",
+      "title": {
+       "en": "Access Control Systems",
+       "ar": "أنظمة التحكّم في الدخول"
+      },
+      "body": {
+       "en": "",
+       "ar": ""
+      },
+      "extra": {}
+     },
+     {
+      "icon": "icons/sys/sps-4.svg",
+      "title": {
+       "en": "Public Address Systems",
+       "ar": "أنظمة النداء الصوتي العام"
+      },
+      "body": {
+       "en": "",
+       "ar": ""
+      },
+      "extra": {}
+     },
+     {
+      "icon": "icons/sys/sps-5.svg",
+      "title": {
+       "en": "Building Management Systems",
+       "ar": "أنظمة إدارة المباني"
+      },
+      "body": {
+       "en": "",
+       "ar": ""
+      },
+      "extra": {}
+     },
+     {
+      "icon": "icons/sys/sps-6.svg",
+      "title": {
+       "en": "Data Network Solutions",
+       "ar": "حلول شبكات البيانات"
+      },
+      "body": {
+       "en": "",
+       "ar": ""
+      },
+      "extra": {}
+     },
+     {
+      "icon": "icons/sys/sps-7.svg",
+      "title": {
+       "en": "IP Telephone Systems (VOIP)",
+       "ar": "أنظمة الهاتف عبر الإنترنت (VOIP)"
+      },
+      "body": {
+       "en": "",
+       "ar": ""
+      },
+      "extra": {}
+     },
+     {
+      "icon": "icons/sys/sps-8.svg",
+      "title": {
+       "en": "Nurse Call Systems",
+       "ar": "أنظمة استدعاء الممرّضات"
+      },
+      "body": {
+       "en": "",
+       "ar": ""
+      },
+      "extra": {}
+     },
+     {
+      "icon": "icons/sys/sps-9.svg",
+      "title": {
+       "en": "Infant Protection Systems",
+       "ar": "أنظمة حماية الرُّضّع"
+      },
+      "body": {
+       "en": "",
+       "ar": ""
+      },
+      "extra": {}
+     },
+     {
+      "icon": "icons/sys/sps-10.svg",
+      "title": {
+       "en": "UPS Power Solutions",
+       "ar": "حلول الطاقة غير المنقطعة (UPS)"
+      },
+      "body": {
+       "en": "",
+       "ar": ""
+      },
+      "extra": {}
+     },
+     {
+      "icon": "icons/sys/sps-11.svg",
+      "title": {
+       "en": "MATV and IPTV Systems",
+       "ar": "أنظمة MATV وIPTV"
+      },
+      "body": {
+       "en": "",
+       "ar": ""
+      },
+      "extra": {}
+     },
+     {
+      "icon": "icons/sys/sps-12.svg",
+      "title": {
+       "en": "Outdoor Perimeter Detection Systems",
+       "ar": "أنظمة كشف التسلّل المحيطي الخارجي"
+      },
+      "body": {
+       "en": "",
+       "ar": ""
+      },
+      "extra": {}
+     },
+     {
+      "icon": "icons/sys/sps-13.svg",
+      "title": {
+       "en": "Intrusion Alarm Systems",
+       "ar": "أنظمة إنذار التسلّل"
+      },
+      "body": {
+       "en": "",
+       "ar": ""
+      },
+      "extra": {}
+     },
+     {
+      "icon": "icons/sys/sps-14.svg",
+      "title": {
+       "en": "Master Clock Systems",
+       "ar": "أنظمة الساعة المركزية"
+      },
+      "body": {
+       "en": "",
+       "ar": ""
+      },
+      "extra": {}
+     },
+     {
+      "icon": "icons/sys/sps-15.svg",
+      "title": {
+       "en": "Audio Visual Solutions",
+       "ar": "الحلول السمعية والبصرية"
+      },
+      "body": {
+       "en": "",
+       "ar": ""
+      },
+      "extra": {}
+     }
+    ]
+   }
+  },
+  "beta": {
+   "name": {
+    "en": "Beta Machinery",
+    "ar": "بيتا للآلات"
+   },
+   "slug": "/beta-machinery",
+   "status": "published",
+   "updated": "",
+   "order": [
+    "banner",
+    "about",
+    "systems",
+    "projects",
+    "contact"
+   ],
+   "sections": {
+    "banner": {
+     "subtitle": {
+      "en": "Beta Machinery Division",
+      "ar": "قسم Beta Machinery"
+     }
+    },
+    "about": {
+     "title": {
+      "en": "About Beta Machinery",
+      "ar": "عن Beta Machinery"
+     },
+     "body": {
+      "en": "Supplies high-tech industrial machinery with installation, commissioning, training, and after-sales support.",
+      "ar": "توريد آلات صناعية عالية التقنية مع التركيب والتشغيل والتدريب ودعم ما بعد البيع."
+     }
+    },
+    "systems": {
+     "title": {
+      "en": "Machinery Categories",
+      "ar": "فئات الآلات"
+     },
+     "subtitle": {
+      "en": "A broad range of industrial machinery across sectors.",
+      "ar": "نطاق واسع من الآلات الصناعية عبر القطاعات."
+     }
+    },
+    "projects": {
+     "title": {
+      "en": "Our Projects",
+      "ar": "مشاريعنا"
+     },
+     "items": []
+    },
+    "contact": {
+     "phone": "+966 11 242 8467",
+     "site": "www.Beta-machinery.net",
+     "email": "sales@betamachinery.com.sa"
+    }
+   },
+   "cards": {
+    "categories": [
+     {
+      "icon": "icons/cat/beta-1.svg",
+      "title": {
+       "en": "CNC Punch Presses",
+       "ar": "مكابس التثقيب بالتحكّم الرقمي (CNC)"
+      },
+      "body": {
+       "en": "",
+       "ar": ""
+      },
+      "extra": {}
+     },
+     {
+      "icon": "icons/cat/beta-2.svg",
+      "title": {
+       "en": "CNC Laser Cutting Machines",
+       "ar": "آلات القطع بالليزر بالتحكّم الرقمي (CNC)"
+      },
+      "body": {
+       "en": "",
+       "ar": ""
+      },
+      "extra": {}
+     },
+     {
+      "icon": "icons/cat/beta-3.svg",
+      "title": {
+       "en": "CNC Plasma Cutting Machines",
+       "ar": "آلات القطع بالبلازما بالتحكّم الرقمي (CNC)"
+      },
+      "body": {
+       "en": "",
+       "ar": ""
+      },
+      "extra": {}
+     },
+     {
+      "icon": "icons/cat/beta-4.svg",
+      "title": {
+       "en": "Press Brakes & Shears",
+       "ar": "مكابس الثني والمقصّات"
+      },
+      "body": {
+       "en": "",
+       "ar": ""
+      },
+      "extra": {}
+     },
+     {
+      "icon": "icons/cat/beta-5.svg",
+      "title": {
+       "en": "Duct Lines & Fabrication Machines",
+       "ar": "خطوط مجاري الهواء وآلات التصنيع"
+      },
+      "body": {
+       "en": "",
+       "ar": ""
+      },
+      "extra": {}
+     },
+     {
+      "icon": "icons/cat/beta-6.svg",
+      "title": {
+       "en": "CNC Turning, Milling & Grinding Machines",
+       "ar": "آلات الخراطة والتفريز والجلخ بالتحكّم الرقمي (CNC)"
+      },
+      "body": {
+       "en": "",
+       "ar": ""
+      },
+      "extra": {}
+     },
+     {
+      "icon": "icons/cat/beta-7.svg",
+      "title": {
+       "en": "Beam & Plate Processing Lines",
+       "ar": "خطوط معالجة العوارض والألواح"
+      },
+      "body": {
+       "en": "",
+       "ar": ""
+      },
+      "extra": {}
+     },
+     {
+      "icon": "icons/cat/beta-8.svg",
+      "title": {
+       "en": "EDM Wire & Die Sinking Machines",
+       "ar": "آلات القطع بالشرر الكهربائي بالسلك والقوالب (EDM)"
+      },
+      "body": {
+       "en": "",
+       "ar": ""
+      },
+      "extra": {}
+     }
+    ]
+   }
+  },
+  "enviro": {
+   "name": {
+    "en": "Envirosystems",
+    "ar": "إنفيروسيستمز"
+   },
+   "slug": "/envirosystems",
+   "status": "published",
+   "updated": "",
+   "order": [
+    "banner",
+    "about",
+    "systems",
+    "projects",
+    "contact"
+   ],
+   "sections": {
+    "banner": {
+     "subtitle": {
+      "en": "Envirosystems Division",
+      "ar": "قسم Envirosystems"
+     }
+    },
+    "about": {
+     "title": {
+      "en": "About Envirosystems",
+      "ar": "عن Envirosystems"
+     },
+     "body": {
+      "en": "Security, safety, and control systems integration for industrial, governmental, and commercial facilities.",
+      "ar": "تكامل أنظمة الأمن والسلامة والتحكم للمنشآت الصناعية والحكومية والتجارية."
+     }
+    },
+    "systems": {
+     "title": {
+      "en": "Solutions",
+      "ar": "الحلول"
+     },
+     "subtitle": {
+      "en": "Integrated environmental and control solutions.",
+      "ar": "حلول بيئية وتحكم متكاملة."
+     }
+    },
+    "projects": {
+     "title": {
+      "en": "Our Projects",
+      "ar": "مشاريعنا"
+     },
+     "items": []
+    },
+    "contact": {
+     "phone": "+966 12 661 7470",
+     "site": "www.envirosystems.com.sa",
+     "email": "info@envirosystems.com.sa"
+    }
+   },
+   "cards": {
+    "solutions": [
+     {
+      "icon": "",
+      "title": {
+       "en": "Water Treatment Systems",
+       "ar": "أنظمة معالجة المياه"
+      },
+      "body": {
+       "en": "Treatment plants for municipal and industrial water purification, including membrane filtration, reverse osmosis, and chemical dosing systems.",
+       "ar": "محطات معالجة لتنقية المياه البلدية والصناعية، تشمل الترشيح بالأغشية والتناضح العكسي وأنظمة الجرعات الكيميائية."
+      },
+      "extra": {}
+     },
+     {
+      "icon": "",
+      "title": {
+       "en": "Wastewater Treatment",
+       "ar": "معالجة المياه العادمة"
+      },
+      "body": {
+       "en": "Advanced biological and chemical wastewater processing for municipal sewage and industrial effluent, including MBR and activated sludge processes.",
+       "ar": "معالجة بيولوجية وكيميائية متقدّمة للمياه العادمة لمياه الصرف الصحي البلدية والنفايات السائلة الصناعية، تشمل المفاعلات الحيوية الغشائية وعمليات الحمأة المنشّطة."
+      },
+      "extra": {}
+     },
+     {
+      "icon": "",
+      "title": {
+       "en": "Ventilation Systems",
+       "ar": "أنظمة التهوية"
+      },
+      "body": {
+       "en": "Industrial ventilation and air movement solutions for process facilities, tunnels, and commercial infrastructure.",
+       "ar": "حلول التهوية الصناعية وتحريك الهواء للمنشآت الصناعية والأنفاق والبنية التحتية التجارية."
+      },
+      "extra": {}
+     },
+     {
+      "icon": "",
+      "title": {
+       "en": "Industrial Environmental Solutions",
+       "ar": "الحلول البيئية الصناعية"
+      },
+      "body": {
+       "en": "Integrated environmental engineering services including process design, equipment supply, and turnkey project delivery.",
+       "ar": "خدمات هندسية بيئية متكاملة تشمل تصميم العمليات وتوريد المعدّات والتسليم الكامل للمشاريع الجاهزة للتشغيل."
+      },
+      "extra": {}
+     }
+    ],
+    "suppliers": [
+     {
+      "icon": "",
+      "title": {
+       "en": "ITC",
+       "ar": "ITC"
+      },
+      "body": {
+       "en": "Industrial technology and environmental control systems",
+       "ar": "التقنيات الصناعية وأنظمة التحكّم البيئي"
+      },
+      "extra": {
+       "badge_en": "Spain",
+       "badge_ar": "إسبانيا"
+      }
+     },
+     {
+      "icon": "",
+      "title": {
+       "en": "Denora Water Technologies",
+       "ar": "Denora Water Technologies"
+      },
+      "body": {
+       "en": "Advanced electrochemical water treatment solutions",
+       "ar": "حلول متقدّمة لمعالجة المياه بالطرق الكهروكيميائية"
+      },
+      "extra": {
+       "badge_en": "USA",
+       "badge_ar": "الولايات المتحدة"
+      }
+     },
+     {
+      "icon": "",
+      "title": {
+       "en": "Ebara Corporation",
+       "ar": "Ebara Corporation"
+      },
+      "body": {
+       "en": "Fluid machinery and environmental engineering",
+       "ar": "آلات الموائع والهندسة البيئية"
+      },
+      "extra": {
+       "badge_en": "Japan",
+       "badge_ar": "اليابان"
+      }
+     },
+     {
+      "icon": "",
+      "title": {
+       "en": "SODECA",
+       "ar": "SODECA"
+      },
+      "body": {
+       "en": "Industrial ventilation and air movement equipment",
+       "ar": "معدّات التهوية الصناعية وتحريك الهواء"
+      },
+      "extra": {
+       "badge_en": "Spain",
+       "badge_ar": "إسبانيا"
+      }
+     }
+    ]
+   }
+  },
+  "ags": {
+   "name": {
+    "en": "Advanced Green Solutions",
+    "ar": "الحلول الخضراء المتقدمة"
+   },
+   "slug": "/advanced-green-solutions",
+   "status": "published",
+   "updated": "",
+   "order": [
+    "banner",
+    "about",
+    "systems",
+    "projects",
+    "contact"
+   ],
+   "sections": {
+    "banner": {
+     "subtitle": {
+      "en": "AGS Division",
+      "ar": "قسم AGS"
+     }
+    },
+    "about": {
+     "title": {
+      "en": "About Advanced Green Solutions",
+      "ar": "عن Advanced Green Solutions"
+     },
+     "body": {
+      "en": "Sustainable and energy-efficient solutions supporting green projects and eco-friendly developments.",
+      "ar": "حلول مستدامة وموفّرة للطاقة تدعم المشاريع الخضراء والتطويرات الصديقة للبيئة."
+     }
+    },
+    "systems": {
+     "title": {
+      "en": "Product Range",
+      "ar": "مجموعة المنتجات"
+     },
+     "subtitle": {
+      "en": "Solar, wind, and energy-efficiency products.",
+      "ar": "منتجات الطاقة الشمسية والرياح وكفاءة الطاقة."
+     }
+    },
+    "projects": {
+     "title": {
+      "en": "Our Projects",
+      "ar": "مشاريعنا"
+     },
+     "items": []
+    },
+    "contact": {
+     "phone": "+966 9200 14 515",
+     "site": "www.ags-ae.com",
+     "email": "ags@aps.com.sa"
+    }
+   },
+   "cards": {
+    "foundation": [
+     {
+      "icon": "icons/ags/found-vision.svg",
+      "title": {
+       "en": "Vision",
+       "ar": "الرؤية"
+      },
+      "body": {
+       "en": "To be the market's prime provider of agronomy solutions and a major contributor to eco-friendly plant health products that support sustainable agriculture across the region and beyond.",
+       "ar": "أن نكون المزوّد الرائد في السوق لحلول علوم الزراعة، ومساهماً رئيسياً في منتجات صحّة النبات الصديقة للبيئة التي تدعم الزراعة المستدامة في أنحاء المنطقة وخارجها."
+      },
+      "extra": {
+       "rule_style": "inline-size: 58px"
+      }
+     },
+     {
+      "icon": "icons/ags/found-mission.svg",
+      "title": {
+       "en": "Mission",
+       "ar": "الرسالة"
+      },
+      "body": {
+       "en": "To provide clients with effective agronomy products and solutions that improve crop health, productivity, and long-term sustainability — delivering measurable results for every agricultural operation.",
+       "ar": "أن نزوّد عملاءنا بمنتجات وحلول فعّالة في علوم الزراعة تحسّن صحّة المحاصيل وإنتاجيتها واستدامتها على المدى الطويل — مع تحقيق نتائج قابلة للقياس لكل عملية زراعية."
+      },
+      "extra": {
+       "rule_style": "inline-size: 72px"
+      }
+     }
+    ],
+    "pills": [
+     {
+      "icon": "icons/ags/pill-leaf.svg",
+      "title": {
+       "en": "Eco-Friendly Products",
+       "ar": "منتجات صديقة للبيئة"
+      },
+      "body": {
+       "en": "",
+       "ar": ""
+      },
+      "extra": {}
+     },
+     {
+      "icon": "icons/ags/pill-sprout.svg",
+      "title": {
+       "en": "Agronomy Expertise",
+       "ar": "خبرة في علوم الزراعة"
+      },
+      "body": {
+       "en": "",
+       "ar": ""
+      },
+      "extra": {}
+     },
+     {
+      "icon": "icons/ags/pill-flask.svg",
+      "title": {
+       "en": "Plant Health Solutions",
+       "ar": "حلول صحّة النبات"
+      },
+      "body": {
+       "en": "",
+       "ar": ""
+      },
+      "extra": {}
+     },
+     {
+      "icon": "icons/ags/pill-tractor.svg",
+      "title": {
+       "en": "Agricultural Support",
+       "ar": "دعم زراعي"
+      },
+      "body": {
+       "en": "",
+       "ar": ""
+      },
+      "extra": {}
+     }
+    ],
+    "products": [
+     {
+      "icon": "icons/ags/p-bug.svg",
+      "title": {
+       "en": "Organic Fungicides",
+       "ar": "مبيدات فطرية عضوية"
+      },
+      "body": {
+       "en": "Effective biological fungal control for healthy crops.",
+       "ar": "مكافحة حيوية فعّالة للفطريات للحصول على محاصيل سليمة."
+      },
+      "extra": {}
+     },
+     {
+      "icon": "icons/ags/p-shield.svg",
+      "title": {
+       "en": "Organic Insecticides",
+       "ar": "مبيدات حشرية عضوية"
+      },
+      "body": {
+       "en": "Safe, eco-friendly insect management solutions.",
+       "ar": "حلول آمنة وصديقة للبيئة لإدارة الآفات الحشرية."
+      },
+      "extra": {}
+     },
+     {
+      "icon": "icons/ags/p-leaf.svg",
+      "title": {
+       "en": "Herbicides",
+       "ar": "مبيدات الأعشاب"
+      },
+      "body": {
+       "en": "Targeted weed control preserving crop integrity.",
+       "ar": "مكافحة موجّهة للأعشاب الضارّة مع الحفاظ على سلامة المحاصيل."
+      },
+      "extra": {}
+     },
+     {
+      "icon": "icons/ags/p-shell.svg",
+      "title": {
+       "en": "Nematicides",
+       "ar": "مبيدات النيماتودا"
+      },
+      "body": {
+       "en": "Soil nematode management for root protection.",
+       "ar": "إدارة النيماتودا في التربة لحماية الجذور."
+      },
+      "extra": {}
+     },
+     {
+      "icon": "icons/ags/p-layers.svg",
+      "title": {
+       "en": "Granular Fertilizers",
+       "ar": "أسمدة حُبيبية"
+      },
+      "body": {
+       "en": "Slow-release nutrients for sustained plant growth.",
+       "ar": "عناصر غذائية بطيئة الإطلاق لنموّ نباتي مستدام."
+      },
+      "extra": {}
+     },
+     {
+      "icon": "icons/ags/p-droplets.svg",
+      "title": {
+       "en": "Soil Conditioners",
+       "ar": "محسّنات التربة"
+      },
+      "body": {
+       "en": "Improving soil structure and water retention.",
+       "ar": "تحسين بنية التربة والاحتفاظ بالمياه."
+      },
+      "extra": {}
+     },
+     {
+      "icon": "icons/ags/p-beaker.svg",
+      "title": {
+       "en": "Liquid Bio-Stimulants",
+       "ar": "منشّطات حيوية سائلة"
+      },
+      "body": {
+       "en": "Enhancing plant vigor and resilience.",
+       "ar": "تعزيز حيوية النبات وقدرته على التحمّل."
+      },
+      "extra": {}
+     },
+     {
+      "icon": "icons/ags/p-flask.svg",
+      "title": {
+       "en": "Powder Bio-Stimulants",
+       "ar": "منشّطات حيوية بودرة"
+      },
+      "body": {
+       "en": "Concentrated formulas for targeted plant nutrition.",
+       "ar": "تركيبات مركّزة لتغذية نباتية موجّهة."
+      },
+      "extra": {}
+     },
+     {
+      "icon": "icons/ags/p-zap.svg",
+      "title": {
+       "en": "Water pH Correctors",
+       "ar": "مصحّحات حموضة المياه"
+      },
+      "body": {
+       "en": "Optimizing irrigation water for better absorption.",
+       "ar": "ضبط مياه الريّ لتحقيق امتصاص أفضل."
+      },
+      "extra": {}
+     },
+     {
+      "icon": "icons/ags/p-sprout.svg",
+      "title": {
+       "en": "Spray Adjuvants",
+       "ar": "مواد مساعدة للرشّ"
+      },
+      "body": {
+       "en": "Enhancing spray efficiency and product performance.",
+       "ar": "تعزيز كفاءة الرشّ وأداء المنتج."
+      },
+      "extra": {}
+     },
+     {
+      "icon": "icons/ags/p-wheat.svg",
+      "title": {
+       "en": "Seeds",
+       "ar": "البذور"
+      },
+      "body": {
+       "en": "High-quality certified seeds for diverse crops.",
+       "ar": "بذور معتمدة عالية الجودة لمختلف المحاصيل."
+      },
+      "extra": {}
+     }
+    ]
+   }
+  },
+  "azolis": {
+   "name": {
+    "en": "AZOLIS Middle East",
+    "ar": "أزوليس الشرق الأوسط"
+   },
+   "slug": "/azolis-middle-east",
+   "status": "published",
+   "updated": "",
+   "order": [
+    "banner",
+    "about",
+    "systems",
+    "projects",
+    "contact"
+   ],
+   "sections": {
+    "banner": {
+     "subtitle": {
+      "en": "AZOLIS Division",
+      "ar": "قسم AZOLIS"
+     }
+    },
+    "about": {
+     "title": {
+      "en": "About AZOLIS Middle East",
+      "ar": "عن AZOLIS Middle East"
+     },
+     "body": {
+      "en": "Specialized chemical solutions and technical services for water and industrial treatment.",
+      "ar": "حلول كيميائية متخصصة وخدمات فنية لمعالجة المياه والمعالجة الصناعية."
+     }
+    },
+    "systems": {
+     "title": {
+      "en": "Lifecycle",
+      "ar": "دورة الحياة"
+     },
+     "subtitle": {
+      "en": "End-to-end chemical treatment lifecycle.",
+      "ar": "دورة حياة معالجة كيميائية متكاملة."
+     }
+    },
+    "projects": {
+     "title": {
+      "en": "Our Projects",
+      "ar": "مشاريعنا"
+     },
+     "items": [
+      {
+       "img": "divisions/azolis/projects/p1.jpg",
+       "title": {
+        "en": "Royal Mansour M’dieq",
+        "ar": "رويال منصور المضيق"
+       },
+       "location": {
+        "en": "Morocco",
+        "ar": "المغرب"
+       },
+       "typology": {
+        "en": "PV carport",
+        "ar": "مظلّة وقوف كهروضوئية"
+       },
+       "installed_power": {
+        "en": "PV carport",
+        "ar": "PV carport"
+       },
+       "contract": {
+        "en": "EPC self-production",
+        "ar": "EPC للإنتاج الذاتي"
+       }
+      },
+      {
+       "img": "divisions/azolis/projects/p2.jpg",
+       "title": {
+        "en": "Confidential (Industrial)",
+        "ar": "مشروع سرّي (صناعي)"
+       },
+       "location": {
+        "en": "Morocco",
+        "ar": "المغرب"
+       },
+       "typology": {
+        "en": "PV rooftop",
+        "ar": "PV على الأسطح"
+       },
+       "installed_power": {
+        "en": "6 MWp",
+        "ar": "6 MWp"
+       },
+       "contract": {
+        "en": "PSA",
+        "ar": "PSA"
+       }
+      },
+      {
+       "img": "divisions/azolis/projects/p3.jpg",
+       "title": {
+        "en": "Marjane Menara",
+        "ar": "مرجان المنارة"
+       },
+       "location": {
+        "en": "Morocco",
+        "ar": "المغرب"
+       },
+       "typology": {
+        "en": "PV rooftop",
+        "ar": "PV على الأسطح"
+       },
+       "installed_power": {
+        "en": "665 kWp",
+        "ar": "665 kWp"
+       },
+       "contract": {
+        "en": "EPC self-production",
+        "ar": "EPC للإنتاج الذاتي"
+       }
+      },
+      {
+       "img": "divisions/azolis/projects/p4.jpg",
+       "title": {
+        "en": "Total Energies",
+        "ar": "Total Energies"
+       },
+       "location": {
+        "en": "Morocco",
+        "ar": "المغرب"
+       },
+       "typology": {
+        "en": "PV rooftop (multi-site)",
+        "ar": "PV على الأسطح (مواقع متعددة)"
+       },
+       "installed_power": {
+        "en": "30 x 12 kWp",
+        "ar": "30 x 12 kWp"
+       },
+       "contract": {
+        "en": "EPC self-production",
+        "ar": "EPC للإنتاج الذاتي"
+       }
+      },
+      {
+       "img": "divisions/azolis/projects/p5.jpg",
+       "title": {
+        "en": "Vertical Green",
+        "ar": "Vertical Green"
+       },
+       "location": {
+        "en": "Morocco",
+        "ar": "المغرب"
+       },
+       "typology": {
+        "en": "Solar pumping",
+        "ar": "الضخّ بالطاقة الشمسية"
+       },
+       "installed_power": {
+        "en": "287 kWp",
+        "ar": "287 kWp"
+       },
+       "contract": {
+        "en": "EPC self-production",
+        "ar": "EPC للإنتاج الذاتي"
+       }
+      },
+      {
+       "img": "divisions/azolis/projects/p6.jpg",
+       "title": {
+        "en": "Lasfar Gaz",
+        "ar": "Lasfar Gaz"
+       },
+       "location": {
+        "en": "Morocco",
+        "ar": "المغرب"
+       },
+       "typology": {
+        "en": "Ground-mounted solar plant",
+        "ar": "محطة شمسية أرضية"
+       },
+       "installed_power": {
+        "en": "50 kWp",
+        "ar": "50 kWp"
+       },
+       "contract": {
+        "en": "EPC en Autoproduction",
+        "ar": "EPC للإنتاج الذاتي"
+       }
+      }
+     ]
+    },
+    "contact": {
+     "phone": "+966 9200 14 515",
+     "site": "www.azolis.com",
+     "email": "sales.azolis@aps.com.sa"
+    }
+   },
+   "cards": {
+    "lifecycle": [
+     {
+      "icon": "icons/azolis/life-1.svg",
+      "title": {
+       "en": "Project Development",
+       "ar": "تطوير المشروع"
+      },
+      "body": {
+       "en": "",
+       "ar": ""
+      },
+      "extra": {
+       "label_en": "Phase 01",
+       "label_ar": "المرحلة 01",
+       "footer_en": "5 key development milestones",
+       "footer_ar": "5 محطات رئيسية في التطوير",
+       "milestones": [
+        {
+         "title_en": "Pre-development",
+         "title_ar": "ما قبل التطوير",
+         "desc_en": "Site assessment, feasibility studies, resource evaluation, and initial technical screening.",
+         "desc_ar": "تقييم الموقع ودراسات الجدوى وتقييم الموارد والفحص الفني الأولي."
+        },
+        {
+         "title_en": "Administrative Authorizations",
+         "title_ar": "التراخيص الإدارية",
+         "desc_en": "Permitting, environmental impact assessments, land rights, and regulatory approvals.",
+         "desc_ar": "إصدار التصاريح وتقييم الأثر البيئي وحقوق الأراضي والموافقات التنظيمية."
+        },
+        {
+         "title_en": "Grid Connection Contract",
+         "title_ar": "عقد الربط بالشبكة",
+         "desc_en": "Technical studies and formal agreements with the network operator for grid interconnection.",
+         "desc_ar": "الدراسات الفنية والاتفاقيات الرسمية مع مشغّل الشبكة للربط بالشبكة الكهربائية."
+        },
+        {
+         "title_en": "Client Contracting",
+         "title_ar": "التعاقد مع العملاء",
+         "desc_en": "Power purchase agreements, offtake agreements, and commercial term negotiations.",
+         "desc_ar": "اتفاقيات شراء الطاقة واتفاقيات الشراء التشغيلي والتفاوض على الشروط التجارية."
+        },
+        {
+         "title_en": "Financing",
+         "title_ar": "التمويل",
+         "desc_en": "Securing project financing, equity structuring, and financial close coordination.",
+         "desc_ar": "تأمين تمويل المشروع وهيكلة رأس المال وتنسيق الإغلاق المالي."
+        }
+       ]
+      }
+     },
+     {
+      "icon": "icons/azolis/life-2.svg",
+      "title": {
+       "en": "EPC & O&M",
+       "ar": "الهندسة والتوريد والإنشاء والتشغيل والصيانة"
+      },
+      "body": {
+       "en": "",
+       "ar": ""
+      },
+      "extra": {
+       "label_en": "Phase 02",
+       "label_ar": "المرحلة 02",
+       "footer_en": "5 execution & operational phases",
+       "footer_ar": "5 مراحل تنفيذ وتشغيل",
+       "milestones": [
+        {
+         "title_en": "Project Engineering",
+         "title_ar": "هندسة المشروع",
+         "desc_en": "Detailed electrical, civil and structural engineering design and layout optimization.",
+         "desc_ar": "تصميم هندسي تفصيلي كهربائي ومدني وإنشائي وتحسين المخطّطات."
+        },
+        {
+         "title_en": "Site Survey",
+         "title_ar": "مسح الموقع",
+         "desc_en": "Topographic surveys, geotechnical investigations, and on-site condition assessments.",
+         "desc_ar": "المسوحات الطبوغرافية والدراسات الجيوتقنية وتقييم الظروف في الموقع."
+        },
+        {
+         "title_en": "Construction",
+         "title_ar": "الإنشاء",
+         "desc_en": "Civil works, mounting systems, panel installation, cabling, and substation construction.",
+         "desc_ar": "الأعمال المدنية وأنظمة التثبيت وتركيب الألواح والتمديدات الكهربائية وإنشاء المحطات الفرعية."
+        },
+        {
+         "title_en": "Commissioning",
+         "title_ar": "التشغيل التجريبي",
+         "desc_en": "Testing, performance verification, grid synchronization, and handover to operations.",
+         "desc_ar": "الاختبار والتحقق من الأداء والمزامنة مع الشبكة والتسليم للتشغيل."
+        },
+        {
+         "title_en": "Operation & Maintenance",
+         "title_ar": "التشغيل والصيانة",
+         "desc_en": "Long-term asset management, performance monitoring, preventive and corrective maintenance.",
+         "desc_ar": "إدارة الأصول على المدى الطويل ومراقبة الأداء والصيانة الوقائية والتصحيحية."
+        }
+       ]
+      }
+     }
+    ],
+    "pills": [
+     {
+      "icon": "icons/azolis/pill-1.svg",
+      "title": {
+       "en": "Technical formulation support",
+       "ar": "دعم فني في صياغة الحلول"
+      },
+      "body": {
+       "en": "",
+       "ar": ""
+      },
+      "extra": {}
+     },
+     {
+      "icon": "icons/azolis/pill-3.svg",
+      "title": {
+       "en": "Global specialty chemical network",
+       "ar": "شبكة عالمية للكيماويات المتخصّصة"
+      },
+      "body": {
+       "en": "",
+       "ar": ""
+      },
+      "extra": {}
+     },
+     {
+      "icon": "icons/azolis/pill-2.svg",
+      "title": {
+       "en": "High-quality ingredients from trusted suppliers",
+       "ar": "مكوّنات عالية الجودة من موردين موثوقين"
+      },
+      "body": {
+       "en": "",
+       "ar": ""
+      },
+      "extra": {}
+     },
+     {
+      "icon": "icons/azolis/pill-4.svg",
+      "title": {
+       "en": "Reliable supply chain and distribution",
+       "ar": "سلسلة إمداد وتوزيع موثوقة"
+      },
+      "body": {
+       "en": "",
+       "ar": ""
+      },
+      "extra": {}
+     }
+    ]
+   }
+  }
+ }
+}

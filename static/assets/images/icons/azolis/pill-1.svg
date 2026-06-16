@@ -1,0 +1,7 @@
+<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Icon">
+<path id="Vector" d="M14 2V8C13.9999 8.33548 14.0841 8.66561 14.245 8.96L19.755 19.04C19.9217 19.3446 20.0062 19.6874 20.0002 20.0345C19.9942 20.3817 19.8979 20.7213 19.7208 21.02C19.5437 21.3187 19.2919 21.5661 18.9902 21.7379C18.6885 21.9098 18.3472 22.0001 18 22H6C5.65278 22.0001 5.31151 21.9098 5.00979 21.7379C4.70807 21.5661 4.45627 21.3187 4.27919 21.02C4.10211 20.7213 4.00583 20.3817 3.99984 20.0345C3.99384 19.6874 4.07833 19.3446 4.245 19.04L9.755 8.96C9.91589 8.66561 10.0001 8.33548 10 8V2" stroke="var(--stroke-0, #1A6DA2)" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_2" d="M6.453 15H17.547" stroke="var(--stroke-0, #1A6DA2)" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_3" d="M8.5 2H15.5" stroke="var(--stroke-0, #1A6DA2)" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

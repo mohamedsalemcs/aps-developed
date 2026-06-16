@@ -1,0 +1,153 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>APS CMS — QA assertions</title>
+<style>
+  body { font: 14px/1.5 Consolas, monospace; background: #0e1f30; color: #dfe9f3; padding: 24px; }
+  h1 { font-size: 18px; }
+  table { border-collapse: collapse; width: 100%; max-width: 980px; }
+  td, th { border: 1px solid #2a4258; padding: 7px 12px; text-align: left; }
+  .pass { color: #5fd6a0; font-weight: 700; }
+  .fail { color: #f3897f; font-weight: 700; }
+  #sum { font-size: 16px; margin: 14px 0; }
+  iframe { width: 1280px; height: 800px; border: 0; position: absolute; left: -99999px; }
+</style>
+</head>
+<body>
+<h1>APS CMS — automated QA assertions</h1>
+<div id="sum">running…</div>
+<table id="out"><tr><th>#</th><th>Test</th><th>Result</th><th>Detail</th></tr></table>
+<iframe id="fr"></iframe>
+<script>
+localStorage.setItem("aps_auth", '{"qa":1}');
+localStorage.removeItem("aps_cms_v7"); // fresh seed
+localStorage.setItem("aps_ui_lang", "ar");
+
+var rows = [], fr = document.getElementById("fr");
+function report(name, ok, detail) { rows.push([name, ok, detail || ""]); }
+function flush() {
+  var t = document.getElementById("out");
+  rows.forEach(function (r, i) {
+    var tr = document.createElement("tr");
+    tr.innerHTML = "<td>" + (i + 1) + "</td><td>" + r[0] + "</td><td class='" + (r[1] ? "pass'>PASS" : "fail'>FAIL") + "</td><td>" + r[2] + "</td>";
+    t.appendChild(tr);
+  });
+  var p = rows.filter(function (r) { return r[1]; }).length;
+  document.getElementById("sum").textContent = p + " / " + rows.length + " passed" + (p === rows.length ? " — ALL GREEN ✔" : " — FAILURES ✘");
+  document.title = "QA " + p + "/" + rows.length;
+}
+function load(url) {
+  return new Promise(function (res) {
+    fr.onload = function () { setTimeout(function () { res(fr.contentWindow); }, 700); };
+    fr.src = url;
+  });
+}
+function q(w, s) { return w.document.querySelector(s); }
+function qa(w, s) { return w.document.querySelectorAll(s); }
+
+(async function () {
+  try {
+    // T1+T2: home editor, hash jump on load, accordion tools
+    var w = await load("page-edit.html#partners");
+    var sec = w.document.getElementById("partners");
+    report("hash jump opens #partners section", !!(sec && sec.classList.contains("is-open")));
+    report("page scrolled to the section", w.scrollY > 50, "scrollY=" + w.scrollY);
+    report("no duplicate collapse-toggle button", qa(w, '[data-sec="toggle"]').length === 0);
+    report("reorder buttons exist (up/down)", qa(w, '[data-sec="up"]').length >= 4 && qa(w, '[data-sec="down"]').length >= 4);
+    report("one chevron indicator per section", qa(w, ".section-block").length === qa(w, ".section-block__chev").length);
+    report("init completed (savebar text set)", /محفوظة|saved/i.test((q(w, ".savebar__status") || {}).textContent || ""));
+
+    // same-page hash navigation
+    w.location.hash = "#contact";
+    await new Promise(function (r) { setTimeout(r, 500); });
+    report("same-page subnav jump opens #contact", w.document.getElementById("contact").classList.contains("is-open"));
+
+    // T3: brand — fonts + working logo button
+    w = await load("brand.html");
+    report("Arabic font select exists", !!q(w, '[data-field="brand.arabicFont"]'));
+    report("English font select exists", !!q(w, '[data-field="brand.englishFont"]'));
+    report("font live samples in preview", !!q(w, "[data-font-ar]") && !!q(w, "[data-font-en]"));
+    report("Google Fonts preview stylesheet linked", !!q(w, 'link[href*="fonts.googleapis.com"]'));
+    report("old heading/body font fields removed", !q(w, '[data-field="brand.headingFont"]') && !q(w, '[data-field="brand.bodyFont"]'));
+    report("logo replace button is wired", !!q(w, 'button[data-icon-replace="brand.logo"]'));
+    report("logo preview bound to store", !!q(w, 'img[data-icon-view="brand.logo"]'));
+    report("7 color pickers present", qa(w, "input[type=color][data-color]").length === 7);
+
+    // T4: division beta + projects
+    w = await load("division-edit.html?div=beta#projects");
+    report("beta loads its own name (bilingual)", /Beta Machinery|بيتا/.test((q(w, "[data-div-title]") || {}).textContent || ""));
+    var pr = w.document.getElementById("projects");
+    report("#projects section exists + opened via hash", !!(pr && pr.classList.contains("is-open")));
+    report("projects repeater + add button", !!q(w, '[data-repeat$="projects.items"]') && !!q(w, '[data-repeat-add$="projects.items"]'));
+    report("project image replace control in schema", !!q(w, '[data-repeat-tpl="project"]'));
+    report("division name is bilingual (AR+EN inputs)", qa(w, '[data-field$=".name"][data-lang]').length === 2);
+
+    // T5: settings social managed list
+    w = await load("settings.html");
+    report("social: 3 seeded rows", qa(w, '[data-social] .repeat-item').length === 3);
+    report("social: name+url inputs bound", qa(w, 'input[data-field^="settings.social."]').length === 6);
+    report("social: icon replace per row", qa(w, 'button[data-icon-replace^="settings.social."]').length === 3);
+    report("social: add-network button", !!q(w, "[data-social-add]"));
+    report("social: delete + reorder per row", qa(w, '[data-repeat-del="settings.social"]').length === 3 && qa(w, '[data-rm-path="settings.social"]').length === 6);
+
+    // T6: faq data + reorder
+    w = await load("faq.html");
+    report("FAQ items seeded (4)", qa(w, ".repeat-item").length === 4);
+    report("FAQ reorder buttons per item", qa(w, '[data-repeat-move]').length === 8);
+    var q1 = q(w, '.repeat-item input[data-lang="en"]').value;
+    q(w, '[data-repeat-move="down"]').click();
+    await new Promise(function (r) { setTimeout(r, 250); });
+    report("FAQ move-down swaps order", q(w, '.repeat-item input[data-lang="en"]').value !== q1);
+
+    // T7: dashboard stat + dynamic nav divisions
+    w = await load("index.html");
+    report("dashboard FAQ stat = 4", (q(w, "[data-stat=faq]") || {}).textContent === "4");
+    report("dashboard divisions stat = 5", (q(w, "[data-stat=divs]") || {}).textContent === "5");
+    report("nav lists 5 divisions from store", qa(w, '.sidebar__nav a.nav-item[href^="division-edit.html?div="]').length === 5);
+
+    // pages list includes division pages
+    w = await load("pages.html");
+    report("pages list includes 5 division rows", qa(w, "tr[data-div-row]").length === 5);
+
+    // T8: media replace-only
+    w = await load("media.html");
+    report("media: free uploader removed", qa(w, ".uploader").length === 0);
+    report("media: replace buttons on real images", qa(w, "[data-img-replace]").length >= 25, qa(w, "[data-img-replace]").length + " buttons");
+
+    // T9: profile
+    w = await load("profile.html");
+    report("profile fields + save button", !!q(w, "#pfName") && !!q(w, "[data-profile-save]"));
+
+    // T10: partners managed list (add / delete / replace / rename)
+    w = await load("partners.html");
+    report("partners seeded (6 tiles)", qa(w, "[data-partner-del]").length === 6);
+    report("add-partner tile exists", !!q(w, "[data-partner-add]"));
+    report("partner name inputs bound", qa(w, 'input[data-field^="partners.items."]').length === 6);
+    report("partner logo replace bound to store", qa(w, 'img[data-icon-view^="partners.items."]').length === 6);
+    report("partners nav badge dynamic", (q(w, '.sidebar__nav a[href="/cms/partners/"] .nav-item__badge') || {}).textContent === "6");
+    // simulate delete (confirm auto-accepted)
+    w.confirm = function () { return true; };
+    q(w, '[data-partner-del="5"]').click();
+    await new Promise(function (r) { setTimeout(r, 200); });
+    report("delete partner removes tile", qa(w, "[data-partner-del]").length === 5);
+
+    // T11: divisions page — dynamic cards + add/delete
+    w = await load("divisions.html");
+    report("divisions rendered from store (5)", qa(w, "[data-division-del]").length === 5);
+    report("new-division button exists", !!q(w, "[data-division-add]"));
+    report("division cards bilingual names", qa(w, '[data-divisions] h3 [data-i18n]').length === 5);
+    w.confirm = function () { return true; };
+    q(w, '[data-division-del="azolis"]').click();
+    await new Promise(function (r) { setTimeout(r, 250); });
+    report("delete division removes card", qa(w, "[data-division-del]").length === 4);
+    report("delete division updates nav", qa(w, '.sidebar__nav a.nav-item[href^="division-edit.html?div="]').length === 4);
+  } catch (err) {
+    report("EXCEPTION", false, String(err));
+  }
+  flush();
+})();
+</script>
+</body>
+</html>

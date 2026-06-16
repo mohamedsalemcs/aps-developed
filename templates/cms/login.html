@@ -1,0 +1,221 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>تسجيل الدخول — لوحة تحكم APS</title>
+<link rel="stylesheet" href="{% static 'cms/css/admin.css' %}" />
+<link rel="stylesheet" href="{% static 'cms/css/aps-toast.css' %}" />
+<style>
+  /* --- login refinements (reviewer notes) --- */
+  .login__topbar{display:flex;justify-content:flex-end;margin-bottom:6px}
+  .login__brand{display:flex;align-items:center;gap:12px}
+  .login__logo-img{width:42px;height:auto;display:block}
+  /* (b) nicer "remember me" checkbox */
+  .login__remember{display:flex;align-items:center;gap:9px;cursor:pointer;font-size:14px;color:#475569;user-select:none}
+  .login__remember input{appearance:none;-webkit-appearance:none;inline-size:18px;block-size:18px;border:1.6px solid #cbd5e1;border-radius:5px;cursor:pointer;position:relative;flex:none;transition:.15s;margin:0}
+  .login__remember input:checked{background:#1A6DA2;border-color:#1A6DA2}
+  .login__remember input:checked::after{content:"";position:absolute;inset-inline-start:5px;inset-block-start:1px;inline-size:5px;block-size:10px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+  .login__remember input:focus-visible{outline:2px solid #99c0d8;outline-offset:2px}
+</style>
+</head>
+<body class="login-body">
+<div class="login">
+  <div class="login__card">
+    <!-- (a) language switch -->
+    <div class="login__topbar">
+      <div class="langseg" data-langseg><button type="button" data-uilang="ar">عربي</button><button type="button" data-uilang="en">English</button></div>
+    </div>
+    <!-- (c) the real APS logo (same as the website header) -->
+    <div class="login__brand">
+      <img class="login__logo-img" src="{{ brand_logo_url }}" alt="APS" />
+      <div><div class="login__name">APS</div><div class="login__sub"><span data-i18n="Arabian Projects & Supplies">المشاريع والتوريدات العربية</span></div></div>
+    </div>
+    <h1 class="login__title" data-i18n="Sign in">تسجيل الدخول</h1>
+    <p class="login__lead" data-i18n="Welcome back. Sign in to manage your site content.">أهلاً بيك تاني. سجّل دخولك لإدارة محتوى الموقع.</p>
+    <form id="loginForm" action="/cms/login/" method="post">
+      {% csrf_token %}
+      <div class="field"><label data-i18n="Username">اسم المستخدم</label><input class="input" id="email" name="username" type="text" dir="ltr" autocomplete="username" required /></div>
+      <div class="field"><label data-i18n="Password">كلمة المرور</label><input class="input" id="pass" name="password" type="password" dir="ltr" autocomplete="current-password" required /></div>
+      <div class="login__row">
+        <label class="login__remember"><input type="checkbox" checked /> <span data-i18n="Remember me">افتكرني</span></label>
+        <a href="#" class="login__forgot" data-i18n="Forgot password?">نسيت كلمة المرور؟</a>
+      </div>
+      <button class="btn btn--primary btn--block" type="submit" style="padding:13px" data-i18n="Sign in">تسجيل الدخول</button>
+    </form>
+    <p class="login__note">{% if error %}<span style="color:#c0392b" data-i18n="Incorrect username or password">اسم المستخدم أو كلمة المرور غير صحيحة</span>{% else %}<span data-i18n="APS CMS — enter your details to continue.">لوحة تحكم APS — أدخل بياناتك للمتابعة.</span>{% endif %}</p>
+  </div>
+</div>
+
+<!-- Forgot-password modal: email -> validate code (own screen) -> new password -->
+<div class="fp-overlay" id="fpModal" hidden>
+  <div class="fp-card">
+    <button type="button" class="fp-close" id="fpClose" aria-label="إغلاق">&times;</button>
+    <!-- (f) "back" sits ABOVE the title -->
+    <button type="button" class="fp-back" id="fpBack" hidden>‹ <span data-i18n="Back">رجوع</span></button>
+    <h2 class="fp-title" data-i18n="Reset password">إعادة تعيين كلمة المرور</h2>
+
+    <div data-fp-step="1">
+      <p class="fp-lead" data-i18n="Enter your email and we'll send you a verification code.">اكتب بريدك الإلكتروني وهنبعتلك كود تأكيد عليه.</p>
+      <div class="field"><label data-i18n="Email">البريد الإلكتروني</label><input class="input" id="fpEmail" type="email" dir="ltr" autocomplete="email" placeholder="you@example.com" /></div>
+      <button class="btn btn--primary btn--block" id="fpSend" style="padding:12px" data-i18n="Send code">إرسال الكود</button>
+    </div>
+
+    <div data-fp-step="2" hidden>
+      <p class="fp-lead"><span data-i18n="We sent a code to">بعتنا كود على</span> <span id="fpEmailEcho" dir="ltr"></span>. <span data-i18n="Enter the code to continue.">اكتب الكود للمتابعة.</span></p>
+      <div class="field"><label data-i18n="Verification code">كود التأكيد</label><input class="input" id="fpCode" dir="ltr" inputmode="numeric" maxlength="6" placeholder="------" /></div>
+      <button class="btn btn--primary btn--block" id="fpCheck" style="padding:12px" data-i18n="Verify code">تحقّق من الكود</button>
+    </div>
+
+    <div data-fp-step="3" hidden>
+      <p class="fp-lead" data-i18n="Code verified. Set your new password.">تم التحقق من الكود. اكتب كلمة المرور الجديدة.</p>
+      <div class="field"><label data-i18n="New password">كلمة المرور الجديدة</label><input class="input" id="fpNew" type="password" dir="ltr" /></div>
+      <div class="field"><label data-i18n="Confirm password">تأكيد كلمة المرور</label><input class="input" id="fpNew2" type="password" dir="ltr" /></div>
+      <button class="btn btn--primary btn--block" id="fpReset" style="padding:12px" data-i18n="Change password">تغيير كلمة المرور</button>
+    </div>
+
+    <p class="fp-msg" id="fpMsg"></p>
+  </div>
+</div>
+
+<style>
+  .fp-overlay{position:fixed;inset:0;background:rgba(15,43,70,.55);display:flex;align-items:center;justify-content:center;z-index:9999;padding:20px}
+  .fp-overlay[hidden]{display:none}
+  .fp-card{background:#fff;border-radius:16px;padding:26px 26px 22px;width:100%;max-width:380px;position:relative;box-shadow:0 20px 60px rgba(15,43,70,.3)}
+  .fp-close{position:absolute;inset-inline-end:14px;inset-block-start:10px;border:0;background:none;font-size:26px;line-height:1;color:#94a3b8;cursor:pointer}
+  .fp-back{border:0;background:none;color:#1A6DA2;cursor:pointer;font-size:13px;font-weight:700;padding:0;margin:0 0 8px}
+  .fp-title{margin:0 0 6px;font-size:20px;color:#0f2b46}
+  .fp-lead{margin:0 0 16px;color:#5b6b7c;font-size:14px;line-height:1.7}
+  .fp-msg{margin:12px 0 0;font-size:13px;font-weight:600;min-height:1em}
+</style>
+
+<script>
+  try { localStorage.removeItem("aps_auth"); } catch (e) {}
+  window.__APS_CSRF__ = "{{ csrf_token }}";
+
+  /* (a) language switch — swap data-i18n text + page direction; persist choice */
+  var uiLang = "en";
+  try { uiLang = localStorage.getItem("aps_ui_lang") || "en"; } catch (e) {}
+  function applyLang() {
+    document.querySelectorAll("[data-i18n]").forEach(function (el) {
+      if (!el.hasAttribute("data-ar")) el.setAttribute("data-ar", el.textContent);
+      el.textContent = uiLang === "en" ? el.getAttribute("data-i18n") : el.getAttribute("data-ar");
+    });
+    document.documentElement.lang = uiLang;
+    document.documentElement.dir = uiLang === "en" ? "ltr" : "rtl";
+    document.querySelectorAll("[data-uilang]").forEach(function (b) {
+      b.classList.toggle("is-active", b.getAttribute("data-uilang") === uiLang);
+    });
+  }
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest("[data-uilang]");
+    if (!b) return;
+    uiLang = b.getAttribute("data-uilang");
+    try { localStorage.setItem("aps_ui_lang", uiLang); } catch (e) {}
+    applyLang();
+  });
+  applyLang();
+
+  /* Forgot-password: 3 steps — email -> verify code (own screen) -> new password */
+  (function () {
+    var modal = document.getElementById("fpModal");
+    var msg = document.getElementById("fpMsg");
+    var back = document.getElementById("fpBack");
+    function $(id) { return document.getElementById(id); }
+    function stepEl(n) { return document.querySelector('[data-fp-step="' + n + '"]'); }
+    var step = 1;
+    function go(n) {
+      step = n;
+      [1, 2, 3].forEach(function (i) { stepEl(i).hidden = (i !== n); });
+      back.hidden = (n === 1);          // (f) back shown from step 2 onward
+      msg.textContent = ""; msg.style.color = "";
+    }
+    function note(t, ok) { msg.style.color = ok ? "#1f9d6b" : "#dc2626"; msg.textContent = t; }
+    function post(url, body) {
+      return fetch(url, { method: "POST", headers: { "Content-Type": "application/json", "X-CSRFToken": window.__APS_CSRF__ || "", "ngrok-skip-browser-warning": "1" }, body: JSON.stringify(body) })
+        .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); });
+    }
+    var f = document.querySelector(".login__forgot");
+    if (f) f.addEventListener("click", function (e) { e.preventDefault(); modal.hidden = false; go(1); $("fpEmail").focus(); });
+    $("fpClose").addEventListener("click", function () { modal.hidden = true; });
+    // (e) clicking OUTSIDE must NOT close — only the X does. (no overlay handler)
+    back.addEventListener("click", function () { if (step > 1) go(step - 1); });
+
+    // step 1 -> send code -> step 2
+    $("fpSend").addEventListener("click", function () {
+      var email = $("fpEmail").value.trim();
+      if (!email) { note("اكتب بريدك الإلكتروني."); return; }
+      $("fpSend").disabled = true; note("جارٍ الإرسال…", true);
+      post("/cms/forgot/request/", { email: email }).then(function (res) {
+        $("fpSend").disabled = false;
+        if (res.ok && res.j.ok) { $("fpEmailEcho").textContent = email; go(2); $("fpCode").focus(); }
+        else { note((res.j && res.j.error) || "تعذّر الإرسال."); }
+      }).catch(function () { $("fpSend").disabled = false; note("خطأ في الاتصال."); });
+    });
+
+    // (d) step 2 -> VALIDATE the code on its own -> step 3
+    $("fpCheck").addEventListener("click", function () {
+      var email = $("fpEmail").value.trim(), code = $("fpCode").value.trim();
+      if (!code) { note("اكتب الكود اللي وصلك."); return; }
+      $("fpCheck").disabled = true; note("جارٍ التحقق…", true);
+      post("/cms/forgot/check/", { email: email, code: code }).then(function (res) {
+        $("fpCheck").disabled = false;
+        if (res.ok && res.j.ok) { go(3); $("fpNew").focus(); }
+        else { note((res.j && res.j.error) || "الكود غير صحيح."); }
+      }).catch(function () { $("fpCheck").disabled = false; note("خطأ في الاتصال."); });
+    });
+
+    // step 3 -> reset password
+    $("fpReset").addEventListener("click", function () {
+      var email = $("fpEmail").value.trim(), code = $("fpCode").value.trim(), p1 = $("fpNew").value, p2 = $("fpNew2").value;
+      if (p1.length < 8) { note("كلمة المرور لازم 8 أحرف على الأقل."); return; }
+      if (p1 !== p2) { note("كلمتا المرور غير متطابقتين."); return; }
+      $("fpReset").disabled = true; note("جارٍ التغيير…", true);
+      post("/cms/forgot/verify/", { email: email, code: code, password: p1 }).then(function (res) {
+        $("fpReset").disabled = false;
+        if (res.ok && res.j.ok) {
+          note("تم تغيير كلمة المرور ✓ سجّل الدخول بها الآن.", true);
+          setTimeout(function () { modal.hidden = true; var pf = document.getElementById("pass"); if (pf) pf.value = ""; }, 1500);
+        } else { note((res.j && res.j.error) || "تعذّر التغيير."); }
+      }).catch(function () { $("fpReset").disabled = false; note("خطأ في الاتصال."); });
+    });
+  })();
+</script>
+
+<style>
+  /* show/hide password eye — injected into every password field */
+  .pw-wrap{position:relative;display:block}
+  .pw-wrap .input{inline-size:100%;padding-inline-end:44px}
+  .pw-eye{position:absolute;inset-block:0;right:8px;left:auto;margin-block:auto;inline-size:34px;block-size:34px;display:inline-grid;place-items:center;border:0;background:none;color:#94a3b8;cursor:pointer;padding:0}
+  .pw-wrap .input{padding-right:44px;padding-inline-end:44px}
+  /* hide the browser's OWN password-reveal icon (Edge/IE) so only our eye shows */
+  .pw-wrap .input::-ms-reveal,.pw-wrap .input::-ms-clear{display:none}
+  .pw-eye svg{inline-size:20px;block-size:20px}
+  .pw-eye:hover{color:#1A6DA2}
+  .pw-eye__hide{display:none}
+  .pw-eye.is-on .pw-eye__show{display:none}
+  .pw-eye.is-on .pw-eye__hide{display:inline-grid}
+</style>
+<script>
+  (function () {
+    var EYE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
+    var OFF = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>';
+    document.querySelectorAll('input[type="password"]').forEach(function (inp) {
+      if (inp.closest(".pw-wrap")) return;
+      var wrap = document.createElement("div"); wrap.className = "pw-wrap";
+      inp.parentNode.insertBefore(wrap, inp); wrap.appendChild(inp);
+      var b = document.createElement("button"); b.type = "button"; b.className = "pw-eye"; b.tabIndex = -1;
+      b.setAttribute("aria-label", "إظهار/إخفاء كلمة المرور");
+      b.innerHTML = '<span class="pw-eye__show">' + EYE + '</span><span class="pw-eye__hide">' + OFF + '</span>';
+      wrap.appendChild(b);
+      b.addEventListener("click", function () {
+        var show = inp.type === "password";
+        inp.type = show ? "text" : "password";
+        b.classList.toggle("is-on", show);
+      });
+    });
+  })();
+</script>
+</body>
+</html>

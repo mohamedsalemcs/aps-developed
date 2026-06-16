@@ -1,0 +1,13 @@
+# Slim runtime requirements for a free test deploy (PythonAnywhere etc.).
+# The full requirements.txt also pins the E2E test stack (selenium/trio/numpy/
+# imageio-ffmpeg) which the running site does NOT import — only Pillow is used at
+# runtime (partner-logo framing in cmsadmin/store_api.py). Keeping this slim fits
+# the 512 MB free-tier disk and installs in seconds.
+#
+# Uses SQLite (via aps_backend.settings_local), so mysqlclient is intentionally
+# omitted. If you later switch to MySQL, add: mysqlclient==2.2.8
+Django==5.2.15
+pillow==12.2.0
+sqlparse==0.5.5
+asgiref==3.11.1
+tzdata==2026.2

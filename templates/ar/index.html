@@ -1,0 +1,312 @@
+{% load static %}
+<!DOCTYPE html>
+<!--
+  APS — Arabian Projects and Supplies | Home
+  Phase 1: English / LTR. Section-based structure; repeated content
+  (nav links, hero features, division cards, partner logos, footer links)
+  is grouped so each block maps cleanly to a Jinja2/Django template loop
+  in the Phase 2 Python CMS.
+  All icons/images are local (assets/), pre-coloured per context by design.
+-->
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% if pg_seo.title %}{{ pg_seo.title }}{% else %}APS — توريد وتركيب يقوده الالتزام والنزاهة في المملكة العربية السعودية{% endif %}</title>
+  <meta name="description" content="{% if pg_seo.desc %}{{ pg_seo.desc }}{% else %}المشاريع والتوريدات العربية (APS) مجموعة متنوّعة تقدّم التجارة والتوريد والتركيبات الكهروميكانيكية عبر شركات متخصصة وشركاء عالميين في مختلف أنحاء المملكة العربية السعودية.{% endif %}" />
+  <link rel="icon" href="{% static 'assets/images/brand/aps-logo.svg' %}" type="image/svg+xml" />
+  <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+  <style id="aps-brand-overrides">{{ brand_css|safe }}</style>
+</head>
+<body>
+
+  <!-- ============================ HEADER / NAV ============================ -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <!-- CMS: site logo + name -->
+      <a class="logo" href="/ar/" aria-label="APS home"><img class="logo__img" src="{{ brand_logo_url }}" alt="APS" /></a>
+
+      <!-- CMS: primary navigation -->
+      <nav class="main-nav" id="mainNav" aria-label="Primary">
+        <ul>
+          <li><a href="/ar/" aria-current="page">الرئيسية</a></li>
+          <li><a href="/ar/about/">من نحن</a></li>
+          <!-- CMS: Divisions dropdown (links to the 5 division pages) -->
+          <li class="has-dropdown">
+            <button class="nav-dropdown-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="divisionsMenu">
+              الأقسام
+              <span class="nav-caret" aria-hidden="true"><img src="{% static 'assets/images/icons/arrow-down.svg' %}" alt="" /></span>
+            </button>
+            <ul class="nav-dropdown" id="divisionsMenu">
+              {% for d in nav_divisions %}<li><a href="/ar{{ d.cms_extra.public_slug }}/"{% if d.slug == current_division %} aria-current="page"{% endif %}>{{ d.cms_extra.menu_ar }}</a></li>
+              {% endfor %}</ul>
+          </li>
+          <li><a href="/ar/contact/">تواصل معنا</a></li>
+          <li><a href="/ar/faq/">الأسئلة الشائعة</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <!-- Phase 2: language switch wires to the Arabic locale -->
+        <a class="lang-switch" href="/" aria-label="Switch to English" hreflang="en">
+          <img src="{% static 'assets/images/icons/lang-glag.svg' %}" alt="" width="22" height="22" />
+          <span class="lang-text">EN</span>
+        </a>
+        <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="mainNav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    {% for sec in pg_order %}
+    {% if sec == 'hero' %}
+    <!-- ================================ HERO ============================== -->
+    <section class="hero">
+      <div class="container hero__grid">
+        <div class="hero__content">
+          <h1 class="hero__title">{{ pg.hero.title }}</h1>
+          <p class="hero__lead">{{ pg.hero.lead }}</p>
+
+          <!-- CMS: hero feature list (repeatable) -->
+          <ul class="hero__features">
+            {% for f in pg.hero.features %}<li class="feature-pill">
+              <span class="feature-pill__icon"><img src="{{ f.icon_url }}" alt="" /></span>
+              <span>{{ f.text }}</span>
+            </li>
+            {% endfor %}
+          </ul>
+
+          <div>
+            <a class="btn" href="#divisions">
+              {% if pg.hero.cta %}{{ pg.hero.cta }}{% else %}استكشف الأقسام{% endif %}
+              <span class="btn__arrow"><img src="{% static 'assets/images/icons/arrow-on-cta.svg' %}" alt="" /></span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Hero visual — 3 photo diamonds, each wrapped in a logo-inspired
+             rounded-diamond frame. Focus (colour + scale + shadow) cycles
+             between the photos infinitely via pure CSS; frames stay visible. -->
+        <div class="hero__visual" aria-hidden="true">
+          <div class="hero__d hero__d--1">
+            <span class="hero__d__frame"></span>
+            <figure class="hero__d__photo"><img src="{% static 'assets/images/hero/Vector-2.png' %}?v=3" alt="" loading="eager" /></figure>
+          </div>
+          <div class="hero__d hero__d--2">
+            <span class="hero__d__frame"></span>
+            <figure class="hero__d__photo"><img src="{% static 'assets/images/hero/Vector-1.png' %}?v=3" alt="" /></figure>
+          </div>
+          <div class="hero__d hero__d--3">
+            <span class="hero__d__frame"></span>
+            <figure class="hero__d__photo"><img src="{% static 'assets/images/hero/Vector.png' %}?v=3" alt="" /></figure>
+          </div>
+        </div>
+      </div>
+    </section>
+    {% endif %}
+
+    {% if sec == 'about' %}
+    <!-- =============================== ABOUT ============================== -->
+    <section class="about section" id="about">
+      <div class="container">
+       <div class="about__wrap">
+        <span class="about__panel" aria-hidden="true"></span>
+        <div class="about__grid">
+        <div class="about__body">
+          <span class="eyebrow eyebrow--start">{{ pg.about.eyebrow }}</span>
+          <h2 class="section-title">{{ pg.about.title|safe }}</h2>
+          <div class="about__text">{{ pg.about.body|safe }}</div>
+          <div>
+            <a class="btn" href="/ar/about/">
+              {% if pg.about.cta %}{{ pg.about.cta }}{% else %}اعرف المزيد{% endif %}
+              <span class="btn__arrow"><img src="{% static 'assets/images/icons/arrow-on-cta.svg' %}" alt="" /></span>
+            </a>
+          </div>
+        </div>
+        <div class="about__media">
+          <img src="{% static 'assets/images/home-about-us-image.png' %}" alt="مهندسو APS يفحصون المعدّات في الموقع" loading="lazy" />
+        </div>
+        </div>
+       </div>
+      </div>
+    </section>
+    {% endif %}
+
+    {% if sec == 'divisions' %}
+    <!-- ============================= DIVISIONS ============================ -->
+    <section class="divisions section" id="divisions">
+      <div class="container">
+        <div class="divisions__head">
+          <h2 class="section-title">{{ pg.divisions.title|safe }}</h2>
+          <p class="section-subtitle">{{ pg.divisions.subtitle }}</p>
+        </div>
+
+        <!-- CMS: division cards (repeatable content type) -->
+        <div class="divisions__grid">
+          {% if division_visible.enviro %}<article class="division-card">
+            <div class="division-card__media"><img src="{% static 'assets/images/divisions/fjifoie.jpg' %}" alt="غرفة تحكّم إنفايروسيستمز" loading="lazy" /></div>
+            <div class="division-card__body">
+              <h3 class="division-card__title">إنفايروسيستمز</h3>
+              <p class="division-card__text">تكامل أنظمة الأمن والسلامة والتحكّم للمنشآت الصناعية والحكومية والتجارية.</p>
+              <div class="division-card__cta"><a class="btn btn--sm" href="/ar/envirosystems/">استكشف <span class="btn__arrow"><img src="{% static 'assets/images/icons/arrow-on-cta.svg' %}" alt="" /></span></a></div>
+            </div>
+          </article>{% endif %}
+
+          {% if division_visible.beta %}<article class="division-card">
+            <div class="division-card__media"><img src="{% static 'assets/images/divisions/ImageWithFallback.jpg' %}" alt="معدّات بيتا الصناعية" loading="lazy" /></div>
+            <div class="division-card__body">
+              <h3 class="division-card__title">بيتا للمعدّات</h3>
+              <p class="division-card__text">توريد وتركيب المعدّات الصناعية عالية التقنية مع دعم فنّي لما بعد البيع في المملكة العربية السعودية.</p>
+              <div class="division-card__cta"><a class="btn btn--sm" href="/ar/beta-machinery/">استكشف <span class="btn__arrow"><img src="{% static 'assets/images/icons/arrow-on-cta.svg' %}" alt="" /></span></a></div>
+            </div>
+          </article>{% endif %}
+
+          {% if division_visible.sps %}<article class="division-card">
+            <div class="division-card__media"><img src="{% static 'assets/images/divisions/ImageWithFallback-1.jpg' %}" alt="محطة معالجة مياه للسعودية للمشاريع والتوريدات" loading="lazy" /></div>
+            <div class="division-card__body">
+              <h3 class="division-card__title">السعودية للمشاريع والتوريدات</h3>
+              <p class="division-card__text">حلول ومنتجات المياه والصرف والتهوية مع دعم هندسي وتنفيذ مشاريع متكاملة التسليم.</p>
+              <div class="division-card__cta"><a class="btn btn--sm" href="/ar/sps/">استكشف <span class="btn__arrow"><img src="{% static 'assets/images/icons/arrow-on-cta.svg' %}" alt="" /></span></a></div>
+            </div>
+          </article>{% endif %}
+
+          {% if division_visible.ags %}<article class="division-card">
+            <div class="division-card__media"><img src="{% static 'assets/images/divisions/ImageWithFallback-2.jpg' %}" alt="طاقة شمسية ورياح من الحلول الخضراء المتقدّمة" loading="lazy" /></div>
+            <div class="division-card__body">
+              <h3 class="division-card__title">الحلول الخضراء المتقدّمة</h3>
+              <p class="division-card__text">حلول مستدامة وموفّرة للطاقة تدعم المشاريع الخضراء والتطوير الصديق للبيئة.</p>
+              <div class="division-card__cta"><a class="btn btn--sm" href="/ar/advanced-green-solutions/">استكشف <span class="btn__arrow"><img src="{% static 'assets/images/icons/arrow-on-cta.svg' %}" alt="" /></span></a></div>
+            </div>
+          </article>{% endif %}
+
+          {% if division_visible.azolis %}<article class="division-card">
+            <div class="division-card__media"><img src="{% static 'assets/images/divisions/ImageWithFallback-3.jpg' %}" alt="مختبر كيميائي لأزوليس الشرق الأوسط" loading="lazy" /></div>
+            <div class="division-card__body">
+              <h3 class="division-card__title">أزوليس الشرق الأوسط</h3>
+              <p class="division-card__text">تقنيات كيميائية متقدّمة وخدمات فنّية لمعالجة المياه والمعالجة الصناعية.</p>
+              <div class="division-card__cta"><a class="btn btn--sm" href="/ar/azolis-middle-east/">استكشف <span class="btn__arrow"><img src="{% static 'assets/images/icons/arrow-on-cta.svg' %}" alt="" /></span></a></div>
+            </div>
+          </article>{% endif %}
+        </div>
+      </div>
+    </section>
+    {% endif %}
+
+    {% if sec == 'partners' %}
+    <!-- ============================= PARTNERS ============================= -->
+    <section class="partners section" id="partners">
+      <div class="container partners__head">
+        <h2 class="section-title">{{ pg.partners.title|safe }}</h2>
+        <p class="section-subtitle">{{ pg.partners.subtitle }}</p>
+      </div>
+      <!-- CMS: partner logos (repeatable). Track is duplicated for a seamless loop. -->
+      <div class="marquee">
+        <div class="marquee__track">
+          {% for partner in partners %}
+          <img src="{% static partner.image %}" alt="{{ partner.name }}" />
+          {% endfor %}
+          <!-- duplicate for seamless scroll -->
+          {% for partner in partners %}
+          <img src="{% static partner.image %}" alt="" aria-hidden="true" />
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+    {% endif %}
+
+    {% if sec == 'contact' %}
+    <!-- ============================== CONTACT ============================= -->
+    <section class="contact section" id="contact">
+      <img class="contact__deco contact__deco--tl" src="{% static 'assets/images/brand/logo-as-pattern-in-bg2.svg' %}" alt="" aria-hidden="true" />
+      <img class="contact__deco contact__deco--br" src="{% static 'assets/images/brand/logo-as-pattern-in-bg.svg' %}" alt="" aria-hidden="true" />
+      <div class="container contact__inner">
+        <span class="contact__icon"><img src="{% static 'assets/images/icons/phone2.svg' %}" alt="" /></span>
+        <span class="eyebrow">{{ pg.contact.eyebrow }}</span>
+        <h2 class="contact__title">{{ pg.contact.title|safe }}</h2>
+        <p class="contact__lead">{{ pg.contact.subtitle }}</p>
+
+        <!-- CMS: contact channels (repeatable) -->
+        <div class="contact__cards">
+          <div class="contact-card">
+            <span class="contact-card__icon"><img src="{% static 'assets/images/icons/phone2.svg' %}" alt="" /></span>
+            <span class="contact-card__value" dir="ltr">{{ site.phone }}</span>
+          </div>
+          <div class="contact-card">
+            <span class="contact-card__icon"><img src="{% static 'assets/images/icons/mail3.svg' %}" alt="" /></span>
+            <a class="contact-card__value" href="mailto:{{ site.email }}">{{ site.email }}</a>
+          </div>
+          <div class="contact-card">
+            <span class="contact-card__icon"><img src="{% static 'assets/images/icons/globe.svg' %}" alt="" /></span>
+            <a class="contact-card__value" href="https://{{ site.website }}" target="_blank" rel="noopener">{{ site.website }}</a>
+          </div>
+        </div>
+
+        <div>
+          <a class="btn btn--accent" href="/ar/contact/">
+            تواصل معنا
+            <span class="btn__arrow btn__arrow--long"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3.33331 8H12.6666" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 3.33325L12.6667 7.99992L8 12.6666" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </a>
+        </div>
+      </div>
+    </section>
+    {% endif %}
+
+
+
+
+
+    {% endfor %}
+  </main>
+
+  <!-- =============================== FOOTER =============================== -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <!-- CMS: footer brand block -->
+      <div class="footer-brand">
+        <a class="logo" href="/ar/" aria-label="APS home"><img class="logo__img" src="{{ brand_footer_logo_url }}" alt="APS" /></a>
+        <p>{{ site.tagline_ar }}</p>
+        <div class="footer-social">
+          {% for s in social %}<a href="{{ s.url }}" aria-label="{{ s.platform }}" target="_blank" rel="noopener"><img src="{% static "assets/images/icons/"|add:s.icon %}" alt="" /></a>
+          {% endfor %}</div>
+      </div>
+
+      <!-- CMS: quick links -->
+      <div class="footer-col">
+        <h4>روابط سريعة</h4>
+        <ul>
+          <li><a href="/ar/about/">عن APS</a></li>
+          <li><a href="#divisions">أقسامنا</a></li>
+          <li><a href="/ar/contact/">تواصل معنا</a></li>
+          <li><a href="/ar/faq/">الأسئلة الشائعة</a></li>
+        </ul>
+      </div>
+
+      <!-- CMS: divisions list -->
+      <div class="footer-col">
+        <h4>أقسامنا</h4>
+        <ul>
+          {% for d in nav_divisions %}<li><a href="/ar{{ d.cms_extra.public_slug }}/">{{ d.cms_extra.menu_ar }}</a></li>
+          {% endfor %}</ul>
+      </div>
+
+      <!-- CMS: contact details -->
+      <div class="footer-col footer-contact">
+        <h4>تواصل معنا</h4>
+        <ul>
+          <li><img src="{% static 'assets/images/icons/map.svg' %}" alt="" /><span>{{ site.address_ar }}</span></li>
+          <li><img src="{% static 'assets/images/icons/phone.svg' %}" alt="" /><span dir="ltr">{{ site.phone }}</span></li>
+          <li><img src="{% static 'assets/images/icons/mail2.svg' %}" alt="" /><span>{{ site.email }}</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container">© 2026 المشاريع والتوريدات العربية (APS). جميع الحقوق محفوظة.</div>
+    </div>
+  </footer>
+
+  <script src="{% static 'js/main.js' %}" defer></script>
+</body>
+</html>
