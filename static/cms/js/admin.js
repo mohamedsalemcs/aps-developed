@@ -325,6 +325,13 @@
       root.style.setProperty("--accent", ac);
       root.style.setProperty("--sidebar-active", ac);
     }
+    // Tint the sidebar from the theme's dark brand colour (its footer shade), so
+    // the side menu actually changes with the chosen theme — inline props beat
+    // the [data-theme="dark"] stylesheet rule, so this drives light AND dark.
+    if (t.footer) {
+      root.style.setProperty("--sidebar", t.footer);
+      root.style.setProperty("--sidebar-2", "color-mix(in srgb, " + t.footer + " 72%, #000)");
+    }
     root.style.setProperty("--admin-font-scale", FONT_SCALE_NUM[b.fontScale] || 1);
   }
   window.__APS_applyCmsTheme = applyCmsTheme;
