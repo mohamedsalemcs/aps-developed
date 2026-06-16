@@ -68,6 +68,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'core.middleware.MaintenanceMiddleware',
+    'core.middleware.NoHTMLCacheMiddleware',
 ]
 
 ROOT_URLCONF = 'aps_backend.urls'
@@ -85,6 +86,7 @@ TEMPLATES = [
                 'core.context_processors.site_globals',
                 'core.context_processors.page_content',
                 'core.context_processors.cms_nav',
+                'core.context_processors.asset_version',
                 'core.seo.seo_meta',
             ],
         },

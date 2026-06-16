@@ -6,8 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>لوحة تحكم APS</title>
 <link rel="icon" href="{{ brand_favicon_url }}" />
-<link rel="stylesheet" href="{% static 'cms/css/admin.css' %}" />
-<link rel="stylesheet" href="{% static 'cms/css/aps-toast.css' %}" />
+<link rel="stylesheet" href="{% static 'cms/css/admin.css' %}?v={{ ASSET_V }}" />
+<link rel="stylesheet" href="{% static 'cms/css/aps-toast.css' %}?v={{ ASSET_V }}" />
 <style>
 /* Client feedback: page title + Save/Preview appeared twice. Keep the
    breadcrumb + pagehead heading + the sticky bottom save bar; drop the
@@ -76,7 +76,7 @@
 </div>
 {{ store_data|json_script:"aps-store-data" }}
 <script>try{localStorage.setItem("aps_auth","1");}catch(e){}window.__APS_AUTHED__=1;window.__APS_CSRF__="{{ csrf_token }}";</script>
-<script src="{% static 'cms/js/store.js' %}"></script>
-<script src="{% static 'cms/js/admin.js' %}"></script>
+<script src="{% static 'cms/js/store.js' %}?v={{ ASSET_V }}"></script>
+<script src="{% static 'cms/js/admin.js' %}?v={{ ASSET_V }}"></script>
 </body>
 </html>

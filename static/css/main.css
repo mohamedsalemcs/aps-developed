@@ -134,7 +134,11 @@ button { font: inherit; cursor: pointer; }
 .btn__arrow { display: inline-flex; align-items: center; inline-size: 15px; block-size: 13px; flex-shrink: 0; }
 .btn__arrow--long { inline-size: 16px; block-size: 16px; }
 .btn__arrow img { inline-size: 100%; block-size: 100%; object-fit: contain; }
-[dir="rtl"] .btn__arrow img { transform: scaleX(-1); }
+/* Mirror the CTA arrow in Arabic (RTL) only — covers both <img> arrows and
+   inline <svg> arrows (e.g. the home "Contact us" button). English (LTR) keeps
+   the arrow pointing its original way. */
+[dir="rtl"] .btn__arrow img,
+[dir="rtl"] .btn__arrow svg { transform: scaleX(-1); }
 
 /* ============================================================== HEADER ==== */
 .site-header {
@@ -334,59 +338,18 @@ button { font: inherit; cursor: pointer; }
 .feature-pill__icon img { inline-size: 24px; block-size: 24px; object-fit: contain; }
 .feature-pill span { font-size: var(--fs-sm); color: var(--color-text-secondary); }
 
-/* Hero visual — animated diamond collage.
-   Layout uses the exact Figma insets. Focus cycles between the 3 photos. */
+/* Hero visual — a single static composed image (logo + the 3 photos baked in). */
 .hero__visual {
   position: relative;
   inline-size: 100%;
   max-inline-size: 540px;
   margin-inline: auto;
-  aspect-ratio: 521 / 649;
 }
-/* the whole diamond (frame + photo) cycles: each in turn becomes large + clear
-   (with its blue frame) while the other two recede smaller + faint */
-.hero__d { position: absolute; animation: heroFocus 15s ease-in-out infinite; will-change: opacity, transform; }
-.hero__d--1 { inset: -0.66% 1.29% 49.91% 36.42%; animation-delay: 0s; }    /* top-right (valve) */
-.hero__d--2 { inset: 29.37% 37.71% 19.87% 0; animation-delay: -10s; }      /* left (machinery) */
-.hero__d--3 { inset: 49.67% 1.29% -0.42% 36.42%; animation-delay: -5s; }   /* bottom (plant) */
-
-/* Logo-inspired rounded-diamond frame, offset behind each photo (a soft blue
-   outline that echoes the brand logo and gives the photo a framed depth). */
-.hero__d__frame {
+.hero__visual-img {
   display: block;
-  position: absolute;
-  z-index: 0;
-  inline-size: 84%;
-  block-size: 84%;
-  inset-inline-start: 50%;
-  inset-block-start: 50%;
-  transform: translate(-50%, -50%) translate(-8%, -8%) rotate(45deg);
-  border-radius: 24%;
-  background: linear-gradient(150deg, rgba(124, 170, 198, 0.30) 0%, rgba(197, 217, 232, 0.05) 100%);
-  border: 1.5px solid rgba(124, 170, 198, 0.50);
-  transition: opacity 0.6s ease;
+  inline-size: 100%;
+  block-size: auto;
 }
-
-/* Photo diamonds — the focus CYCLES between the three: each one in turn becomes
-   fully clear (opacity 1, crisp, lifted) while the other two recede. */
-.hero__d__photo {
-  position: absolute;
-  inset: 0;
-  margin: 0;
-  z-index: 1;
-}
-.hero__d__photo img { inline-size: 100%; block-size: 100%; object-fit: contain; display: block; }
-
-/* Each diamond in turn glides into focus: opacity 1 + native scale (NEVER above
-   1 — these source photos are small, so upscaling would blur them) while the
-   other two recede smaller + softer. The "zoom" is the gentle grow from 0.86 ->
-   1 as a photo takes focus, which stays crisp because it never exceeds 1:1. */
-@keyframes heroFocus {
-  0%,  22% { opacity: 1;    transform: scale(1);    filter: drop-shadow(0 18px 38px rgba(11, 18, 32, 0.24)); z-index: 3; }
-  44%, 88% { opacity: 0.45; transform: scale(0.86); filter: drop-shadow(0 6px 14px rgba(11, 18, 32, 0.10));  z-index: 1; }
-  100%     { opacity: 1;    transform: scale(1);    filter: drop-shadow(0 18px 38px rgba(11, 18, 32, 0.24)); z-index: 3; }
-}
-@media (prefers-reduced-motion: reduce) { .hero__d { animation: none; } }
 
 /* =============================================================== ABOUT ==== */
 .about { position: relative; background: #fff; overflow: hidden; margin-block: 4rem; }

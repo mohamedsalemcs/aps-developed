@@ -1,3 +1,6 @@
+import os
+
+from django.conf import settings
 from django.templatetags.static import static
 from .models import SiteSettings, Partner, SocialLink, Brand
 from .themes import get_theme, get_font_scale, DARK_OVERRIDE_CSS, THEMES
@@ -6,6 +9,34 @@ from pages.models import Page
 
 # request path (lang stripped) -> editable Page slug
 _PAGE_SLUG = {"/": "home", "/about": "about", "/contact": "contact"}
+
+# Files whose changes must bust the browser cache. ASSET_V (their newest mtime)
+# is appended as ?v= to the CSS/JS <link>/<script> tags, so editing any of them
+# yields a new URL — the client sees style/script updates on a PLAIN refresh,
+# no Ctrl+Shift+R. (HTML + freshly-uploaded images are handled separately by
+# NoHTMLCacheMiddleware + per-upload unique filenames.)
+_ASSET_FILES = [
+    "css/main.css", "css/variables.css", "js/main.js",
+    "cms/css/admin.css", "cms/css/aps-toast.css", "cms/js/admin.js", "cms/js/store.js",
+]
+_asset_v_cache = None
+
+
+def asset_version(request):
+    """`ASSET_V` = newest mtime across the CSS/JS source files (cache-bust token).
+    Recomputed every request in DEBUG so dev edits show instantly; computed once
+    otherwise."""
+    global _asset_v_cache
+    if _asset_v_cache is None or settings.DEBUG:
+        base = settings.STATICFILES_DIRS[0] if settings.STATICFILES_DIRS else settings.STATIC_ROOT
+        newest = 0
+        for rel in _ASSET_FILES:
+            try:
+                newest = max(newest, int(os.path.getmtime(os.path.join(str(base), *rel.split("/")))))
+            except OSError:
+                pass
+        _asset_v_cache = str(newest or 1)
+    return {"ASSET_V": _asset_v_cache}
 
 
 def page_content(request):

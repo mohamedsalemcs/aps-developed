@@ -6,8 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>لوحة تحكم APS</title>
 <link rel="icon" href="{{ brand_favicon_url }}" />
-<link rel="stylesheet" href="{% static 'cms/css/admin.css' %}" />
-<link rel="stylesheet" href="{% static 'cms/css/aps-toast.css' %}" />
+<link rel="stylesheet" href="{% static 'cms/css/admin.css' %}?v={{ ASSET_V }}" />
+<link rel="stylesheet" href="{% static 'cms/css/aps-toast.css' %}?v={{ ASSET_V }}" />
 <style>
 /* Client feedback: the page title and the Save/Preview actions appeared TWICE.
    Scoped to this editor page only: drop the topbar title (kept the breadcrumb +
@@ -73,8 +73,8 @@
 </div>
 {{ store_data|json_script:"aps-store-data" }}
 <script>try{localStorage.setItem("aps_auth","1");}catch(e){}window.__APS_AUTHED__=1;window.__APS_CSRF__="{{ csrf_token }}";</script>
-<script src="{% static 'cms/js/store.js' %}"></script>
-<script src="{% static 'cms/js/admin.js' %}"></script>
+<script src="{% static 'cms/js/store.js' %}?v={{ ASSET_V }}"></script>
+<script src="{% static 'cms/js/admin.js' %}?v={{ ASSET_V }}"></script>
 <script>
 /* Division editor — fully custom, per-division, section-scoped (admin.js engine
    still provides Save / icon-upload / data-field->Store). Each section (banner,

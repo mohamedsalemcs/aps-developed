@@ -9,8 +9,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700&family=Cairo:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@400;700&family=Inter:wght@400;700&family=Open+Sans:wght@400;700&family=Poppins:wght@400;700&family=Roboto:wght@400;700&family=Tajawal:wght@400;700&display=swap" rel="stylesheet" />
 <link rel="icon" href="{{ brand_favicon_url }}" />
-<link rel="stylesheet" href="{% static 'cms/css/admin.css' %}" />
-<link rel="stylesheet" href="{% static 'cms/css/aps-toast.css' %}" />
+<link rel="stylesheet" href="{% static 'cms/css/admin.css' %}?v={{ ASSET_V }}" />
+<link rel="stylesheet" href="{% static 'cms/css/aps-toast.css' %}?v={{ ASSET_V }}" />
 <style>
 /* Client feedback: page title + Save/Preview appeared twice. Keep the
    breadcrumb + pagehead heading + the sticky bottom save bar; drop the
@@ -93,8 +93,8 @@
 </div>
 {{ store_data|json_script:"aps-store-data" }}
 <script>try{localStorage.setItem("aps_auth","1");}catch(e){}window.__APS_AUTHED__=1;window.__APS_CSRF__="{{ csrf_token }}";</script>
-<script src="{% static 'cms/js/store.js' %}"></script>
-<script src="{% static 'cms/js/admin.js' %}"></script>
+<script src="{% static 'cms/js/store.js' %}?v={{ ASSET_V }}"></script>
+<script src="{% static 'cms/js/admin.js' %}?v={{ ASSET_V }}"></script>
 <script>
 /* Theme gallery wiring for /cms/brand/. The palettes come from the store's
    read-only `themes` map (server-side single source, see store_api.build_store).

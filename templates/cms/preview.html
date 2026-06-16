@@ -36,7 +36,7 @@
 
 {{ store_data|json_script:"aps-store-data" }}
 <script>try{localStorage.setItem("aps_auth","1");}catch(e){}window.__APS_AUTHED__=1;window.__APS_CSRF__="{{ csrf_token }}";</script>
-<script src="{% static 'cms/js/store.js' %}"></script>
+<script src="{% static 'cms/js/store.js' %}?v={{ ASSET_V }}"></script>
 <script>
 (function () {
   var S = window.Store, PFX = "../../website/", lang = "en";

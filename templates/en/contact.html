@@ -11,7 +11,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   {% include "partials/seo.html" %}
-  <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/main.css' %}?v={{ ASSET_V }}" />
   <style id="aps-brand-overrides">{{ brand_css|safe }}</style>
 </head>
 <body>
@@ -241,7 +241,7 @@
     </div>
   </footer>
 
-  <script src="{% static 'js/main.js' %}" defer></script>
+  <script src="{% static 'js/main.js' %}?v={{ ASSET_V }}" defer></script>
   <!-- contact submit feedback (toast on ?sent=1 success / ?sent=0 error; param stripped after show) -->
   <style>
     .aps-toast{position:fixed;inset-block-start:calc(82px + 16px);inset-inline-end:24px;z-index:9999;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--color-border);border-inline-start:4px solid var(--color-primary);border-radius:10px;padding:14px 18px;font-weight:600;color:var(--color-text-primary);box-shadow:0 8px 32px rgba(85,139,173,.18);transform:translateY(-12px);opacity:0;transition:.25s ease;max-inline-size:340px}
