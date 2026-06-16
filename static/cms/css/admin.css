@@ -68,6 +68,29 @@ html[data-theme="dark"] {
 /* Interface-size control: scales the whole panel (Chromium/Firefox `zoom`). */
 .app { zoom: var(--admin-font-scale, 1); }
 
+/* Pretty confirm/alert modal — replaces the browser's native alert()/confirm().
+   Centered overlay (same place native dialogs appear), themed via tokens so it
+   follows light/dark. Driven by window.apsConfirm / window.apsAlert in admin.js. */
+.aps-modal {
+  position: fixed; inset: 0; z-index: 4000;
+  display: flex; align-items: center; justify-content: center; padding: 20px;
+  background: rgba(11, 18, 32, 0.5);
+  -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px);
+  opacity: 0; transition: opacity 0.18s var(--ease);
+}
+.aps-modal.is-open { opacity: 1; }
+.aps-modal__box {
+  inline-size: 100%; max-inline-size: 420px;
+  background: var(--surface); color: var(--text);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  box-shadow: var(--shadow-lg); padding: 24px;
+  transform: translateY(10px) scale(0.97); transition: transform 0.18s var(--ease);
+}
+.aps-modal.is-open .aps-modal__box { transform: none; }
+.aps-modal__title { font-size: 17px; font-weight: 700; margin: 0 0 8px; }
+.aps-modal__msg { font-size: 14px; line-height: 1.65; color: var(--muted); margin: 0 0 22px; }
+.aps-modal__actions { display: flex; gap: 10px; justify-content: flex-end; }
+
 * { box-sizing: border-box; }
 html, body { margin: 0; height: 100%; }
 body {
@@ -358,6 +381,13 @@ input, select, textarea { font: inherit; }
 .uploader__hint { font-size: 12px; margin-block-start: 4px; }
 .thumb-edit { display: flex; align-items: center; gap: 16px; }
 .thumb-edit__img { inline-size: 90px; block-size: 64px; border-radius: 10px; object-fit: cover; border: 1px solid var(--border); background: var(--surface-2); }
+/* Logos card: header logo + footer logo + favicon, three uploads on one row.
+   Each cell stacks (preview on top, full-width upload button below) so all three
+   fit the column width; collapses to a single column on mobile via .field-row--3. */
+.field-row--logos .thumb-edit { flex-direction: column; align-items: stretch; gap: 10px; }
+.field-row--logos .thumb-edit__img { inline-size: 100%; block-size: 76px; }
+.field-row--logos .thumb-edit > div { display: flex; }
+.field-row--logos .thumb-edit .btn { inline-size: 100%; justify-content: center; }
 
 /* ----------------------------------------------------------- Tabs -------- */
 .tabs { display: flex; gap: 4px; border-block-end: 1px solid var(--border); margin-block-end: 22px; }

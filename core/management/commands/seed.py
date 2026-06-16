@@ -255,6 +255,29 @@ PAGE_SECTIONS = {
             "title": bi("Specialized Divisions. Unified Excellence.", "أقسام متخصصة. تميّز موحّد."),
             "subtitle": bi("Explore APS's specialized companies across security systems, industrial machinery, environmental solutions, and technology.",
                            "استكشف شركات APS المتخصصة في أنظمة الأمن والآلات الصناعية والحلول البيئية والتقنية."),
+            # home division cards (image + title + description + Explore link) — CMS-editable
+            "cards": [
+                {"img": "divisions/fjifoie.jpg", "link": "/envirosystems/",
+                 "title": bi("Envirosystems", "إنفايروسيستمز"),
+                 "text": bi("Security, safety, and control systems integration for industrial, governmental, and commercial facilities.",
+                            "تكامل أنظمة الأمن والسلامة والتحكّم للمنشآت الصناعية والحكومية والتجارية.")},
+                {"img": "divisions/ImageWithFallback.jpg", "link": "/beta-machinery/",
+                 "title": bi("Beta Machinery", "بيتا للمعدّات"),
+                 "text": bi("High-tech industrial machinery supply, installation, and after-sales technical support in Saudi Arabia.",
+                            "توريد وتركيب المعدّات الصناعية عالية التقنية مع دعم فنّي لما بعد البيع في المملكة العربية السعودية.")},
+                {"img": "divisions/ImageWithFallback-1.jpg", "link": "/sps/",
+                 "title": bi("Saudi Projects & Supplies Co.", "السعودية للمشاريع والتوريدات"),
+                 "text": bi("Water, wastewater, and ventilation solutions products, engineering support, and turnkey project delivery.",
+                            "حلول ومنتجات المياه والصرف والتهوية مع دعم هندسي وتنفيذ مشاريع متكاملة التسليم.")},
+                {"img": "divisions/ImageWithFallback-2.jpg", "link": "/advanced-green-solutions/",
+                 "title": bi("Advanced Green Solutions", "الحلول الخضراء المتقدّمة"),
+                 "text": bi("Sustainable and energy-efficient solutions supporting green projects and eco-friendly developments.",
+                            "حلول مستدامة وموفّرة للطاقة تدعم المشاريع الخضراء والتطوير الصديق للبيئة.")},
+                {"img": "divisions/ImageWithFallback-3.jpg", "link": "/azolis-middle-east/",
+                 "title": bi("AZOLIS Middle East", "أزوليس الشرق الأوسط"),
+                 "text": bi("Advanced chemical technologies and technical services for water and industrial treatment.",
+                            "تقنيات كيميائية متقدّمة وخدمات فنّية لمعالجة المياه والمعالجة الصناعية.")},
+            ],
         }),
         ("partners", {
             "title": bi("OUR PARTNERS", "شركاؤنا"),
@@ -352,9 +375,12 @@ class Command(BaseCommand):
             SocialLink.objects.update_or_create(
                 platform=platform, defaults=dict(url=url, icon=icon, order=i))
 
+        # clean the designer logo filenames (spaces/Arabic) to ASCII copies; the
+        # tile frame is applied in CSS, so no frame is baked into the image.
+        from cmsadmin.store_api import _clean_partner
         for i, (name, image) in enumerate(PARTNERS):
             Partner.objects.update_or_create(
-                order=i, defaults=dict(name=name, image=image))
+                order=i, defaults=dict(name=name, image=_clean_partner(image)))
 
         for p in PAGES:
             page, _ = Page.objects.update_or_create(slug=p["slug"], defaults={

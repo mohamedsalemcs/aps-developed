@@ -10,6 +10,7 @@ from django.views.static import serve
 
 from .views import FAQView, DivisionView, ContactView
 from submissions.views import contact_submit
+from core.seo import sitemap_xml, robots_txt
 
 from pathlib import Path
 STATIC_SRC = str(Path(__file__).resolve().parent.parent / "static")
@@ -49,6 +50,8 @@ def view_for(name, template):
 
 urlpatterns = [
     path("django-admin/", admin.site.urls),
+    path("sitemap.xml", sitemap_xml, name="sitemap"),
+    path("robots.txt", robots_txt, name="robots"),
     path("contact/submit/", contact_submit, name="contact-submit"),
     path("cms/", include("cmsadmin.urls")),
     # His admin.js builds image previews with a hardcoded '../../website/...'

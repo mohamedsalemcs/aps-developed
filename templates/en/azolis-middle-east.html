@@ -10,9 +10,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{% if pg_seo.title %}{{ pg_seo.title }}{% else %}AZOLIS Middle East — APS{% endif %}</title>
-  <meta name="description" content="{% if pg_seo.desc %}{{ pg_seo.desc }}{% else %}AZOLIS Middle East — an independent solar power producer developing, financing, engineering, building and maintaining solar plants for the commercial and industrial segment.{% endif %}" />
-  <link rel="icon" href="{% static 'assets/images/brand/aps-logo.svg' %}" type="image/svg+xml" />
+  {% include "partials/seo.html" %}
   <link rel="stylesheet" href="{% static 'css/main.css' %}" />
   <style id="aps-brand-overrides">{{ brand_css|safe }}</style>
 </head>
@@ -181,7 +179,7 @@
         <a class="logo" href="/" aria-label="APS home"><img class="logo__img" src="{{ brand_footer_logo_url }}" alt="APS" /></a>
         <p>{{ site.tagline_en }}</p>
         <div class="footer-social">
-          {% for s in social %}<a href="{{ s.url }}" aria-label="{{ s.platform }}" target="_blank" rel="noopener"><img src="{% static "assets/images/icons/"|add:s.icon %}" alt="" /></a>
+          {% for s in social %}<a href="{{ s.url }}" aria-label="{{ s.platform }}" target="_blank" rel="noopener"><img src="{{ s.icon_url }}" alt="" /></a>
           {% endfor %}</div>
       </div>
 

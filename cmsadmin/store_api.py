@@ -69,12 +69,14 @@ _TILE_BORDER = (223, 230, 238)  # ~#dfe6ee, like the designer tiles
 
 
 def _frame_partner(stored_path):
-    """Normalize a partner logo into the standard 178x98 tile (white bg, thin
-    border, logo trimmed + centered + contained) so ANY uploaded logo matches
-    the designer's pre-framed ones — AND always lands on a clean ASCII filename
-    under partners_framed/ (the original designer files have spaces / Arabic in
-    their names, which break on some browsers/CDNs). Idempotent: anything already
-    under partners_framed/ is returned untouched. Returns the stored image path."""
+    """Normalize a partner logo into the standard 178x98 tile (white bg, thin grey
+    border, logo trimmed + centered + contained) so EVERY logo — the designer's
+    bundled ones and any freshly uploaded one — renders identically (single frame
+    baked into the image). The frame is baked here (NOT in CSS) so the look never
+    depends on per-logo CSS. Also lands on a clean ASCII filename under
+    partners_framed/ (designer files have spaces/Arabic that break some browsers).
+    Idempotent (already-framed tiles are copied as-is); data:/blob:/http/media pass
+    through untouched."""
     if not stored_path or stored_path.startswith(("data:", "blob:", "http", "/media")):
         return stored_path
     if stored_path.startswith("assets/images/partners_framed/"):
@@ -96,11 +98,9 @@ def _frame_partner(stored_path):
 
         im = Image.open(src)
         if im.size == _TILE:
-            # already a proper tile (a designer logo) — keep it identical, just
-            # copy to a clean ASCII filename so the URL never breaks.
-            shutil.copy(src, out)
+            shutil.copy(src, out)  # already a proper tile — keep identical
             return "assets/images/partners_framed/" + name
-        # otherwise trim near-white margins + center on the standard white tile
+        # trim near-white margins, contain on the standard white tile, add border
         im = im.convert("RGBA")
         flat = Image.alpha_composite(Image.new("RGBA", im.size, (255, 255, 255, 255)), im).convert("L")
         mask = flat.point(lambda p: 255 if p < 238 else 0)
@@ -116,6 +116,10 @@ def _frame_partner(stored_path):
         return "assets/images/partners_framed/" + name
     except Exception:
         return stored_path
+
+
+# seed.py calls _clean_partner(...) — keep it as an alias to the framing function.
+_clean_partner = _frame_partner
 
 
 # --------------------------------------------------------------------- BUILD
@@ -136,7 +140,8 @@ def build_store():
             "colors": {"primary": b.color_primary, "accent": b.color_accent,
                        "hover": b.color_hover, "text": b.color_text,
                        "muted": b.color_muted, "bg": b.color_bg, "footer": b.color_footer},
-            "logo": b.logo, "logoFooter": b.logo_footer, "arabicFont": b.arabic_font, "englishFont": b.english_font,
+            "logo": b.logo, "logoFooter": b.logo_footer, "favicon": b.favicon,
+            "arabicFont": b.arabic_font, "englishFont": b.english_font,
             "theme": b.theme, "fontScale": b.font_scale, "cmsTheme": b.cms_theme,
         },
         "partners": {"items": [{"name": p.name, "img": _img_rel(p.image)}
@@ -252,6 +257,7 @@ def apply_store(data):
     b.color_footer = cols.get("footer", b.color_footer)
     b.logo = br.get("logo", "") or ""
     b.logo_footer = br.get("logoFooter", "") or ""
+    b.favicon = br.get("favicon", "") or ""
     b.arabic_font = br.get("arabicFont", b.arabic_font); b.english_font = br.get("englishFont", b.english_font)
     b.theme = br.get("theme", b.theme) or b.theme
     b.font_scale = br.get("fontScale", b.font_scale) or b.font_scale

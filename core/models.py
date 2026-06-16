@@ -112,6 +112,10 @@ class Brand(models.Model):
     color_footer = models.CharField(max_length=9, default="#263F4E")
     logo = models.CharField(max_length=300, blank=True, default="")
     logo_footer = models.CharField(max_length=300, blank=True, default="")
+    # Browser-tab favicon (separate from header/footer logos). Stored like the
+    # logos: a CMS upload data-URL, an "assets/..."/relative path, or "" -> the
+    # bundled square APS mark default (see context_processors._brand_favicon_url).
+    favicon = models.CharField(max_length=300, blank=True, default="")
     arabic_font = models.CharField(max_length=80, default="Cairo")
     english_font = models.CharField(max_length=80, default="Inter")
     # Coordinated theme preset key (see core.themes.THEMES) + global font-size

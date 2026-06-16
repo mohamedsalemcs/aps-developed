@@ -41,6 +41,50 @@
     setTimeout(function () { t.classList.add("is-out"); setTimeout(function () { t.remove(); }, 260); }, 2600);
   }
 
+  /* ------------------------------------------------ pretty confirm / alert */
+  // Drop-in, nicer replacement for native confirm()/alert(): a centered themed
+  // modal (same spot the browser dialog appears). Returns a Promise<boolean>
+  // (alert resolves true on OK). Exposed on window so inline page scripts use it
+  // too. Call sites switch `if(!confirm(x))return;` -> apsConfirm(x).then(ok=>…).
+  function apsModal(o) {
+    return new Promise(function (resolve) {
+      var cancelTxt = o.cancelText || (uiLang === "en" ? "Cancel" : "إلغاء");
+      var okTxt = o.confirmText || (o.alert ? (uiLang === "en" ? "OK" : "حسناً") : (uiLang === "en" ? "Confirm" : "تأكيد"));
+      var ov = document.createElement("div");
+      ov.className = "aps-modal";
+      ov.innerHTML =
+        '<div class="aps-modal__box" role="alertdialog" aria-modal="true">' +
+          (o.title ? '<h3 class="aps-modal__title">' + esc(o.title) + "</h3>" : "") +
+          '<p class="aps-modal__msg">' + esc(o.message).replace(/\n/g, "<br>") + "</p>" +
+          '<div class="aps-modal__actions">' +
+            (o.alert ? "" : '<button type="button" class="btn btn--ghost" data-x="0">' + esc(cancelTxt) + "</button>") +
+            '<button type="button" class="btn ' + (o.danger ? "btn--danger" : "btn--primary") + '" data-x="1">' + esc(okTxt) + "</button>" +
+          "</div></div>";
+      document.body.appendChild(ov);
+      requestAnimationFrame(function () { ov.classList.add("is-open"); });
+      var okBtn = ov.querySelector('[data-x="1"]'); if (okBtn) okBtn.focus();
+      function close(val) {
+        ov.classList.remove("is-open");
+        document.removeEventListener("keydown", onKey);
+        setTimeout(function () { ov.remove(); }, 180);
+        resolve(val);
+      }
+      function onKey(ev) {
+        if (ev.key === "Escape" && !o.alert) close(false);
+        else if (ev.key === "Enter") close(true);
+      }
+      document.addEventListener("keydown", onKey);
+      ov.addEventListener("click", function (ev) {
+        if (ev.target.closest('[data-x="1"]')) return close(true);
+        if (ev.target.closest('[data-x="0"]')) return close(false);
+        if (ev.target === ov && !o.alert) close(false); // backdrop = cancel
+      });
+    });
+  }
+  function apsConfirm(message, o) { o = o || {}; return apsModal({ message: message, title: o.title, confirmText: o.confirmText, cancelText: o.cancelText, danger: o.danger !== false }); }
+  function apsAlert(message, o) { o = o || {}; return apsModal({ message: message, title: o.title, confirmText: o.confirmText, alert: true }); }
+  window.apsConfirm = apsConfirm; window.apsAlert = apsAlert;
+
   /* ----------------------------------------------------- dirty + save bar */
   var dirty = false;
   function setDirty(v) {
@@ -177,13 +221,23 @@
         biField(L("العنوان", "Title"), path + "." + i + ".title", false) +
         biField(L("النص", "Text"), path + "." + i + ".text", true) +
         '</div>' + rTools(path, i, total) + '</div>';
+    },
+    divcard: function (path, i, item, total) {
+      return '<div class="repeat-item"><span class="repeat-item__grip">' + GRIP + '</span><span class="repeat-item__num">' + (i + 1) + '</span><div class="repeat-item__body">' +
+        '<div class="field"><label>' + L("صورة الكارت", "Card image") + '</label><div class="iconctl">' +
+        '<img class="iconctl__img iconctl__img--photo" src="' + esc(photoSrc(item.img)) + '" alt="" data-icon-view="' + path + "." + i + '.img" />' +
+        '<button type="button" class="btn btn--ghost btn--sm" data-img-replace="' + path + "." + i + '.img">' + L("استبدال الصورة", "Replace image") + '</button></div></div>' +
+        biField(L("العنوان", "Title"), path + "." + i + ".title", false) +
+        biField(L("الوصف", "Description"), path + "." + i + ".text", true) +
+        '</div>' + rTools(path, i, total) + '</div>';
     }
   };
   var EMPTY = {
     feature: function () { return { icon: "globe.svg", text: { en: "", ar: "" } }; },
     project: function () { return { img: "divisions/sps/projects/p1.jpg", title: { en: "", ar: "" } }; },
     faq: function () { return { q: { en: "", ar: "" }, a: { en: "", ar: "" } }; },
-    card: function () { return { icon: "assets/images/icons/ic-vision.svg", rule: "inline-size: 58px", title: { en: "", ar: "" }, text: { en: "", ar: "" } }; }
+    card: function () { return { icon: "assets/images/icons/ic-vision.svg", rule: "inline-size: 58px", title: { en: "", ar: "" }, text: { en: "", ar: "" } }; },
+    divcard: function () { return { img: "", link: "/", title: { en: "", ar: "" }, text: { en: "", ar: "" } }; }
   };
   function renderRepeater(c) {
     var path = c.getAttribute("data-repeat"), tpl = c.getAttribute("data-repeat-tpl");
@@ -209,9 +263,9 @@
     home: { def: ["hero", "about", "divisions", "partners", "contact"], defs: {
       hero: { icon: "zap", t: ["الهيرو", "Hero"], fields: [["title", "العنوان", "Title"], ["lead", "النص التمهيدي", "Lead", 1], ["cta", "نص الزر", "Button text"]], rep: ["features", "feature", "المميزات السريعة", "Quick features"] },
       about: { icon: "file", t: ["عن APS", "About APS"], fields: [["eyebrow", "العنوان الفرعي", "Eyebrow"], ["title", "العنوان", "Title"], ["body", "النص", "Body", 1], ["cta", "نص الزر", "Button text"]] },
-      divisions: { icon: "layers", t: ["الأقسام", "Divisions"], fields: [["title", "العنوان", "Title"], ["subtitle", "النص الفرعي", "Subtitle", 1]], note: ["كروت الأقسام تُدار من صفحة الأقسام.", "Division cards are managed in the Divisions page."] },
+      divisions: { icon: "layers", t: ["الأقسام", "Divisions"], fields: [["title", "العنوان", "Title"], ["subtitle", "النص الفرعي", "Subtitle", 1]], rep: ["cards", "divcard", "كروت الأقسام (صورة + عنوان + وصف)", "Division cards (image + title + text)", true] },
       partners: { icon: "award", t: ["شركاؤنا", "Partners"], fields: [["title", "العنوان", "Title"], ["subtitle", "النص الفرعي", "Subtitle", 1]], note: ["اللوجوهات تُدار من صفحة الشركاء.", "Logos are managed in the Partners page."] },
-      contact: { icon: "phone", t: ["اتصل بنا", "Contact"], fields: [["title", "العنوان", "Title"], ["subtitle", "النص الفرعي", "Subtitle", 1]] }
+      contact: { icon: "phone", t: ["اتصل بنا", "Contact"], fields: [["eyebrow", "التاج (فوق العنوان)", "Tag (eyebrow)"], ["title", "العنوان", "Title"], ["subtitle", "النص الفرعي", "Subtitle", 1]] }
     }},
     about: { def: ["banner", "who", "foundation", "principles"], defs: {
       banner: { icon: "image", t: ["البانر", "Banner"], fields: [["eyebrow", "العنوان الفرعي", "Eyebrow"], ["title", "العنوان", "Title"]] },
@@ -262,7 +316,7 @@
       }
     }
     (def.plain || []).forEach(function (fd) { body.push(plainField(L(fd[1], fd[2]), base + "." + fd[0])); });
-    if (def.rep) body.push('<div class="field"><label>' + L(def.rep[2], def.rep[3]) + '</label><div data-repeat="' + base + "." + def.rep[0] + '" data-repeat-tpl="' + def.rep[1] + '"></div><button class="btn btn--soft btn--sm" data-repeat-add="' + base + "." + def.rep[0] + '" style="margin-top:10px">' + ico("plus") + ' ' + L("إضافة", "Add") + '</button></div>');
+    if (def.rep) { var _addBtn = def.rep[4] ? '' : ('<button class="btn btn--soft btn--sm" data-repeat-add="' + base + "." + def.rep[0] + '" style="margin-top:10px">' + ico("plus") + ' ' + L("إضافة", "Add") + '</button>'); body.push('<div class="field"><label>' + L(def.rep[2], def.rep[3]) + '</label><div data-repeat="' + base + "." + def.rep[0] + '" data-repeat-tpl="' + def.rep[1] + '"></div>' + _addBtn + '</div>'); }
     var isHidden = !!S.get(base + ".hidden");
     var tools = '<div class="section-block__tools">' +
       '<span class="section-block__flag">' + L("مخفي", "Hidden") + '</span>' +
@@ -370,9 +424,12 @@
         S.set(base + ".hidden", null, !S.get(base + ".hidden")); renderSections(cont); setDirty(true); toast(S.get(base + ".hidden") ? "اتخفى من الموقع" : "ظهر على الموقع"); return;
       }
       if (act === "del") {
-        if (!confirm("حذف هذا القسم من الصفحة؟ (المحتوى بيتحفظ ويمكن إضافته تاني)")) return;
-        var ord = domOrder(cont).filter(function (x) { return x !== block.getAttribute("data-section"); });
-        S.setArray(cont.getAttribute("data-sections") + ".order", ord); renderSections(cont); setDirty(true); toast("اتحذف القسم"); return;
+        apsConfirm("حذف هذا القسم من الصفحة؟ (المحتوى بيتحفظ ويمكن إضافته تاني)").then(function (ok) {
+          if (!ok) return;
+          var ord = domOrder(cont).filter(function (x) { return x !== block.getAttribute("data-section"); });
+          S.setArray(cont.getAttribute("data-sections") + ".order", ord); renderSections(cont); setDirty(true); toast("اتحذف القسم");
+        });
+        return;
       }
     }
     if ((t = e.target.closest("[data-addsec-toggle]"))) { var menu = $(".addsec__menu", t.closest(".addsec")); if (menu) menu.hidden = !menu.hidden; return; }
@@ -406,25 +463,29 @@
     }
     if (e.target.closest("[data-save]")) { save(); return; }
     if (e.target.closest("[data-discard]")) {
-      if (!dirty || confirm("تجاهل كل التغييرات غير المحفوظة؟")) { S.reload(); $all("[data-sections]").forEach(renderSections); $all("[data-repeat]").forEach(function (c) { if (!c.closest("[data-sections]")) renderRepeater(c); }); renderPartners(); hydrate(); applyColorInputs(); refreshIconViews(); fillDashboard(); $all(".is-error").forEach(function (x) { x.classList.remove("is-error"); }); setDirty(false); toast("اترجعت آخر نسخة محفوظة"); } return;
+      var doDiscard = function () { S.reload(); $all("[data-sections]").forEach(renderSections); $all("[data-repeat]").forEach(function (c) { if (!c.closest("[data-sections]")) renderRepeater(c); }); renderPartners(); hydrate(); applyColorInputs(); refreshIconViews(); fillDashboard(); $all(".is-error").forEach(function (x) { x.classList.remove("is-error"); }); setDirty(false); toast("اترجعت آخر نسخة محفوظة"); };
+      if (!dirty) doDiscard(); else apsConfirm("تجاهل كل التغييرات غير المحفوظة؟").then(function (ok) { if (ok) doDiscard(); });
+      return;
     }
     if ((t = e.target.closest("[data-preview]"))) { e.preventDefault(); if (!save(true)) return; window.open("preview.html?page=" + t.getAttribute("data-preview"), "aps_preview"); toast("تم الحفظ — فتح المعاينة"); return; }
-    if (e.target.closest("[data-reset]")) { if (confirm("استرجاع القيم الافتراضية؟")) { S.reset(); $all("[data-sections]").forEach(renderSections); renderPartners(); hydrate(); applyColorInputs(); refreshIconViews(); fillDashboard(); setDirty(false); toast("اترجعت الافتراضية"); } return; }
+    if (e.target.closest("[data-reset]")) { apsConfirm("استرجاع القيم الافتراضية؟").then(function (ok) { if (!ok) return; S.reset(); $all("[data-sections]").forEach(renderSections); renderPartners(); hydrate(); applyColorInputs(); refreshIconViews(); fillDashboard(); setDirty(false); toast("اترجعت الافتراضية"); }); return; }
     // restore THIS page's content to the approved factory defaults (server-side)
     if ((t = e.target.closest("[data-factory-reset]"))) {
       var scope = t.getAttribute("data-factory-reset");
-      if (!confirm("عودة لمحتوى هذه الصفحة الأصلي المعتمد؟\nده هيلغي كل تعديلاتك على الصفحة دي ويرجّعها زي البداية.")) return;
-      try {
-        var fx = new XMLHttpRequest();
-        fx.open("POST", "/cms/api/factory-reset/", false);
-        fx.setRequestHeader("Content-Type", "application/json");
-        fx.setRequestHeader("X-CSRFToken", (window.__APS_CSRF__ || ""));
-        fx.setRequestHeader("ngrok-skip-browser-warning", "1");
-        fx.send(JSON.stringify({ scope: scope }));
-        if (fx.status >= 200 && fx.status < 300 && fx.responseText.indexOf('"ok": true') >= 0) {
-          toast("اترجعت النسخة الأصلية"); setTimeout(function () { location.reload(); }, 700);
-        } else { toast("تعذّر الإرجاع — تأكد من تسجيل الدخول والاتصال", false); }
-      } catch (err) { toast("تعذّر الإرجاع", false); }
+      apsConfirm("عودة لمحتوى هذه الصفحة الأصلي المعتمد؟\nده هيلغي كل تعديلاتك على الصفحة دي ويرجّعها زي البداية.").then(function (ok) {
+        if (!ok) return;
+        try {
+          var fx = new XMLHttpRequest();
+          fx.open("POST", "/cms/api/factory-reset/", false);
+          fx.setRequestHeader("Content-Type", "application/json");
+          fx.setRequestHeader("X-CSRFToken", (window.__APS_CSRF__ || ""));
+          fx.setRequestHeader("ngrok-skip-browser-warning", "1");
+          fx.send(JSON.stringify({ scope: scope }));
+          if (fx.status >= 200 && fx.status < 300 && fx.responseText.indexOf('"ok": true') >= 0) {
+            toast("اترجعت النسخة الأصلية"); setTimeout(function () { location.reload(); }, 700);
+          } else { toast("تعذّر الإرجاع — تأكد من تسجيل الدخول والاتصال", false); }
+        } catch (err) { toast("تعذّر الإرجاع", false); }
+      });
       return;
     }
     // social: add network
@@ -453,10 +514,13 @@
     if ((t = e.target.closest("[data-division-del]"))) {
       var did = t.getAttribute("data-division-del");
       var dnm = S.get("divisions." + did + ".name", uiLang) || S.get("divisions." + did + ".name", "en");
-      if (!confirm('حذف قسم "' + dnm + '" نهائياً؟ كل محتواه هيتمسح.')) return;
-      S.removeKey("divisions." + did); S.save();
-      renderDivisionsPage(); renderNavDivisions(); renderPagesRows(); fillDashboard();
-      toast("اتحذف القسم"); return;
+      apsConfirm('حذف قسم "' + dnm + '" نهائياً؟ كل محتواه هيتمسح.').then(function (ok) {
+        if (!ok) return;
+        S.removeKey("divisions." + did); S.save();
+        renderDivisionsPage(); renderNavDivisions(); renderPagesRows(); fillDashboard();
+        toast("اتحذف القسم");
+      });
+      return;
     }
 
     // partners: add / delete
@@ -477,10 +541,14 @@
       pfi.click(); return;
     }
     if ((t = e.target.closest("[data-partner-del]"))) {
-      if (!confirm("حذف هذا الشريك من شريط الموقع؟")) return;
-      var parr = S.getArray("partners.items"); parr.splice(parseInt(t.getAttribute("data-partner-del"), 10), 1);
-      S.setArray("partners.items", parr);
-      renderPartners(); fillDashboard(); setDirty(true); toast("اتحذف الشريك"); return;
+      var pdelIdx = parseInt(t.getAttribute("data-partner-del"), 10);
+      apsConfirm("حذف هذا الشريك من شريط الموقع؟").then(function (ok) {
+        if (!ok) return;
+        var parr = S.getArray("partners.items"); parr.splice(pdelIdx, 1);
+        S.setArray("partners.items", parr);
+        renderPartners(); fillDashboard(); setDirty(true); toast("اتحذف الشريك");
+      });
+      return;
     }
 
     // replace an icon (small svg/png -> persisted as data URL) or a photo

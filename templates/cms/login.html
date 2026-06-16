@@ -5,13 +5,14 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>تسجيل الدخول — لوحة تحكم APS</title>
+<link rel="icon" href="{{ brand_favicon_url }}" />
 <link rel="stylesheet" href="{% static 'cms/css/admin.css' %}" />
 <link rel="stylesheet" href="{% static 'cms/css/aps-toast.css' %}" />
 <style>
   /* --- login refinements (reviewer notes) --- */
   .login__topbar{display:flex;justify-content:flex-end;margin-bottom:6px}
-  .login__brand{display:flex;align-items:center;gap:12px}
-  .login__logo-img{width:42px;height:auto;display:block}
+  .login__brand{display:flex;align-items:center;justify-content:center;gap:12px}
+  .login__logo-img{width:auto;height:auto;max-width:170px;max-height:64px;object-fit:contain;display:block}
   /* (b) nicer "remember me" checkbox */
   .login__remember{display:flex;align-items:center;gap:9px;cursor:pointer;font-size:14px;color:#475569;user-select:none}
   .login__remember input{appearance:none;-webkit-appearance:none;inline-size:18px;block-size:18px;border:1.6px solid #cbd5e1;border-radius:5px;cursor:pointer;position:relative;flex:none;transition:.15s;margin:0}
@@ -27,10 +28,9 @@
     <div class="login__topbar">
       <div class="langseg" data-langseg><button type="button" data-uilang="ar">عربي</button><button type="button" data-uilang="en">English</button></div>
     </div>
-    <!-- (c) the real APS logo (same as the website header) -->
+    <!-- brand = single image only, read from the CMS header logo (Brand & theme) -->
     <div class="login__brand">
       <img class="login__logo-img" src="{{ brand_logo_url }}" alt="APS" />
-      <div><div class="login__name">APS</div><div class="login__sub"><span data-i18n="Arabian Projects & Supplies">المشاريع والتوريدات العربية</span></div></div>
     </div>
     <h1 class="login__title" data-i18n="Sign in">تسجيل الدخول</h1>
     <p class="login__lead" data-i18n="Welcome back. Sign in to manage your site content.">أهلاً بيك تاني. سجّل دخولك لإدارة محتوى الموقع.</p>

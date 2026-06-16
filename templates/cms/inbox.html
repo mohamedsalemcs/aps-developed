@@ -5,6 +5,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>لوحة تحكم APS</title>
+<link rel="icon" href="{{ brand_favicon_url }}" />
 <link rel="stylesheet" href="{% static 'cms/css/admin.css' %}" />
 <link rel="stylesheet" href="{% static 'cms/css/aps-toast.css' %}" />
 <style>
@@ -182,7 +183,11 @@
     });
   });
   document.querySelectorAll("form[data-confirm]").forEach(function (f) {
-    f.addEventListener("submit", function (e) { if (!confirm("حذف هذه الرسالة نهائياً؟")) e.preventDefault(); });
+    f.addEventListener("submit", function (e) {
+      e.preventDefault(); // hold submit until our themed confirm resolves
+      var ask = window.apsConfirm ? window.apsConfirm("حذف هذه الرسالة نهائياً؟") : Promise.resolve(confirm("حذف هذه الرسالة نهائياً؟"));
+      ask.then(function (ok) { if (ok) f.submit(); }); // f.submit() skips this handler (no loop)
+    });
   });
   // (d) selection + bulk delete
   var all = document.getElementById("inbox-all");
@@ -201,10 +206,13 @@
   if (delBtn) delBtn.addEventListener("click", function () {
     var ids = selected().map(function (b) { return b.value; });
     if (!ids.length) return;
-    if (!confirm("حذف " + ids.length + " رسالة نهائياً؟ لا يمكن التراجع.")) return;
-    var form = document.getElementById("inbox-bulk-form");
-    ids.forEach(function (id) { var i = document.createElement("input"); i.type = "hidden"; i.name = "ids"; i.value = id; form.appendChild(i); });
-    form.submit();
+    var ask = window.apsConfirm ? window.apsConfirm("حذف " + ids.length + " رسالة نهائياً؟ لا يمكن التراجع.") : Promise.resolve(confirm("حذف " + ids.length + " رسالة نهائياً؟ لا يمكن التراجع."));
+    ask.then(function (ok) {
+      if (!ok) return;
+      var form = document.getElementById("inbox-bulk-form");
+      ids.forEach(function (id) { var i = document.createElement("input"); i.type = "hidden"; i.name = "ids"; i.value = id; form.appendChild(i); });
+      form.submit();
+    });
   });
   refresh();
 })();

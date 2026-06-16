@@ -12,9 +12,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{% if pg_seo.title %}{{ pg_seo.title }}{% else %}APS — توريد وتركيب يقوده الالتزام والنزاهة في المملكة العربية السعودية{% endif %}</title>
-  <meta name="description" content="{% if pg_seo.desc %}{{ pg_seo.desc }}{% else %}المشاريع والتوريدات العربية (APS) مجموعة متنوّعة تقدّم التجارة والتوريد والتركيبات الكهروميكانيكية عبر شركات متخصصة وشركاء عالميين في مختلف أنحاء المملكة العربية السعودية.{% endif %}" />
-  <link rel="icon" href="{% static 'assets/images/brand/aps-logo.svg' %}" type="image/svg+xml" />
+  {% include "partials/seo.html" %}
   <link rel="stylesheet" href="{% static 'css/main.css' %}" />
   <style id="aps-brand-overrides">{{ brand_css|safe }}</style>
 </head>
@@ -145,50 +143,14 @@
 
         <!-- CMS: division cards (repeatable content type) -->
         <div class="divisions__grid">
-          {% if division_visible.enviro %}<article class="division-card">
-            <div class="division-card__media"><img src="{% static 'assets/images/divisions/fjifoie.jpg' %}" alt="غرفة تحكّم إنفايروسيستمز" loading="lazy" /></div>
+          {% for c in pg.divisions.cards %}<article class="division-card">
+            <div class="division-card__media"><img src="{{ c.img_url }}" alt="{{ c.title }}" loading="lazy" /></div>
             <div class="division-card__body">
-              <h3 class="division-card__title">إنفايروسيستمز</h3>
-              <p class="division-card__text">تكامل أنظمة الأمن والسلامة والتحكّم للمنشآت الصناعية والحكومية والتجارية.</p>
-              <div class="division-card__cta"><a class="btn btn--sm" href="/ar/envirosystems/">استكشف <span class="btn__arrow"><img src="{% static 'assets/images/icons/arrow-on-cta.svg' %}" alt="" /></span></a></div>
+              <h3 class="division-card__title">{{ c.title }}</h3>
+              <p class="division-card__text">{{ c.text }}</p>
+              <div class="division-card__cta"><a class="btn btn--sm" href="/ar{{ c.link }}">استكشف <span class="btn__arrow"><img src="{% static 'assets/images/icons/arrow-on-cta.svg' %}" alt="" /></span></a></div>
             </div>
-          </article>{% endif %}
-
-          {% if division_visible.beta %}<article class="division-card">
-            <div class="division-card__media"><img src="{% static 'assets/images/divisions/ImageWithFallback.jpg' %}" alt="معدّات بيتا الصناعية" loading="lazy" /></div>
-            <div class="division-card__body">
-              <h3 class="division-card__title">بيتا للمعدّات</h3>
-              <p class="division-card__text">توريد وتركيب المعدّات الصناعية عالية التقنية مع دعم فنّي لما بعد البيع في المملكة العربية السعودية.</p>
-              <div class="division-card__cta"><a class="btn btn--sm" href="/ar/beta-machinery/">استكشف <span class="btn__arrow"><img src="{% static 'assets/images/icons/arrow-on-cta.svg' %}" alt="" /></span></a></div>
-            </div>
-          </article>{% endif %}
-
-          {% if division_visible.sps %}<article class="division-card">
-            <div class="division-card__media"><img src="{% static 'assets/images/divisions/ImageWithFallback-1.jpg' %}" alt="محطة معالجة مياه للسعودية للمشاريع والتوريدات" loading="lazy" /></div>
-            <div class="division-card__body">
-              <h3 class="division-card__title">السعودية للمشاريع والتوريدات</h3>
-              <p class="division-card__text">حلول ومنتجات المياه والصرف والتهوية مع دعم هندسي وتنفيذ مشاريع متكاملة التسليم.</p>
-              <div class="division-card__cta"><a class="btn btn--sm" href="/ar/sps/">استكشف <span class="btn__arrow"><img src="{% static 'assets/images/icons/arrow-on-cta.svg' %}" alt="" /></span></a></div>
-            </div>
-          </article>{% endif %}
-
-          {% if division_visible.ags %}<article class="division-card">
-            <div class="division-card__media"><img src="{% static 'assets/images/divisions/ImageWithFallback-2.jpg' %}" alt="طاقة شمسية ورياح من الحلول الخضراء المتقدّمة" loading="lazy" /></div>
-            <div class="division-card__body">
-              <h3 class="division-card__title">الحلول الخضراء المتقدّمة</h3>
-              <p class="division-card__text">حلول مستدامة وموفّرة للطاقة تدعم المشاريع الخضراء والتطوير الصديق للبيئة.</p>
-              <div class="division-card__cta"><a class="btn btn--sm" href="/ar/advanced-green-solutions/">استكشف <span class="btn__arrow"><img src="{% static 'assets/images/icons/arrow-on-cta.svg' %}" alt="" /></span></a></div>
-            </div>
-          </article>{% endif %}
-
-          {% if division_visible.azolis %}<article class="division-card">
-            <div class="division-card__media"><img src="{% static 'assets/images/divisions/ImageWithFallback-3.jpg' %}" alt="مختبر كيميائي لأزوليس الشرق الأوسط" loading="lazy" /></div>
-            <div class="division-card__body">
-              <h3 class="division-card__title">أزوليس الشرق الأوسط</h3>
-              <p class="division-card__text">تقنيات كيميائية متقدّمة وخدمات فنّية لمعالجة المياه والمعالجة الصناعية.</p>
-              <div class="division-card__cta"><a class="btn btn--sm" href="/ar/azolis-middle-east/">استكشف <span class="btn__arrow"><img src="{% static 'assets/images/icons/arrow-on-cta.svg' %}" alt="" /></span></a></div>
-            </div>
-          </article>{% endif %}
+          </article>{% endfor %}
         </div>
       </div>
     </section>
@@ -268,7 +230,7 @@
         <a class="logo" href="/ar/" aria-label="APS home"><img class="logo__img" src="{{ brand_footer_logo_url }}" alt="APS" /></a>
         <p>{{ site.tagline_ar }}</p>
         <div class="footer-social">
-          {% for s in social %}<a href="{{ s.url }}" aria-label="{{ s.platform }}" target="_blank" rel="noopener"><img src="{% static "assets/images/icons/"|add:s.icon %}" alt="" /></a>
+          {% for s in social %}<a href="{{ s.url }}" aria-label="{{ s.platform }}" target="_blank" rel="noopener"><img src="{{ s.icon_url }}" alt="" /></a>
           {% endfor %}</div>
       </div>
 

@@ -1,0 +1,30 @@
+{% load static %}{% comment %}
+  Shared SEO head — included by every public page. Drives title, description,
+  canonical, hreflang alternates, Open Graph, Twitter cards, favicon and JSON-LD
+  structured data from the `seo` dict (core.seo.seo_meta). Falls back gracefully
+  if `seo` is absent.
+{% endcomment %}<title>{{ seo.title }}</title>
+  <meta name="description" content="{{ seo.description }}" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <link rel="canonical" href="{{ seo.canonical }}" />
+  <link rel="alternate" hreflang="{{ seo.lang }}" href="{{ seo.canonical }}" />
+  <link rel="alternate" hreflang="{{ seo.alt_lang }}" href="{{ seo.alternate }}" />
+  <link rel="alternate" hreflang="x-default" href="{{ seo.x_default }}" />
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="{{ seo.site_name }}" />
+  <meta property="og:title" content="{{ seo.title }}" />
+  <meta property="og:description" content="{{ seo.description }}" />
+  <meta property="og:url" content="{{ seo.canonical }}" />
+  <meta property="og:image" content="{{ seo.og_image }}" />
+  <meta property="og:locale" content="{{ seo.og_locale }}" />
+  <meta property="og:locale:alternate" content="{{ seo.og_locale_alt }}" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{{ seo.title }}" />
+  <meta name="twitter:description" content="{{ seo.description }}" />
+  <meta name="twitter:image" content="{{ seo.og_image }}" />
+  <meta name="theme-color" content="{{ seo.theme_color }}" />
+  <link rel="icon" href="{{ brand_favicon_url }}" />
+  {% for block in seo.jsonld %}<script type="application/ld+json">{{ block|safe }}</script>
+  {% endfor %}

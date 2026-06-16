@@ -10,9 +10,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{% if pg_seo.title %}{{ pg_seo.title }}{% else %}من نحن APS — المشاريع والتوريدات العربية{% endif %}</title>
-  <meta name="description" content="{% if pg_seo.desc %}{{ pg_seo.desc }}{% else %}نبذة عن المشاريع والتوريدات العربية (APS) — مجموعة متنوّعة تقدّم حلولاً كهروميكانيكية وصناعية في جميع أنحاء المملكة العربية السعودية، مستندة إلى النزاهة والاحترافية وإطار قائم على الحوكمة.{% endif %}" />
-  <link rel="icon" href="{% static 'assets/images/brand/aps-logo.svg' %}" type="image/svg+xml" />
+  {% include "partials/seo.html" %}
   <link rel="stylesheet" href="{% static 'css/main.css' %}" />
   <style id="aps-brand-overrides">{{ brand_css|safe }}</style>
 </head>
@@ -96,7 +94,7 @@
         <!-- CMS: foundation pillars (repeatable) -->
         <div class="foundation__grid">
           {% for c in pg.foundation.cards %}<article class="vcard">
-            <span class="vcard__icon"><img src="{% static c.icon %}" alt="" /></span>
+            <span class="vcard__icon"><img src="{{ c.icon_url }}" alt="" /></span>
             <h3 class="vcard__title">{{ c.title|safe }}</h3>
             <span class="vcard__rule" style="{{ c.rule }}"></span>
             <p class="vcard__text">{{ c.text|safe }}</p>
@@ -118,7 +116,7 @@
         <!-- CMS: business principles (repeatable) -->
         <div class="principles__grid">
           {% for c in pg.principles.cards %}<article class="vcard">
-            <span class="vcard__icon"><img src="{% static c.icon %}" alt="" /></span>
+            <span class="vcard__icon"><img src="{{ c.icon_url }}" alt="" /></span>
             <h3 class="vcard__title">{{ c.title|safe }}</h3>
             <span class="vcard__rule" style="{{ c.rule }}"></span>
             <p class="vcard__text">{{ c.text|safe }}</p>
@@ -185,7 +183,7 @@
         <a class="logo" href="/ar/" aria-label="APS الرئيسية"><img class="logo__img" src="{{ brand_footer_logo_url }}" alt="APS" /></a>
         <p>{{ site.tagline_ar }}</p>
         <div class="footer-social">
-          {% for s in social %}<a href="{{ s.url }}" aria-label="{{ s.platform }}" target="_blank" rel="noopener"><img src="{% static "assets/images/icons/"|add:s.icon %}" alt="" /></a>
+          {% for s in social %}<a href="{{ s.url }}" aria-label="{{ s.platform }}" target="_blank" rel="noopener"><img src="{{ s.icon_url }}" alt="" /></a>
           {% endfor %}</div>
       </div>
 

@@ -12,9 +12,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{% if pg_seo.title %}{{ pg_seo.title }}{% else %}APS — Integrity-led Supply &amp; Installation Across Saudi Arabia{% endif %}</title>
-  <meta name="description" content="{% if pg_seo.desc %}{{ pg_seo.desc }}{% else %}Arabian Projects and Supplies (APS) is a diversified group delivering trading, supply, and electro-mechanical installation through specialized companies and global partners across Saudi Arabia.{% endif %}" />
-  <link rel="icon" href="{% static 'assets/images/brand/aps-logo.svg' %}" type="image/svg+xml" />
+  {% include "partials/seo.html" %}
   <link rel="stylesheet" href="{% static 'css/main.css' %}" />
   <style id="aps-brand-overrides">{{ brand_css|safe }}</style>
 </head>
@@ -145,50 +143,14 @@
 
         <!-- CMS: division cards (repeatable content type) -->
         <div class="divisions__grid">
-          {% if division_visible.enviro %}<article class="division-card">
-            <div class="division-card__media"><img src="{% static 'assets/images/divisions/fjifoie.jpg' %}" alt="Envirosystems control room" loading="lazy" /></div>
+          {% for c in pg.divisions.cards %}<article class="division-card">
+            <div class="division-card__media"><img src="{{ c.img_url }}" alt="{{ c.title }}" loading="lazy" /></div>
             <div class="division-card__body">
-              <h3 class="division-card__title">Envirosystems</h3>
-              <p class="division-card__text">Security, safety, and control systems integration for industrial, governmental, and commercial facilities.</p>
-              <div class="division-card__cta"><a class="btn btn--sm" href="/envirosystems/">Explore <span class="btn__arrow"><img src="{% static 'assets/images/icons/arrow-on-cta.svg' %}" alt="" /></span></a></div>
+              <h3 class="division-card__title">{{ c.title }}</h3>
+              <p class="division-card__text">{{ c.text }}</p>
+              <div class="division-card__cta"><a class="btn btn--sm" href="{{ c.link }}">Explore <span class="btn__arrow"><img src="{% static 'assets/images/icons/arrow-on-cta.svg' %}" alt="" /></span></a></div>
             </div>
-          </article>{% endif %}
-
-          {% if division_visible.beta %}<article class="division-card">
-            <div class="division-card__media"><img src="{% static 'assets/images/divisions/ImageWithFallback.jpg' %}" alt="Beta Machinery industrial equipment" loading="lazy" /></div>
-            <div class="division-card__body">
-              <h3 class="division-card__title">Beta Machinery</h3>
-              <p class="division-card__text">High-tech industrial machinery supply, installation, and after-sales technical support in Saudi Arabia.</p>
-              <div class="division-card__cta"><a class="btn btn--sm" href="/beta-machinery/">Explore <span class="btn__arrow"><img src="{% static 'assets/images/icons/arrow-on-cta.svg' %}" alt="" /></span></a></div>
-            </div>
-          </article>{% endif %}
-
-          {% if division_visible.sps %}<article class="division-card">
-            <div class="division-card__media"><img src="{% static 'assets/images/divisions/ImageWithFallback-1.jpg' %}" alt="Saudi Projects and Supplies water treatment plant" loading="lazy" /></div>
-            <div class="division-card__body">
-              <h3 class="division-card__title">Saudi Projects &amp; Supplies Co.</h3>
-              <p class="division-card__text">Water, wastewater, and ventilation solutions products, engineering support, and turnkey project delivery.</p>
-              <div class="division-card__cta"><a class="btn btn--sm" href="/sps/">Explore <span class="btn__arrow"><img src="{% static 'assets/images/icons/arrow-on-cta.svg' %}" alt="" /></span></a></div>
-            </div>
-          </article>{% endif %}
-
-          {% if division_visible.ags %}<article class="division-card">
-            <div class="division-card__media"><img src="{% static 'assets/images/divisions/ImageWithFallback-2.jpg' %}" alt="Advanced Green Solutions solar and wind energy" loading="lazy" /></div>
-            <div class="division-card__body">
-              <h3 class="division-card__title">Advanced Green Solutions</h3>
-              <p class="division-card__text">Sustainable and energy-efficient solutions supporting green projects and eco-friendly developments.</p>
-              <div class="division-card__cta"><a class="btn btn--sm" href="/advanced-green-solutions/">Explore <span class="btn__arrow"><img src="{% static 'assets/images/icons/arrow-on-cta.svg' %}" alt="" /></span></a></div>
-            </div>
-          </article>{% endif %}
-
-          {% if division_visible.azolis %}<article class="division-card">
-            <div class="division-card__media"><img src="{% static 'assets/images/divisions/ImageWithFallback-3.jpg' %}" alt="AZOLIS Middle East chemical laboratory" loading="lazy" /></div>
-            <div class="division-card__body">
-              <h3 class="division-card__title">AZOLIS Middle East</h3>
-              <p class="division-card__text">Advanced chemical technologies and technical services for water and industrial treatment.</p>
-              <div class="division-card__cta"><a class="btn btn--sm" href="/azolis-middle-east/">Explore <span class="btn__arrow"><img src="{% static 'assets/images/icons/arrow-on-cta.svg' %}" alt="" /></span></a></div>
-            </div>
-          </article>{% endif %}
+          </article>{% endfor %}
         </div>
       </div>
     </section>
@@ -268,7 +230,7 @@
         <a class="logo" href="/" aria-label="APS home"><img class="logo__img" src="{{ brand_footer_logo_url }}" alt="APS" /></a>
         <p>{{ site.tagline_en }}</p>
         <div class="footer-social">
-          {% for s in social %}<a href="{{ s.url }}" aria-label="{{ s.platform }}" target="_blank" rel="noopener"><img src="{% static "assets/images/icons/"|add:s.icon %}" alt="" /></a>
+          {% for s in social %}<a href="{{ s.url }}" aria-label="{{ s.platform }}" target="_blank" rel="noopener"><img src="{{ s.icon_url }}" alt="" /></a>
           {% endfor %}</div>
       </div>
 

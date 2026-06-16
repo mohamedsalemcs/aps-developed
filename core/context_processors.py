@@ -43,6 +43,19 @@ def page_content(request):
             if isinstance(f, dict):
                 f["icon_url"] = _icon_url(f.get("icon", ""))
 
+    # Any page-section card grid (home divisions, about foundation/principles,
+    # …): resolve each card's image/icon to a usable static URL so CMS-uploaded
+    # media renders. Templates read c.img_url / c.icon_url instead of wrapping
+    # the raw stored value in {% static %} (which breaks for "uploads/..." paths).
+    for _sec in pg.values():
+        if isinstance(_sec, dict) and isinstance(_sec.get("cards"), list):
+            for c in _sec["cards"]:
+                if isinstance(c, dict):
+                    if "img" in c:
+                        c["img_url"] = _img_static_url(c.get("img", ""))
+                    if "icon" in c:
+                        c["icon_url"] = _icon_url(c.get("icon", ""))
+
     # Ordered list of VISIBLE section keys (sections are ordered by their CMS
     # `order`; hidden ones are dropped) so the public template can honour the
     # editor's section reorder + show/hide just like the division pages.
@@ -67,6 +80,20 @@ def _icon_url(v):
     if v.startswith("uploads/"):
         return static("assets/images/" + v)
     return static("assets/images/icons/" + v)
+
+
+def _img_static_url(v):
+    """A CMS image value -> a public static URL. Like _icon_url but for images
+    (no icons/ default): handles full 'assets/...', 'uploads/...', and paths
+    relative to assets/images (e.g. 'divisions/x.jpg')."""
+    v = (v or "").strip()
+    if not v:
+        return ""
+    if v.startswith(("http://", "https://", "data:", "/")):
+        return v
+    if v.startswith("assets/"):
+        return static(v)
+    return static("assets/images/" + v)
 
 
 def _brand_css(b, theme_override=None):
@@ -161,6 +188,20 @@ def _brand_footer_logo_url(b):
     return static("assets/images/brand/aps-logo-footer.svg")
 
 
+def _brand_favicon_url(b):
+    """Public URL for the browser-tab FAVICON: the CMS-uploaded favicon if set,
+    else the bundled SQUARE APS mark — far clearer at favicon sizes than the wide
+    full logo that was previously hardcoded. Handles upload data:/blob:/http URLs
+    and absolute paths as passthrough, and bare 'assets/...'/relative paths via
+    {% static %}."""
+    v = (getattr(b, "favicon", "") or "").strip()
+    if v:
+        if v.startswith(("http://", "https://", "data:", "blob:", "/")):
+            return v
+        return static(v if v.startswith("assets/") else "assets/images/" + v)
+    return static("assets/images/brand/aps-logo-mark.svg")
+
+
 def site_globals(request):
     """Inject site-wide content available to every template:
     - `site`      : SiteSettings singleton (footer/contact text)
@@ -182,13 +223,22 @@ def site_globals(request):
         preview = None
     if preview and not getattr(request.user, "is_staff", False):
         preview = None
+    # Resolve each social link's icon to a real static URL. The stored value may
+    # be a bundled icon name ("linkedin.svg" -> assets/images/icons/), a CMS
+    # upload ("uploads/x.png" -> assets/images/uploads/), or a full path. The
+    # footer templates previously hardcoded the "icons/" prefix, which broke any
+    # uploaded/replaced icon; they now read s.icon_url instead.
+    social = list(SocialLink.objects.all())
+    for s in social:
+        s.icon_url = _icon_url(s.icon)
     return {
         "site": SiteSettings.load(),
         "partners": Partner.objects.all(),
-        "social": SocialLink.objects.all(),
+        "social": social,
         "brand_css": _brand_css(brand, theme_override=preview),
         "brand_logo_url": _brand_logo_url(brand),
         "brand_footer_logo_url": _brand_footer_logo_url(brand),
+        "brand_favicon_url": _brand_favicon_url(brand),
         "nav_divisions": nav_divisions,
         "division_visible": division_visible,
     }

@@ -85,6 +85,7 @@ TEMPLATES = [
                 'core.context_processors.site_globals',
                 'core.context_processors.page_content',
                 'core.context_processors.cms_nav',
+                'core.seo.seo_meta',
             ],
         },
     },
