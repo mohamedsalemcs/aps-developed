@@ -86,6 +86,7 @@
   var div = new URLSearchParams(location.search).get("div") || "sps";
   if (!S.all().divisions[div]) div = Object.keys(S.all().divisions)[0];
   var root = "divisions." + div;
+  function L(ar, en) { return (localStorage.getItem("aps_ui_lang") || "en") === "ar" ? ar : en; }
   var WEB = "../../website/assets/images/";
   var BODY = { products: 1, solutions: 1, suppliers: 1, foundation: 1 };
   var NOICON = {};
@@ -94,43 +95,43 @@
   function iconSrc(v) { return /^(data:|blob:|\/)/.test(v || "") ? v : WEB + v; }
   function biCol(path, lang, dir, ta) {
     var v = esc(S.get(path, lang));
-    if (ta) return '<div class="field-bi__col field-bi__col--' + lang + '"><span class="field-bi__lang">' + (lang === "ar" ? "عربي" : "English") + '</span><textarea class="textarea" dir="' + dir + '" data-field="' + path + '" data-lang="' + lang + '">' + v + '</textarea></div>';
-    return '<div class="field-bi__col field-bi__col--' + lang + '"><span class="field-bi__lang">' + (lang === "ar" ? "عربي" : "English") + '</span><input class="input" dir="' + dir + '" data-field="' + path + '" data-lang="' + lang + '" value="' + v + '" /></div>';
+    if (ta) return '<div class="field-bi__col field-bi__col--' + lang + '"><span class="field-bi__lang">' + (lang === "ar" ? L("عربي", "Arabic") : "English") + '</span><textarea class="textarea" dir="' + dir + '" data-field="' + path + '" data-lang="' + lang + '">' + v + '</textarea></div>';
+    return '<div class="field-bi__col field-bi__col--' + lang + '"><span class="field-bi__lang">' + (lang === "ar" ? L("عربي", "Arabic") : "English") + '</span><input class="input" dir="' + dir + '" data-field="' + path + '" data-lang="' + lang + '" value="' + v + '" /></div>';
   }
   function bi(label, path, ta) {
     return '<div class="field-bi"><div class="field-bi__head"><label>' + label + '</label></div><div class="field-bi__cols">' + biCol(path, "ar", "rtl", ta) + biCol(path, "en", "ltr", ta) + '</div></div>';
   }
   function biFlat(label, base) {
     return '<div class="field-bi"><div class="field-bi__head"><label>' + label + '</label></div><div class="field-bi__cols">' +
-      '<div class="field-bi__col field-bi__col--ar"><span class="field-bi__lang">عربي</span><input class="input" dir="rtl" data-field="' + base + '_ar" value="' + esc(S.get(base + "_ar")) + '" /></div>' +
+      '<div class="field-bi__col field-bi__col--ar"><span class="field-bi__lang">' + L("عربي", "Arabic") + '</span><input class="input" dir="rtl" data-field="' + base + '_ar" value="' + esc(S.get(base + "_ar")) + '" /></div>' +
       '<div class="field-bi__col field-bi__col--en"><span class="field-bi__lang">English</span><input class="input" dir="ltr" data-field="' + base + '_en" value="' + esc(S.get(base + "_en")) + '" /></div></div></div>';
   }
   function plain(label, path) { return '<div class="field"><label>' + label + '</label><input class="input" dir="ltr" data-field="' + path + '" value="' + esc(S.get(path)) + '" /></div>'; }
   function iconUp(path) {
-    return '<div class="field"><label>الأيقونة (صورة / SVG)</label><div class="iconctl"><img class="iconctl__img" data-icon-view="' + path + '" src="' + esc(iconSrc(S.get(path))) + '" alt="" style="inline-size:42px;block-size:42px;object-fit:contain;background:#f3f6f9;border-radius:8px" /><button type="button" class="btn btn--ghost btn--sm" data-icon-replace="' + path + '">رفع أيقونة</button></div></div>';
+    return '<div class="field"><label>' + L("الأيقونة (صورة / SVG)", "Icon (image / SVG)") + '</label><div class="iconctl"><img class="iconctl__img" data-icon-view="' + path + '" src="' + esc(iconSrc(S.get(path))) + '" alt="" style="inline-size:42px;block-size:42px;object-fit:contain;background:#f3f6f9;border-radius:8px" /><button type="button" class="btn btn--ghost btn--sm" data-icon-replace="' + path + '">' + L("رفع أيقونة", "Upload icon") + '</button></div></div>';
   }
   function imgUp(path) {
-    return '<div class="field"><label>الصورة</label><div class="iconctl"><img class="iconctl__img" data-icon-view="' + path + '" src="' + esc(iconSrc(S.get(path))) + '" alt="" style="inline-size:64px;block-size:44px;object-fit:cover;border-radius:8px" /><button type="button" class="btn btn--ghost btn--sm" data-img-replace="' + path + '">رفع صورة</button></div></div>';
+    return '<div class="field"><label>' + L("الصورة", "Image") + '</label><div class="iconctl"><img class="iconctl__img" data-icon-view="' + path + '" src="' + esc(iconSrc(S.get(path))) + '" alt="" style="inline-size:64px;block-size:44px;object-fit:cover;border-radius:8px" /><button type="button" class="btn btn--ghost btn--sm" data-img-replace="' + path + '">' + L("رفع صورة", "Upload image") + '</button></div></div>';
   }
   function tools(kind, sec, i, total) {
     return '<div class="repeat-item__tools">' +
       '<button type="button" class="sec-btn" data-cmove="up" data-kind="' + kind + '" data-sec="' + sec + '" data-i="' + i + '"' + (i === 0 ? ' disabled' : '') + '>&#9650;</button>' +
       '<button type="button" class="sec-btn" data-cmove="down" data-kind="' + kind + '" data-sec="' + sec + '" data-i="' + i + '"' + (i === total - 1 ? ' disabled' : '') + '>&#9660;</button>' +
-      '<button type="button" class="repeat-item__del" data-cdel data-kind="' + kind + '" data-sec="' + sec + '" data-i="' + i + '">حذف</button></div>';
+      '<button type="button" class="repeat-item__del" data-cdel data-kind="' + kind + '" data-sec="' + sec + '" data-i="' + i + '">' + L("حذف", "Delete") + '</button></div>';
   }
   function cardBody(sec, i) {
     var base = root + ".cards." + sec + "." + i;
-    var h = (NOICON[sec] ? "" : iconUp(base + ".icon")) + bi("العنوان", base + ".title");
-    if (BODY[sec]) h += bi("النص", base + ".body", true);
-    if (sec === "suppliers") h += biFlat("الدولة (Badge)", base + ".extra.badge");
-    if (sec === "industries") h += bi("الوسوم (افصل بـ ·)", base + ".extra.tags");
-    if (sec === "foundation") h += plain("عرض الخط (rule)", base + ".extra.rule_style");
+    var h = (NOICON[sec] ? "" : iconUp(base + ".icon")) + bi(L("العنوان", "Title"), base + ".title");
+    if (BODY[sec]) h += bi(L("النص", "Text"), base + ".body", true);
+    if (sec === "suppliers") h += biFlat(L("الدولة (Badge)", "Country (Badge)"), base + ".extra.badge");
+    if (sec === "industries") h += bi(L("الوسوم (افصل بـ ·)", "Tags (separate with ·)"), base + ".extra.tags");
+    if (sec === "foundation") h += plain(L("عرض الخط (rule)", "Line width (rule)"), base + ".extra.rule_style");
     if (sec === "lifecycle") {
-      h += biFlat("تسمية المرحلة", base + ".extra.label") + biFlat("التذييل", base + ".extra.footer");
+      h += biFlat(L("تسمية المرحلة", "Stage label"), base + ".extra.label") + biFlat(L("التذييل", "Footer"), base + ".extra.footer");
       var ms = (S.get(base + ".extra.milestones") || []);
       for (var j = 0; j < ms.length; j++) {
-        h += '<div style="border-inline-start:2px solid var(--border);padding-inline-start:10px;margin-block:8px"><div class="table__sub">معلَم ' + (j + 1) + '</div>' +
-          biFlat("عنوان المعلَم", base + ".extra.milestones." + j + ".title") + biFlat("وصف المعلَم", base + ".extra.milestones." + j + ".desc") + '</div>';
+        h += '<div style="border-inline-start:2px solid var(--border);padding-inline-start:10px;margin-block:8px"><div class="table__sub">' + L("معلَم", "Milestone") + ' ' + (j + 1) + '</div>' +
+          biFlat(L("عنوان المعلَم", "Milestone title"), base + ".extra.milestones." + j + ".title") + biFlat(L("وصف المعلَم", "Milestone description"), base + ".extra.milestones." + j + ".desc") + '</div>';
       }
     }
     return h;
@@ -160,11 +161,11 @@
     opts = opts || {};
     var hid = isHidden(key), i = opts.i || 0, total = opts.total || 1;
     var tb = '<div class="section-block__tools">' +
-      '<span class="section-block__flag">مخفي</span>' +
-      '<button type="button" class="sec-btn" data-dmove="up" data-key="' + key + '" title="تحريك لأعلى"' + (i === 0 ? ' disabled' : '') + '>' + UP + '</button>' +
-      '<button type="button" class="sec-btn" data-dmove="down" data-key="' + key + '" title="تحريك لأسفل"' + (i === total - 1 ? ' disabled' : '') + '>' + DOWN + '</button>' +
-      '<button type="button" class="sec-btn" data-dhide data-key="' + key + '" title="إظهار/إخفاء">' + (hid ? EYE_OFF : EYE) + '</button>' +
-      '<button type="button" class="sec-btn sec-btn--del" data-ddel data-key="' + key + '" title="حذف القسم">' + TRASH + '</button>' +
+      '<span class="section-block__flag">' + L("مخفي", "Hidden") + '</span>' +
+      '<button type="button" class="sec-btn" data-dmove="up" data-key="' + key + '" title="' + L("تحريك لأعلى", "Move up") + '"' + (i === 0 ? ' disabled' : '') + '>' + UP + '</button>' +
+      '<button type="button" class="sec-btn" data-dmove="down" data-key="' + key + '" title="' + L("تحريك لأسفل", "Move down") + '"' + (i === total - 1 ? ' disabled' : '') + '>' + DOWN + '</button>' +
+      '<button type="button" class="sec-btn" data-dhide data-key="' + key + '" title="' + L("إظهار/إخفاء", "Show/Hide") + '">' + (hid ? EYE_OFF : EYE) + '</button>' +
+      '<button type="button" class="sec-btn sec-btn--del" data-ddel data-key="' + key + '" title="' + L("حذف القسم", "Delete section") + '">' + TRASH + '</button>' +
       '</div>';
     return '<div class="section-block is-open' + (hid ? ' is-hidden' : '') + '" data-section="' + key + '" id="' + key + '">' +
       '<div class="section-block__head"><span class="section-block__grip">' + GRIP + '</span><span class="section-block__icon">' + SECICON + '</span>' +
@@ -174,10 +175,11 @@
   }
 
   /* ---- per-section bodies + per-division config -------------------------- */
-  var LABELS = { banner: "البانر", about: "عن القسم", contact: "بيانات التواصل", projects: "مشاريعنا",
-    systems: "الأنظمة والحلول", categories: "فئات الآلات",
-    suppliers: "الموردون الدوليون", solutions: "الحلول", foundation: "الرؤية والرسالة",
-    products: "مجموعة المنتجات", lifecycle: "مراحل دورة الحياة" };
+  var LABELS = { banner: ["البانر", "Banner"], about: ["عن القسم", "About"], contact: ["بيانات التواصل", "Contact"], projects: ["مشاريعنا", "Our Projects"],
+    systems: ["الأنظمة والحلول", "Systems & Solutions"], categories: ["فئات الآلات", "Machinery Categories"],
+    suppliers: ["الموردون الدوليون", "International Suppliers"], solutions: ["الحلول", "Solutions"], foundation: ["الرؤية والرسالة", "Vision & Mission"],
+    products: ["مجموعة المنتجات", "Products"], lifecycle: ["مراحل دورة الحياة", "Lifecycle"] };
+  function lbl(k) { var pr = LABELS[k]; return pr ? L(pr[0], pr[1]) : k; }
   // Partners are managed globally from /cms/partners/ (one shared marquee that
   // every page reads), so divisions no longer carry their own partners section.
   // Dropping it here removes it from the section list AND the "add section" menu;
@@ -206,17 +208,17 @@
   function bodyCards(key, cfg) {
     cfg = cfg || {};
     var head = "";
-    if (cfg.title) head += bi("عنوان السكشن", root + "." + cfg.title);
-    if (cfg.eyebrow) head += bi("العنوان الفرعي", root + "." + cfg.eyebrow);
-    if (cfg.subtitle) head += bi("وصف السكشن", root + "." + cfg.subtitle, true);
+    if (cfg.title) head += bi(L("عنوان السكشن", "Section title"), root + "." + cfg.title);
+    if (cfg.eyebrow) head += bi(L("العنوان الفرعي", "Eyebrow"), root + "." + cfg.eyebrow);
+    if (cfg.subtitle) head += bi(L("وصف السكشن", "Section description"), root + "." + cfg.subtitle, true);
     var cl = cardList(key);
-    var html = head + '<div class="table__sub" style="margin-block:12px 8px">العناصر (' + cl.count + ')</div>' + cl.html +
-      '<button type="button" class="btn btn--soft btn--sm" data-cadd data-kind="cards" data-sec="' + key + '" style="margin-block-start:10px">+ إضافة عنصر</button>';
-    if (cfg.foot) html += bi("سطر ختامي (تحت العناصر)", root + "." + cfg.foot, true);
+    var html = head + '<div class="table__sub" style="margin-block:12px 8px">' + L("العناصر", "Items") + ' (' + cl.count + ')</div>' + cl.html +
+      '<button type="button" class="btn btn--soft btn--sm" data-cadd data-kind="cards" data-sec="' + key + '" style="margin-block-start:10px">' + L("+ إضافة عنصر", "+ Add item") + '</button>';
+    if (cfg.foot) html += bi(L("سطر ختامي (تحت العناصر)", "Footer line (below items)"), root + "." + cfg.foot, true);
     if (cfg.pills) {
       var pl = cardList("pills");
-      html += '<div class="table__sub" style="margin-block:16px 8px">المميزات السريعة (' + pl.count + ')</div>' + pl.html +
-        '<button type="button" class="btn btn--soft btn--sm" data-cadd data-kind="cards" data-sec="pills" style="margin-block-start:10px">+ إضافة ميزة</button>';
+      html += '<div class="table__sub" style="margin-block:16px 8px">' + L("المميزات السريعة", "Quick features") + ' (' + pl.count + ')</div>' + pl.html +
+        '<button type="button" class="btn btn--soft btn--sm" data-cadd data-kind="cards" data-sec="pills" style="margin-block-start:10px">' + L("+ إضافة ميزة", "+ Add feature") + '</button>';
     }
     return html;
   }
@@ -225,17 +227,17 @@
     var arr = S.getArray(root + ".sections.projects.items");
     var items = arr.map(function (p, i) {
       var b = root + ".sections.projects.items." + i;
-      var h = imgUp(b + ".img") + bi("اسم المشروع", b + ".title");
-      if (cfg.specs) h += bi("الموقع", b + ".location") + bi("النوع", b + ".typology") + bi("القدرة المركّبة", b + ".installed_power") + bi("العقد", b + ".contract");
+      var h = imgUp(b + ".img") + bi(L("اسم المشروع", "Project name"), b + ".title");
+      if (cfg.specs) h += bi(L("الموقع", "Location"), b + ".location") + bi(L("النوع", "Type"), b + ".typology") + bi(L("القدرة المركّبة", "Installed power"), b + ".installed_power") + bi(L("العقد", "Contract"), b + ".contract");
       return '<div class="repeat-item"><span class="repeat-item__num">' + (i + 1) + '</span><div class="repeat-item__body">' + h + '</div>' + tools("projects", "_", i, arr.length) + '</div>';
     }).join("");
-    return bi("عنوان السكشن", root + ".sections.projects.title") +
-      '<div class="table__sub" style="margin-block:12px 8px">المشاريع (' + arr.length + ')</div>' + items +
-      '<button type="button" class="btn btn--soft btn--sm" data-cadd data-kind="projects" data-sec="_" style="margin-block-start:10px">+ إضافة مشروع</button>';
+    return bi(L("عنوان السكشن", "Section title"), root + ".sections.projects.title") +
+      '<div class="table__sub" style="margin-block:12px 8px">' + L("المشاريع", "Projects") + ' (' + arr.length + ')</div>' + items +
+      '<button type="button" class="btn btn--soft btn--sm" data-cadd data-kind="projects" data-sec="_" style="margin-block-start:10px">' + L("+ إضافة مشروع", "+ Add project") + '</button>';
   }
-  function bodyBanner() { return bi("اسم القسم (عنوان البانر)", root + ".name") + bi("العنوان الفرعي", root + ".sections.banner.subtitle"); }
-  function bodyAbout() { return bi("العنوان", root + ".sections.about.title") + bi("النص", root + ".sections.about.body", true); }
-  function bodyContact() { return plain("الهاتف", root + ".sections.contact.phone") + plain("الموقع الإلكتروني", root + ".sections.contact.site") + plain("البريد الإلكتروني", root + ".sections.contact.email"); }
+  function bodyBanner() { return bi(L("اسم القسم (عنوان البانر)", "Division name (banner title)"), root + ".name") + bi(L("العنوان الفرعي", "Subtitle"), root + ".sections.banner.subtitle"); }
+  function bodyAbout() { return bi(L("العنوان", "Title"), root + ".sections.about.title") + bi(L("النص", "Body"), root + ".sections.about.body", true); }
+  function bodyContact() { return plain(L("الهاتف", "Phone"), root + ".sections.contact.phone") + plain(L("الموقع الإلكتروني", "Website"), root + ".sections.contact.site") + plain(L("البريد الإلكتروني", "Email"), root + ".sections.contact.email"); }
   function bodyFor(key) {
     if (key === "banner") return bodyBanner();
     if (key === "about") return bodyAbout();
@@ -255,19 +257,20 @@
     var def = DEFAULT_ORDER[div] || [], ord = getOrder();
     var avail = def.filter(function (k) { return ord.indexOf(k) < 0; });
     if (!avail.length) return "";
-    var opts = avail.map(function (k) { return '<button type="button" class="addsec__opt" data-daddsec="' + k + '">+ ' + esc(LABELS[k] || k) + '</button>'; }).join("");
-    return '<div class="addsec" style="margin-block-start:18px"><button type="button" class="add-block" data-daddsec-toggle>+ إضافة قسم</button><div class="addsec__menu" hidden>' + opts + '</div></div>';
+    var opts = avail.map(function (k) { return '<button type="button" class="addsec__opt" data-daddsec="' + k + '">+ ' + esc(lbl(k)) + '</button>'; }).join("");
+    return '<div class="addsec" style="margin-block-start:18px"><button type="button" class="add-block" data-daddsec-toggle>' + L("+ إضافة قسم", "+ Add section") + '</button><div class="addsec__menu" hidden>' + opts + '</div></div>';
   }
   function render() {
     var ord = getOrder();
     document.getElementById("divEditor").innerHTML = ord.map(function (k, i) {
-      return sectionCard(k, LABELS[k] || k, bodyFor(k), { i: i, total: ord.length });
+      return sectionCard(k, lbl(k), bodyFor(k), { i: i, total: ord.length });
     }).join("") + addBar();
   }
   function markDirty() { var f = document.querySelector('#divEditor [data-field]'); if (f) f.dispatchEvent(new Event("input", { bubbles: true })); }
   render();
 
   document.addEventListener("click", function (e) {
+    if (e.target.closest("[data-uilang]")) { setTimeout(render, 0); return; }
     // ---- section-level controls: reorder / hide / delete / add ------------
     var mv = e.target.closest("[data-dmove]");
     if (mv) {
@@ -279,7 +282,7 @@
     var dl = e.target.closest("[data-ddel]");
     if (dl) {
       var dk = dl.getAttribute("data-key");
-      window.apsConfirm("حذف هذا القسم من الصفحة؟ (المحتوى بيتحفظ ويمكن إضافته تاني من «إضافة قسم»)").then(function (ok) {
+      window.apsConfirm(L("حذف هذا القسم من الصفحة؟ (المحتوى بيتحفظ ويمكن إضافته تاني من «إضافة قسم»)", "Delete this section from the page? (Content is saved and can be re-added from 'Add section')")).then(function (ok) {
         if (!ok) return;
         setOrder(getOrder().filter(function (x) { return x !== dk; })); render(); markDirty();
       });
@@ -301,7 +304,7 @@
     var arr = S.getArray(path);
     if (t.hasAttribute("data-cdel")) {
       var di = parseInt(t.getAttribute("data-i"), 10); if (isNaN(di)) return;
-      window.apsConfirm("حذف هذا العنصر؟").then(function (ok) {
+      window.apsConfirm(L("حذف هذا العنصر؟", "Delete this item?")).then(function (ok) {
         if (!ok) return;
         arr.splice(di, 1); S.setArray(path, arr); render(); markDirty();
       });
